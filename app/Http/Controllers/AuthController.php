@@ -41,6 +41,27 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $user = Auth::user();
+
+            if ($user->role === 'customer' && ($pending = session()->pull('pending_cart_item'))) {
+                $product = \App\Models\Product::find($pending['product_id']);
+                if ($product && $product->stock >= $pending['quantity']) {
+                    app(\App\Services\CartService::class)->addToCart(
+                        $product,
+                        (int) $pending['quantity'],
+                        $pending['size'] ?? null,
+                        $pending['color'] ?? null
+                    );
+
+                    if (! empty($pending['buy_now'])) {
+                        return redirect()->route('checkout.index')
+                            ->with('success', 'Selamat datang kembali, ' . $user->name . '! Pesanan Anda siap untuk di-checkout.');
+                    }
+
+                    return redirect()->route('cart.index')
+                        ->with('success', 'Selamat datang kembali, ' . $user->name . '! Produk pilihan Anda telah otomatis dimasukkan ke keranjang.');
+                }
+            }
+
             return $this->redirectBasedOnRole($user)
                 ->with('success', 'Selamat datang kembali, ' . $user->name . '! Anda berhasil masuk.');
         }
@@ -95,6 +116,26 @@ class AuthController extends Controller
 
         Auth::login($user);
         $request->session()->regenerate();
+
+        if ($pending = session()->pull('pending_cart_item')) {
+            $product = \App\Models\Product::find($pending['product_id']);
+            if ($product && $product->stock >= $pending['quantity']) {
+                app(\App\Services\CartService::class)->addToCart(
+                    $product,
+                    (int) $pending['quantity'],
+                    $pending['size'] ?? null,
+                    $pending['color'] ?? null
+                );
+
+                if (! empty($pending['buy_now'])) {
+                    return redirect()->route('checkout.index')
+                        ->with('success', 'Akun berhasil dibuat! Pesanan Anda siap untuk di-checkout.');
+                }
+
+                return redirect()->route('cart.index')
+                    ->with('success', 'Pendaftaran akun member berhasil! Produk pilihan Anda telah otomatis dimasukkan ke keranjang.');
+            }
+        }
 
         return redirect()->route('shop.index')->with('success', 'Pendaftaran akun member berhasil! Selamat berbelanja di Zahiyyah\'s Fit, ' . $user->name . '.');
     }

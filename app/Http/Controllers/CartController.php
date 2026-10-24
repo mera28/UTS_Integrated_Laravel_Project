@@ -29,9 +29,22 @@ class CartController extends Controller
      */
     public function add(Request $request, Product $product)
     {
+        $quantity = (int) ($request->quantity ?? 1);
+        $size = $request->input('size', $request->input('selected_size'));
+        $color = $request->input('color', $request->input('selected_color'));
+
         if (! \Illuminate\Support\Facades\Auth::check()) {
-            return redirect()->route('login')->with('info', 'Silakan masuk atau daftar akun member terlebih dahulu untuk mulai berbelanja outfit pilihan Anda.');
+            session()->put('pending_cart_item', [
+                'product_id' => $product->id,
+                'quantity' => $quantity,
+                'size' => $size,
+                'color' => $color,
+                'buy_now' => $request->boolean('buy_now'),
+            ]);
+
+            return redirect()->route('login')->with('info', 'Silakan masuk atau daftar dengan Akun Google untuk memesan outfit ' . $product->name . '.');
         }
+
         $request->validate([
             'quantity' => ['nullable', 'integer', 'min:1'],
             'size' => ['nullable', 'string', 'max:50'],
@@ -39,10 +52,6 @@ class CartController extends Controller
             'selected_size' => ['nullable', 'string', 'max:50'],
             'selected_color' => ['nullable', 'string', 'max:50'],
         ]);
-
-        $quantity = (int) ($request->quantity ?? 1);
-        $size = $request->input('size', $request->input('selected_size'));
-        $color = $request->input('color', $request->input('selected_color'));
 
         try {
             $result = $this->cartService->addToCart(

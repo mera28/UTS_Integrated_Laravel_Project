@@ -62,9 +62,13 @@ Sistem mengimplementasikan **Role-Based Access Control (RBAC)** secara *server-s
 
 ### C. Role: `customer` (Pelanggan E-Commerce)
 - **Katalog E-Commerce ala Shopee Mall / Tokopedia Fashion (`/shop`)**:
-  - Banner promosi outfit interaktif.
-  - Filter kategori pill instan, search bar, slider harga, dan status ketersediaan stok.
-  - Kartu produk dengan badge diskon, stok menipis, dan label Terjual.
+  - Akses terbuka untuk publik & tamu (*guest*) tanpa perlu login untuk menjelajahi katalog busana muslimah & modest wear.
+  - Banner promosi outfit interaktif, filter kategori pill instan, search bar, dan status ketersediaan stok.
+  - Kartu produk dengan badge diskon, sisa stok menipis, dan label Ready / Habis.
+- **Autentikasi Cepat & "Continue with Google"**:
+  - Saat tamu (*guest*) mengklik tombol "+ Masukkan Keranjang" atau "Beli Sekarang", sistem otomatis menyimpan barang yang dipilih dan mengarahkan ke halaman Autentikasi Pelanggan (`/login` / `/register`).
+  - **Opsi Utama "Continue with Google" (OAuth Simulation)**: 1-klik masuk menggunakan akun Google terverifikasi (`Alya Zahiyyah` atau `Siti Rahma`) atau ketikkan nama & akun Gmail sendiri tanpa perlu setup Google Cloud API eksternal.
+  - Barang yang tadi ingin dibeli langsung otomatis dimasukkan ke keranjang belanja atau dialihkan ke halaman checkout!
 - **Halaman Detail Produk (`/shop/products/{id}`)**: Foto besar, deskripsi bahan pakaian, pemilih variasi Ukuran (S, M, L, XL, All Size) & Warna, serta tombol "+ Keranjang" dan "Beli Sekarang".
 - **Keranjang Belanja Interaktif (`/cart`)**: Manajemen kuantitas belanja dengan validasi stok real-time.
 - **Checkout Pengiriman (`/checkout`)**: Formulir data penerima, alamat pengiriman, dan pemilihan metode pembayaran Payment Gateway.
@@ -290,7 +294,7 @@ Aplikasi kini dapat diakses di browser melalui:
 ## 6. Daftar Akun Demo Pengujian & Pemisahan Portal Login
 
 Aplikasi menyediakan dua gerbang autentikasi terpisah untuk menjaga keamanan dan pengalaman pengguna:
-- **Portal Khusus Pelanggan (`/login`)**: Khusus pembeli untuk masuk akun member belanja dan checkout.
+- **Portal Khusus Pelanggan (`/login`)**: Khusus pembeli untuk masuk akun member belanja, membuat akun baru, atau menggunakan fitur **"Continue with Google"**.
 - **Portal Internal Admin & Staff (`/portal/login`)**: Khusus tim internal butik (Owner & Kasir) untuk mengelola backoffice, inventori, dan POS kasir. Percobaan login oleh customer pada portal ini otomatis ditolak oleh validasi server-side.
 
 | Peran (Role) | Email | Password | Halaman Login | Hak Akses Utama |
@@ -299,13 +303,19 @@ Aplikasi menyediakan dua gerbang autentikasi terpisah untuk menjaga keamanan dan
 | **Staff (Kasir/Gudang)** | `staff@zahiyyah.com` | `password` | `/portal/login` | Input Pembelian (Stock-In), Kasir POS Multi-Item, Lihat Stok Rendah, Cetak Nota, Laporan Transaksi. |
 | **Customer (Pembeli)** | `customer@zahiyyah.com` | `password` | `/login` | Toko E-Commerce (`/shop`), Keranjang Belanja, Checkout Pengiriman, & Simulasi Payment Gateway Interaktif. |
 
+### Akun Google Siap Klik ("Continue with Google"):
+Pengunjung dapat langsung masuk tanpa mengetik menggunakan simulasi Google Sign-In asli:
+1. **Alya Zahiyyah** (`alya.customer@gmail.com`) — Akun Pelanggan Aktif
+2. **Siti Rahma** (`siti.fashion@gmail.com`) — Akun Fashion Enthusiast
+3. **Opsi Akun Kustom**: User dapat memasukkan Nama dan alamat `@gmail.com` milik sendiri melalui formulir interaktif di halaman Google Chooser (`/auth/google`).
+
 *Tersedia tombol **Quick Demo Login** 1-klik pada kedua halaman login untuk mempermudah demonstrasi dan pengujian tanpa mengetik.*
 
 ---
 
 ## 7. Skenario Pengujian Otomatis (Automated Test Cases)
 
-Seluruh logika bisnis, konsistensi stok, dan hak akses telah divalidasi menggunakan rangkaian pengujian otomatis **PHPUnit Feature Tests**.
+Seluruh logika bisnis, konsistensi stok, hak akses, dan alur Google OAuth telah divalidasi menggunakan rangkaian pengujian otomatis **PHPUnit Feature Tests**.
 
 ### Cara Menjalankan Test Suite
 Jalankan perintah berikut di terminal:
@@ -320,13 +330,14 @@ php artisan test
    PASS  Tests\Feature\DashboardAndReportTest (6 tests)
    PASS  Tests\Feature\EcommercePaymentGatewayTest (5 tests)
    PASS  Tests\Feature\ExampleTest (1 test)
+   PASS  Tests\Feature\GoogleAuthTest (7 tests)
    PASS  Tests\Feature\InventorySalesSystemTest (8 tests)
    PASS  Tests\Feature\MasterDataTest (6 tests)
    PASS  Tests\Feature\PurchaseTransactionTest (5 tests)
    PASS  Tests\Feature\SaleTransactionTest (6 tests)
 
-  Tests:    45 passed (222 assertions)
-  Duration: 5.10s
+  Tests:    52 passed (236 assertions)
+  Duration: 5.50s
 ```
 
 ### 8 Skenario Wajib Sesuai Spesifikasi Slide 19 PPT
@@ -348,14 +359,16 @@ php artisan test
    Pencarian berdasarkan SKU, nama, kategori, serta filter stok menipis berfungsi tepat pada tabel ber-pagination.
 9. **`test_customer_checkout_and_interactive_payment_gateway_simulation`**:
    Pelanggan dapat melakukan checkout keranjang belanja dengan Virtual Account / QRIS, dialihkan ke halaman Payment Gateway, dan konfirmasi pembayaran mengubah status pesanan menjadi `paid` dan `completed`.
+10. **`test_customer_google_oauth_and_pending_cart_restoration`**:
+    Tamu yang memilih outfit lalu login via "Continue with Google" otomatis dibuatkan akun, terautentikasi, dan item yang dipilih langsung dimasukkan ke keranjang belanja atau checkout.
 
 ---
 
 ## 8. Known Limitations & Arsitektur Sistem
 
-1. **Simulasi Payment Gateway Lokal**:
-   - Untuk keperluan pengujian dan demonstrasi akademik tanpa ketergantungan pada kredensial rahasia pihak ketiga (seperti Midtrans Production Server Key / Xendit API), modul Payment Gateway dirancang sebagai **Simulasi Interaktif Mandiri**.
-   - Sistem menghasilkan nomor Virtual Account resmi (dengan prefix bank BCA, Mandiri, BRI, BSI), QRIS string visual, dan instruksi perbankan lengkap, serta menyediakan tombol simulasi *instant webhook/callback* yang memverifikasi transaksi secara langsung.
+1. **Simulasi Google Sign-In & Payment Gateway Mandiri (Zero Cloud Credential Dependency)**:
+   - Agar aplikasi dapat langsung diuji oleh Dosen/Penilai secara mulus via `git clone` tanpa memerlukan pendaftaran Google Cloud Console Client ID atau Midtrans Server Key, alur OAuth dan Payment Gateway diimplementasikan sebagai simulasi interaktif berstandar industri menggunakan Service PHP murni (`GoogleAuthService.php` dan `PaymentGatewayService.php`).
+   - Fitur "Continue with Google" mereplikasi antarmuka Google Account Chooser resmi, mendukung 2 akun siap klik dan formulir akun Google kustom yang langsung mengautentikasi user sebagai `customer`.
 2. **Penyimpanan Berkas Foto Produk**:
    - Foto outfit menggunakan URL gambar CDN terkurasi beresolusi tinggi untuk menjamin performa cepat saat pengujian tanpa memerlukan symbolic link storage lokal.
 3. **Dominasi Bahasa Pemrograman PHP**:
