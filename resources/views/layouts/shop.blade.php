@@ -11,6 +11,7 @@
     <!-- Bootstrap 5.3 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ asset('css/zahiyyah.css') }}">
     <style>
         :root {
             --brand-primary: #B76E79;
@@ -370,7 +371,12 @@
 
             <div class="border-top border-secondary pt-3 d-flex flex-wrap justify-content-between align-items-center text-muted small">
                 <div>&copy; {{ date('Y') }} <strong>Zahiyyah's Fit</strong>. Hak Cipta Dilindungi Undang-Undang.</div>
-                <div>Project UTS Web Programming 2 — Sistem E-Commerce, Inventory & Sales Management</div>
+                <div class="d-flex align-items-center gap-3">
+                    <span>Project UTS Web Programming 2</span>
+                    <a href="{{ route('portal.login') }}" class="text-muted text-decoration-none small">
+                        <i class="bi bi-shield-lock me-1"></i> Portal Staff
+                    </a>
+                </div>
             </div>
         </div>
     </footer>

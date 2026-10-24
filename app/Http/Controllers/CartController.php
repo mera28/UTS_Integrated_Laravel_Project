@@ -29,6 +29,9 @@ class CartController extends Controller
      */
     public function add(Request $request, Product $product)
     {
+        if (! \Illuminate\Support\Facades\Auth::check()) {
+            return redirect()->route('login')->with('info', 'Silakan masuk atau daftar akun member terlebih dahulu untuk mulai berbelanja outfit pilihan Anda.');
+        }
         $request->validate([
             'quantity' => ['nullable', 'integer', 'min:1'],
             'size' => ['nullable', 'string', 'max:50'],

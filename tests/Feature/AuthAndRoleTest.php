@@ -72,4 +72,40 @@ class AuthAndRoleTest extends TestCase
             'role' => 'customer',
         ]);
     }
+
+    public function test_admin_and_staff_can_login_via_portal(): void
+    {
+        $admin = User::create([
+            'name' => 'Admin Owner',
+            'email' => 'admin@portal.com',
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+        ]);
+
+        $response = $this->post(route('portal.login'), [
+            'email' => 'admin@portal.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertRedirect(route('dashboard'));
+        $this->assertAuthenticatedAs($admin);
+    }
+
+    public function test_customer_login_via_portal_is_rejected(): void
+    {
+        User::create([
+            'name' => 'Customer Biasa',
+            'email' => 'customer@portal.com',
+            'password' => bcrypt('password'),
+            'role' => 'customer',
+        ]);
+
+        $response = $this->post(route('portal.login'), [
+            'email' => 'customer@portal.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertSessionHasErrors(['email']);
+        $this->assertGuest();
+    }
 }

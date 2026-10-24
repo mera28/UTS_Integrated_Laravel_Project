@@ -4,7 +4,7 @@
 [![PHP 8.2+](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
 [![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
 [![Bootstrap 5.3](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
-[![Tests Passing](https://img.shields.io/badge/PHPUnit_Tests-43_Passed_(214_assertions)-success?style=for-the-badge&logo=php&logoColor=white)](#7-skenario-pengujian-otomatis-automated-test-cases)
+[![Tests Passing](https://img.shields.io/badge/PHPUnit_Tests-45_Passed_(222_assertions)-success?style=for-the-badge&logo=php&logoColor=white)](#7-skenario-pengujian-otomatis-automated-test-cases)
 
 Proyek Aplikasi Web Terintegrasi **UTS Web Programming 2** yang menggabungkan sistem **Manajemen Inventori & Transaksi Kasir (Backoffice)** dengan **Toko E-Commerce Online ala Shopee / Tokopedia** beserta **Simulasi Payment Gateway Interaktif (QRIS, Virtual Account, & E-Wallet)** untuk butik busana muslimah & fashion modern **"Zahiyyah's Fit"** (Gamis, Blouse, Celana Kulot, Rok Pleated, Hijab Pashmina, dan Outerwear).
 
@@ -287,17 +287,19 @@ Aplikasi kini dapat diakses di browser melalui:
 
 ---
 
-## 6. Daftar Akun Demo Pengujian
+## 6. Daftar Akun Demo Pengujian & Pemisahan Portal Login
 
-Aplikasi telah dilengkapi fitur **"1-Click Quick Demo Login"** pada halaman login (`/login`) untuk memudahkan pengujian tanpa perlu mengetik manual:
+Aplikasi menyediakan dua gerbang autentikasi terpisah untuk menjaga keamanan dan pengalaman pengguna:
+- **Portal Khusus Pelanggan (`/login`)**: Khusus pembeli untuk masuk akun member belanja dan checkout.
+- **Portal Internal Admin & Staff (`/portal/login`)**: Khusus tim internal butik (Owner & Kasir) untuk mengelola backoffice, inventori, dan POS kasir. Percobaan login oleh customer pada portal ini otomatis ditolak oleh validasi server-side.
 
-| Peran (Role) | Email | Password | Hak Akses Utama |
-| :--- | :--- | :--- | :--- |
-| **Admin (Owner)** | `admin@zahiyyah.com` | `password` | Akses Penuh: Dashboard Analitik, Master Data CRUD, Pembatalan Transaksi, Restorasi Stok, Kelola User, Laporan Finansial. |
-| **Staff (Kasir/Gudang)** | `staff@zahiyyah.com` | `password` | Input Pembelian (Stock-In), Kasir POS Multi-Item, Lihat Stok Rendah, Cetak Nota, Laporan Transaksi. |
-| **Customer (Pembeli)** | `customer@zahiyyah.com` | `password` | Toko E-Commerce (`/shop`), Keranjang Belanja, Checkout Pengiriman, & Simulasi Payment Gateway Interaktif. |
+| Peran (Role) | Email | Password | Halaman Login | Hak Akses Utama |
+| :--- | :--- | :--- | :--- | :--- |
+| **Admin (Owner)** | `admin@zahiyyah.com` | `password` | `/portal/login` | Akses Penuh: Dashboard Analitik, Master Data CRUD, Pembatalan Transaksi, Restorasi Stok, Kelola User, Laporan Finansial. |
+| **Staff (Kasir/Gudang)** | `staff@zahiyyah.com` | `password` | `/portal/login` | Input Pembelian (Stock-In), Kasir POS Multi-Item, Lihat Stok Rendah, Cetak Nota, Laporan Transaksi. |
+| **Customer (Pembeli)** | `customer@zahiyyah.com` | `password` | `/login` | Toko E-Commerce (`/shop`), Keranjang Belanja, Checkout Pengiriman, & Simulasi Payment Gateway Interaktif. |
 
-*Pengunjung umum juga dapat mendaftar sebagai customer baru melalui halaman Register (`/register`).*
+*Tersedia tombol **Quick Demo Login** 1-klik pada kedua halaman login untuk mempermudah demonstrasi dan pengujian tanpa mengetik.*
 
 ---
 
@@ -314,7 +316,7 @@ php artisan test
 ### Hasil Pengujian (100% Passed)
 ```text
    PASS  Tests\Unit\ExampleTest (1 test)
-   PASS  Tests\Feature\AuthAndRoleTest (5 tests)
+   PASS  Tests\Feature\AuthAndRoleTest (7 tests)
    PASS  Tests\Feature\DashboardAndReportTest (6 tests)
    PASS  Tests\Feature\EcommercePaymentGatewayTest (5 tests)
    PASS  Tests\Feature\ExampleTest (1 test)
@@ -323,8 +325,8 @@ php artisan test
    PASS  Tests\Feature\PurchaseTransactionTest (5 tests)
    PASS  Tests\Feature\SaleTransactionTest (6 tests)
 
-  Tests:    43 passed (214 assertions)
-  Duration: 4.71s
+  Tests:    45 passed (222 assertions)
+  Duration: 5.10s
 ```
 
 ### 8 Skenario Wajib Sesuai Spesifikasi Slide 19 PPT

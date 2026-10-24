@@ -104,12 +104,18 @@ class AuthController extends Controller
      */
     public function logout(Request $request)
     {
+        $role = Auth::user()?->role;
+
         Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('login')->with('success', 'Anda telah berhasil keluar dari akun.');
+        if ($role === 'admin' || $role === 'staff') {
+            return redirect()->route('portal.login')->with('success', 'Anda telah berhasil keluar dari Portal Internal.');
+        }
+
+        return redirect()->route('shop.index')->with('success', 'Anda telah berhasil keluar dari akun.');
     }
 
     /**
