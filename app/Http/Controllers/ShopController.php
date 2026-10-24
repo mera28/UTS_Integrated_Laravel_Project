@@ -11,14 +11,15 @@ use Illuminate\Support\Facades\Auth;
 class ShopController extends Controller
 {
     /**
-     * Display the storefront product catalog.
+     * Display the storefront product catalog with search, category, and pricing filters.
      */
     public function index(Request $request)
     {
         $categories = Category::withCount('products')->get();
 
-        $query = Product::with('category')->latest();
+        $query = Product::with('category');
 
+        // Search filter
         if ($request->filled('q')) {
             $search = $request->q;
             $query->where(function ($q) use ($search) {
@@ -29,11 +30,33 @@ class ShopController extends Controller
             });
         }
 
+        // Category filter
         if ($request->filled('category')) {
             $query->whereHas('category', function ($q) use ($request) {
                 $q->where('slug', $request->category);
             });
         }
+
+        // Price range filter
+        if ($request->filled('min_price')) {
+            $query->where('selling_price', '>=', (float) $request->min_price);
+        }
+        if ($request->filled('max_price')) {
+            $query->where('selling_price', '<=', (float) $request->max_price);
+        }
+
+        // Stock availability
+        if ($request->filled('in_stock') && $request->in_stock == '1') {
+            $query->where('stock', '>', 0);
+        }
+
+        // Sorting
+        match ($request->sort) {
+            'price_asc' => $query->orderBy('selling_price', 'asc'),
+            'price_desc' => $query->orderBy('selling_price', 'desc'),
+            'name_asc' => $query->orderBy('name', 'asc'),
+            default => $query->latest(),
+        };
 
         $products = $query->paginate(12)->withQueryString();
 
@@ -41,16 +64,31 @@ class ShopController extends Controller
     }
 
     /**
-     * Display the shopping cart.
+     * Display detailed storefront product page (Shopee/Tokopedia style).
      */
-    public function cart()
+    public function show(Product $product)
     {
-        $cart = session()->get('cart', []);
-        return view('shop.cart', compact('cart'));
+        $product->load('category');
+
+        // Related products from same category
+        $relatedProducts = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->take(4)
+            ->get();
+
+        return view('shop.show', compact('product', 'relatedProducts'));
     }
 
     /**
-     * Display orders of the authenticated customer.
+     * Redirect to CartController index.
+     */
+    public function cart()
+    {
+        return redirect()->route('cart.index');
+    }
+
+    /**
+     * Display customer orders list.
      */
     public function orders()
     {

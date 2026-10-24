@@ -25,12 +25,17 @@
                         <th>Total Pembayaran</th>
                         <th>Metode</th>
                         <th>Status</th>
+                        <th class="text-end pe-4">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="small">
                     @forelse($orders as $order)
                     <tr>
-                        <td class="ps-4 fw-bold text-primary">{{ $order->sale_number }}</td>
+                        <td class="ps-4 fw-bold text-dark">
+                            <a href="{{ route('orders.show', $order) }}" class="text-decoration-none text-dark">
+                                {{ $order->sale_number }}
+                            </a>
+                        </td>
                         <td class="text-muted">{{ $order->sold_at->format('d M Y, H:i') }}</td>
                         <td>
                             @foreach($order->items as $item)
@@ -42,8 +47,21 @@
                         <td>
                             @if($order->payment_status === 'paid')
                                 <span class="badge bg-success bg-opacity-10 text-success border border-success">Lunas</span>
+                            @elseif($order->payment_status === 'refunded')
+                                <span class="badge bg-danger bg-opacity-10 text-danger border border-danger">Refunded</span>
                             @else
                                 <span class="badge bg-warning bg-opacity-10 text-warning border border-warning">Pending</span>
+                            @endif
+                        </td>
+                        <td class="text-end pe-4">
+                            @if($order->payment_status === 'unpaid')
+                                <a href="{{ route('orders.payment', $order) }}" class="btn btn-sm btn-warning text-dark rounded-pill px-3 py-1 fw-bold">
+                                    <i class="bi bi-credit-card me-1"></i> Bayar
+                                </a>
+                            @else
+                                <a href="{{ route('orders.show', $order) }}" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1">
+                                    <i class="bi bi-receipt me-1"></i> Invoice
+                                </a>
                             @endif
                         </td>
                     </tr>

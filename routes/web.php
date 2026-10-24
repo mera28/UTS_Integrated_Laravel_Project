@@ -1,10 +1,13 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
@@ -28,11 +31,31 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middl
 // E-Commerce Storefront Routes (Customer & Public)
 Route::prefix('shop')->name('shop.')->group(function () {
     Route::get('/', [ShopController::class, 'index'])->name('index');
+    Route::get('/products/{product}', [ShopController::class, 'show'])->name('products.show')->whereNumber('product');
     Route::get('/cart', [ShopController::class, 'cart'])->name('cart');
     Route::get('/orders', [ShopController::class, 'orders'])->name('orders')->middleware('auth');
 });
 
-// Backoffice Routes (Admin & Staff)
+// Shopping Cart Routes
+Route::prefix('cart')->name('cart.')->group(function () {
+    Route::get('/', [CartController::class, 'index'])->name('index');
+    Route::post('/add/{product}', [CartController::class, 'add'])->name('add')->whereNumber('product');
+    Route::patch('/update', [CartController::class, 'update'])->name('update');
+    Route::delete('/clear', [CartController::class, 'clear'])->name('clear');
+    Route::delete('/{key}', [CartController::class, 'remove'])->name('remove');
+});
+
+// Customer Authenticated Checkout & Payment Gateway Simulation Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/checkout', [CustomerOrderController::class, 'checkoutView'])->name('checkout.index');
+    Route::post('/checkout', [CustomerOrderController::class, 'processCheckout'])->name('checkout.process');
+
+    Route::get('/orders/{sale}', [CustomerOrderController::class, 'orderDetail'])->name('orders.show')->whereNumber('sale');
+    Route::get('/orders/{sale}/payment', [CustomerOrderController::class, 'paymentView'])->name('orders.payment')->whereNumber('sale');
+    Route::post('/orders/{sale}/simulate-pay', [CustomerOrderController::class, 'simulatePaymentSuccess'])->name('orders.simulate-pay')->whereNumber('sale');
+});
+
+// Backoffice Protected Routes (Admin & Staff)
 Route::middleware(['auth', 'role:admin,staff'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -45,9 +68,15 @@ Route::middleware(['auth', 'role:admin,staff'])->group(function () {
     Route::get('/purchases/create', [PurchaseController::class, 'create'])->name('purchases.create');
     Route::post('/purchases', [PurchaseController::class, 'store'])->name('purchases.store');
     Route::get('/purchases/{purchase}', [PurchaseController::class, 'show'])->name('purchases.show')->whereNumber('purchase');
+
+    // Sales: POS Cashier & Orders List
+    Route::get('/sales', [SaleController::class, 'index'])->name('sales.index');
+    Route::get('/sales/create', [SaleController::class, 'create'])->name('sales.create');
+    Route::post('/sales', [SaleController::class, 'store'])->name('sales.store');
+    Route::get('/sales/{sale}', [SaleController::class, 'show'])->name('sales.show')->whereNumber('sale');
 });
 
-// Backoffice Admin-Only Routes (Full Master CRUD)
+// Backoffice Admin-Only Routes (Full Master CRUD & Cancellation)
 Route::middleware(['auth', 'role:admin'])->group(function () {
     // Products: Create, Edit, Update, Delete (Admin Only)
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
@@ -61,6 +90,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('suppliers', SupplierController::class)->except(['show']);
     Route::resource('users', UserController::class)->except(['show']);
 
-    // Cancel purchase & reverse stock (Admin Only)
+    // Cancellations & Stock Reversals (Admin Only)
     Route::patch('/purchases/{purchase}/cancel', [PurchaseController::class, 'cancel'])->name('purchases.cancel')->whereNumber('purchase');
+    Route::patch('/sales/{sale}/cancel', [SaleController::class, 'cancel'])->name('sales.cancel')->whereNumber('sale');
 });

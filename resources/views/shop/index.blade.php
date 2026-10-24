@@ -21,9 +21,17 @@
                     <a href="#katalog" class="btn btn-brand-primary px-4 py-2 fw-bold">
                         <i class="bi bi-bag-heart me-1"></i> Belanja Koleksi Sekarang
                     </a>
-                    <a href="{{ route('login') }}" class="btn btn-outline-brand px-4 py-2">
-                        <i class="bi bi-shield-lock me-1"></i> Masuk Staff / Admin
-                    </a>
+                    @auth
+                        @if(auth()->user()->isAdmin() || auth()->user()->isStaff())
+                            <a href="{{ route('dashboard') }}" class="btn btn-outline-brand px-4 py-2">
+                                <i class="bi bi-speedometer2 me-1"></i> Panel Backoffice
+                            </a>
+                        @endif
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-outline-brand px-4 py-2">
+                            <i class="bi bi-shield-lock me-1"></i> Masuk Staff / Admin
+                        </a>
+                    @endauth
                 </div>
             </div>
             <div class="col-lg-5 text-center">
@@ -47,26 +55,53 @@
     </div>
 </section>
 
-<!-- Category Quick Filter Chips -->
+<!-- Filter & Search Section -->
 <section class="py-4 bg-white border-bottom" id="katalog">
     <div class="container">
         <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
             <div>
                 <h5 class="fw-bold text-dark mb-0">Katalog Produk Outfit</h5>
-                <small class="text-muted">Menampilkan busana fashion terkini Zahiyyah's Fit</small>
+                <small class="text-muted">Menampilkan busana fashion muslimah terkini</small>
             </div>
             <div class="text-muted small">
                 Total <strong>{{ $products->total() }}</strong> Produk Ditemukan
             </div>
         </div>
 
-        <!-- Filter Buttons -->
+        <!-- Filter Chips & Form -->
+        <form action="{{ route('shop.index') }}" method="GET" class="row g-2 align-items-center mb-3">
+            <input type="hidden" name="category" value="{{ request('category') }}">
+            <div class="col-md-4">
+                <input type="text" name="q" class="form-control search-input" placeholder="Cari nama pakaian atau warna..." value="{{ request('q') }}">
+            </div>
+            <div class="col-md-3 col-6">
+                <select name="sort" class="form-select form-select-custom small" onchange="this.form.submit()">
+                    <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Urutkan: Terbaru</option>
+                    <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Harga: Terendah ke Tertinggi</option>
+                    <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Harga: Tertinggi ke Terendah</option>
+                    <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nama: A ke Z</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="form-check form-switch pt-2">
+                    <input class="form-check-input" type="checkbox" name="in_stock" value="1" id="inStockCheck" {{ request('in_stock') == '1' ? 'checked' : '' }} onchange="this.form.submit()">
+                    <label class="form-check-label small text-secondary" for="inStockCheck">Hanya Stok Tersedia</label>
+                </div>
+            </div>
+            <div class="col-md-2 text-end">
+                @if(request()->hasAny(['q', 'category', 'sort', 'in_stock']))
+                    <a href="{{ route('shop.index') }}" class="btn btn-sm btn-light border w-100"><i class="bi bi-x-circle"></i> Reset</a>
+                @endif
+            </div>
+        </form>
+
+        <!-- Category Buttons -->
         <div class="d-flex gap-2 overflow-auto pb-2 text-nowrap">
-            <a href="{{ route('shop.index') }}" class="btn btn-sm {{ !request('category') ? 'btn-dark' : 'btn-light border' }} rounded-pill px-3">
+            <a href="{{ route('shop.index', request()->except('category')) }}" class="btn btn-sm {{ !request('category') ? 'btn-dark' : 'btn-light border' }} rounded-pill px-3">
                 Semua
             </a>
             @foreach($categories as $category)
-                <a href="{{ route('shop.index', ['category' => $category->slug]) }}" 
+                <a href="{{ route('shop.index', array_merge(request()->query(), ['category' => $category->slug])) }}" 
                    class="btn btn-sm {{ request('category') == $category->slug ? 'btn-dark' : 'btn-light border' }} rounded-pill px-3">
                     {{ $category->name }} ({{ $category->products_count }})
                 </a>
@@ -81,7 +116,7 @@
         <div class="row g-4">
             @forelse($products as $product)
             <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative product-card" style="transition: transform 0.2s, box-shadow 0.2s;">
+                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative product-card bg-white" style="transition: transform 0.2s, box-shadow 0.2s;">
                     <!-- Stock Badge -->
                     <div class="position-absolute top-0 start-0 m-3 z-1">
                         @if($product->stock <= 0)
@@ -100,21 +135,22 @@
                         </span>
                     </div>
 
-                    <!-- Product Image -->
-                    <div class="overflow-hidden bg-light text-center" style="height: 270px;">
+                    <!-- Product Image linking to detail -->
+                    <a href="{{ route('shop.products.show', $product) }}" class="overflow-hidden bg-light text-center d-block position-relative" style="height: 270px;">
                         <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop' }}" 
-                             class="w-100 h-100" 
-                             style="object-fit: cover; transition: transform 0.4s ease;"
+                             class="w-100 h-100 object-fit-cover" 
                              alt="{{ $product->name }}"
                              onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop'">
-                    </div>
+                    </a>
 
                     <!-- Card Body -->
                     <div class="card-body p-3 d-flex flex-column justify-content-between">
                         <div>
                             <div class="small text-muted mb-1">{{ $product->sku }}</div>
                             <h6 class="fw-bold text-dark text-truncate mb-2" title="{{ $product->name }}">
-                                {{ $product->name }}
+                                <a href="{{ route('shop.products.show', $product) }}" class="text-decoration-none text-dark">
+                                    {{ $product->name }}
+                                </a>
                             </h6>
                             <p class="text-muted small mb-2 text-truncate-2" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; font-size: 0.8rem;">
                                 {{ $product->description }}
@@ -134,14 +170,14 @@
                                 <div>
                                     <span class="small text-muted d-block" style="font-size: 0.72rem;">Harga Terbaik</span>
                                     <span class="fw-extrabold text-danger fs-5" style="font-weight: 800;">
-                                        Rp {{ number_format($product->selling_price, 0, ',', '.') }}
+                                        {{ \App\Support\FormatHelper::rupiah($product->selling_price) }}
                                     </span>
                                 </div>
                             </div>
 
                             <div class="d-grid gap-2">
-                                <a href="{{ route('shop.cart') }}" class="btn btn-outline-danger btn-sm rounded-pill fw-semibold py-2">
-                                    <i class="bi bi-cart-plus me-1"></i> Beli Sekarang
+                                <a href="{{ route('shop.products.show', $product) }}" class="btn btn-outline-danger btn-sm rounded-pill fw-semibold py-2">
+                                    <i class="bi bi-eye me-1"></i> Lihat Detail & Beli
                                 </a>
                             </div>
                         </div>
