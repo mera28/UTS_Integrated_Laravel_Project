@@ -16,6 +16,24 @@ class FormatHelper
     }
 
     /**
+     * Format large numbers into readable short currency format (e.g. Rp 1.5jt, Rp 250rb).
+     */
+    public static function rupiahShort(float|int|string|null $amount): string
+    {
+        $num = (float) ($amount ?? 0);
+        if ($num >= 1000000000) {
+            return 'Rp ' . round($num / 1000000000, 1) . 'M';
+        }
+        if ($num >= 1000000) {
+            return 'Rp ' . round($num / 1000000, 1) . 'jt';
+        }
+        if ($num >= 1000) {
+            return 'Rp ' . round($num / 1000, 0) . 'rb';
+        }
+        return 'Rp ' . number_format($num, 0, ',', '.');
+    }
+
+    /**
      * Format date into Indonesian readable format.
      */
     public static function indonesianDate(mixed $date, bool $withTime = false): string

@@ -2,37 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Purchase;
-use App\Models\Sale;
-use App\Models\User;
+use App\Services\DashboardService;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
+/**
+ * Controller for Backoffice Analytics Dashboard & Low-Stock Alerts (Slide 6, 13, 18 PPT).
+ */
 class DashboardController extends Controller
 {
-    /**
-     * Display backoffice dashboard.
-     */
-    public function index()
-    {
-        $totalProducts = Product::count();
-        $totalStock = Product::sum('stock');
-        $lowStockProducts = Product::whereColumn('stock', '<=', 'minimum_stock')->get();
-        $totalSales = Sale::where('payment_status', 'paid')->sum('total');
-        $totalPurchases = Purchase::where('status', 'completed')->sum('total');
+    public function __construct(
+        protected DashboardService $dashboardService
+    ) {}
 
-        $recentSales = Sale::with(['user', 'items.product'])->latest('sold_at')->take(5)->get();
-        $recentPurchases = Purchase::with(['supplier', 'items.product'])->latest('purchased_at')->take(5)->get();
+    /**
+     * Display backoffice analytics dashboard with live KPI metrics and trend cards.
+     */
+    public function index(): View
+    {
+        $metrics = $this->dashboardService->getKpiMetrics();
+        $lowStockProducts = $this->dashboardService->getLowStockProducts(6);
+        $topSellingProducts = $this->dashboardService->getTopSellingProducts(5);
+        $paymentBreakdown = $this->dashboardService->getPaymentMethodBreakdown();
+        $salesTrend = $this->dashboardService->getSalesTrend7Days();
+        $recentTransactions = $this->dashboardService->getRecentTransactions(5);
 
         return view('dashboard.index', compact(
-            'totalProducts',
-            'totalStock',
+            'metrics',
             'lowStockProducts',
-            'totalSales',
-            'totalPurchases',
-            'recentSales',
-            'recentPurchases'
+            'topSellingProducts',
+            'paymentBreakdown',
+            'salesTrend',
+            'recentTransactions'
         ));
+    }
+
+    /**
+     * Display dedicated Low Stock Alert monitoring list (Slide 13 PPT).
+     */
+    public function lowStock(): View
+    {
+        $lowStockProducts = $this->dashboardService->getLowStockProducts();
+        $metrics = $this->dashboardService->getKpiMetrics();
+
+        return view('dashboard.low_stock', compact('lowStockProducts', 'metrics'));
     }
 }

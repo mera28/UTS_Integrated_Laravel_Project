@@ -216,6 +216,15 @@
             <a href="{{ url('/products') }}" class="nav-link-custom {{ request()->is('products*') ? 'active' : '' }}">
                 <i class="bi bi-bag"></i> Master Produk Outfit
             </a>
+            @php
+                $sidebarLowStock = \App\Models\Product::whereColumn('stock', '<=', 'minimum_stock')->count();
+            @endphp
+            <a href="{{ route('dashboard.low-stock') }}" class="nav-link-custom {{ request()->routeIs('dashboard.low-stock') ? 'active text-danger' : '' }}">
+                <i class="bi bi-exclamation-triangle"></i> Stok Rendah
+                @if($sidebarLowStock > 0)
+                    <span class="badge bg-danger rounded-pill ms-auto font-monospace" style="font-size: 0.72rem;">{{ $sidebarLowStock }}</span>
+                @endif
+            </a>
 
             @if(auth()->user()->isAdmin())
                 <a href="{{ url('/categories') }}" class="nav-link-custom {{ request()->is('categories*') ? 'active' : '' }}">
@@ -232,6 +241,9 @@
             </a>
             <a href="{{ url('/sales') }}" class="nav-link-custom {{ request()->is('sales*') ? 'active' : '' }}">
                 <i class="bi bi-receipt"></i> Penjualan (POS & Order)
+            </a>
+            <a href="{{ route('reports.index') }}" class="nav-link-custom {{ request()->is('reports*') ? 'active' : '' }}">
+                <i class="bi bi-bar-chart-line"></i> Laporan Transaksi
             </a>
 
             @if(auth()->user()->isAdmin())

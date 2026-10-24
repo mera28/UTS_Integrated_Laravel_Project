@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerOrderController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\SupplierController;
@@ -74,6 +75,13 @@ Route::middleware(['auth', 'role:admin,staff'])->group(function () {
     Route::get('/sales/create', [SaleController::class, 'create'])->name('sales.create');
     Route::post('/sales', [SaleController::class, 'store'])->name('sales.store');
     Route::get('/sales/{sale}', [SaleController::class, 'show'])->name('sales.show')->whereNumber('sale');
+
+    // Low-Stock Monitoring & Real-time Alerts (Slide 13 PPT)
+    Route::get('/low-stock', [DashboardController::class, 'lowStock'])->name('dashboard.low-stock');
+
+    // Financial & Transaction Reports (Slide 6, 18, 25 PPT)
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/print', [ReportController::class, 'print'])->name('reports.print');
 });
 
 // Backoffice Admin-Only Routes (Full Master CRUD & Cancellation)
