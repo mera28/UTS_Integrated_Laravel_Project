@@ -19,8 +19,8 @@
     <div class="top-promo-bar">
         <div class="container d-flex align-items-center justify-content-between flex-wrap gap-2">
             <span class="mx-auto mx-md-0"><i class="bi bi-water"></i> ZAHIYYAH'S FIT BALI &bull; KOLEKSI RESORT &amp; KNITWEAR EKSKLUSIF</span>
-            <a href="{{ route('portal.login') }}" class="portal-link-promo ms-auto">
-                <i class="bi bi-shield-lock"></i> Portal Internal (Admin &amp; Staff)
+            <a href="{{ url('/portal/login') }}" class="portal-link-promo ms-auto">
+                <i class="bi bi-shield-lock"></i> Portal Admin / Staff
             </a>
         </div>
     </div>

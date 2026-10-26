@@ -126,32 +126,35 @@
                 </div>
             @endif
 
-            <!-- Quick Demo Portal Buttons -->
+            <!-- Quick 1-Click Login Box for Admin & Staff -->
             <div class="demo-portal-box p-3 mb-4 rounded-4" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.12);">
                 <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="small fw-bold text-white"><i class="bi bi-lightning-charge-fill text-warning"></i> Quick Fill Akses Internal:</span>
-                    <span class="badge bg-secondary bg-opacity-35 text-white" style="font-size: 0.7rem;">1-Klik Isi</span>
+                    <span class="small fw-bold text-white"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Akses Cepat Sekali Klik:</span>
+                    <span class="badge bg-success bg-opacity-25 text-success border border-success" style="font-size: 0.7rem;">Auto-Fill &amp; Direct Login</span>
                 </div>
-                <div class="row g-2">
-                    <div class="col-6">
-                        <button type="button" class="btn btn-outline-danger btn-sm w-100 rounded-3 text-start p-2" onclick="fillCredentials('admin@zahiyyah.com', 'password')">
-                            <div class="fw-bold text-white small"><i class="bi bi-shield-lock-fill text-danger"></i> Admin / Owner</div>
-                            <div class="text-secondary" style="font-size: 0.72rem;">admin@zahiyyah.com</div>
-                            <div class="text-secondary" style="font-size: 0.68rem;">Pass: <code>password</code></div>
-                        </button>
-                    </div>
-                    <div class="col-6">
-                        <button type="button" class="btn btn-outline-info btn-sm w-100 rounded-3 text-start p-2" onclick="fillCredentials('staff@zahiyyah.com', 'password')">
-                            <div class="fw-bold text-white small"><i class="bi bi-person-badge-fill text-info"></i> Staff Kasir</div>
-                            <div class="text-secondary" style="font-size: 0.72rem;">staff@zahiyyah.com</div>
-                            <div class="text-secondary" style="font-size: 0.68rem;">Pass: <code>password</code></div>
-                        </button>
-                    </div>
+                <div class="d-flex flex-column gap-2 mb-2">
+                    <button type="button" class="btn btn-outline-danger w-100 rounded-3 text-start p-2 p-md-3" onclick="quickLogin('admin@zahiyyah.com', 'password')">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span class="fw-bold text-white"><i class="bi bi-shield-lock-fill text-danger me-1"></i> Masuk Cepat sebagai Admin Owner</span>
+                            <span class="badge bg-danger">1-Klik &rarr;</span>
+                        </div>
+                        <div class="text-secondary small" style="font-size: 0.75rem;">admin@zahiyyah.com &bull; Pass: <code>password</code></div>
+                    </button>
+                    <button type="button" class="btn btn-outline-info w-100 rounded-3 text-start p-2 p-md-3" onclick="quickLogin('staff@zahiyyah.com', 'password')">
+                        <div class="d-flex align-items-center justify-content-between mb-1">
+                            <span class="fw-bold text-white"><i class="bi bi-person-badge-fill text-info me-1"></i> Masuk Cepat sebagai Staff</span>
+                            <span class="badge bg-info text-dark">1-Klik &rarr;</span>
+                        </div>
+                        <div class="text-secondary small" style="font-size: 0.75rem;">staff@zahiyyah.com &bull; Pass: <code>password</code></div>
+                    </button>
+                </div>
+                <div class="text-center text-muted" style="font-size: 0.72rem;">
+                    Atau ketik kredensial manual pada form berikut:
                 </div>
             </div>
 
             <!-- Login Form -->
-            <form action="{{ route('portal.login') }}" method="POST">
+            <form id="portalLoginForm" action="{{ route('portal.login') }}" method="POST">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label small fw-semibold text-secondary">Email Petugas</label>
@@ -212,6 +215,12 @@
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        function quickLogin(email, password) {
+            document.getElementById('email').value = email;
+            document.getElementById('password').value = password;
+            document.getElementById('portalLoginForm').submit();
+        }
+
         function fillCredentials(email, password) {
             document.getElementById('email').value = email;
             document.getElementById('password').value = password;

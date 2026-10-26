@@ -108,4 +108,35 @@ class AuthAndRoleTest extends TestCase
         $response->assertSessionHasErrors(['email']);
         $this->assertGuest();
     }
+
+    public function test_customer_session_does_not_redirect_portal_login(): void
+    {
+        $customer = User::create([
+            'name' => 'Customer Aktif',
+            'email' => 'aktif@customer.com',
+            'password' => bcrypt('password'),
+            'role' => 'customer',
+        ]);
+
+        // 1. Customer opening /portal/login should see portal login page without redirecting to /shop
+        $response = $this->actingAs($customer)->get(route('portal.login'));
+        $response->assertSee('Internal Backoffice Portal');
+        $response->assertSee("Zahiyyah's Fit", false);
+
+        // 2. Customer can submit admin credentials and switch session cleanly to admin
+        $admin = User::create([
+            'name' => 'Admin Baru',
+            'email' => 'admin_baru@zahiyyah.com',
+            'password' => bcrypt('password'),
+            'role' => 'admin',
+        ]);
+
+        $loginResponse = $this->actingAs($customer)->post(route('portal.login'), [
+            'email' => 'admin_baru@zahiyyah.com',
+            'password' => 'password',
+        ]);
+
+        $loginResponse->assertRedirect(route('dashboard'));
+        $this->assertAuthenticatedAs($admin);
+    }
 }

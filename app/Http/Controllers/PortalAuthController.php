@@ -13,6 +13,7 @@ class PortalAuthController extends Controller
 {
     /**
      * Display portal login view for internal staff & admin.
+     * Accessible unconditionally even if customer session is active.
      */
     public function showLoginForm()
     {
@@ -21,10 +22,11 @@ class PortalAuthController extends Controller
             if ($user->isAdmin() || $user->isStaff()) {
                 return redirect()->route('dashboard');
             }
-            return redirect()->route('shop.index');
+            // If logged in as customer, DO NOT redirect to /shop!
+            // Allow them to view the Portal Login page to log in as Admin/Staff.
         }
 
-        return view('auth.portal_login');
+        return view()->exists('auth.portal_login') ? view('auth.portal_login') : view('auth.portal-login');
     }
 
     /**
@@ -42,6 +44,13 @@ class PortalAuthController extends Controller
         ]);
 
         $remember = $request->boolean('remember');
+
+        // If an existing customer session is active, log it out cleanly so Admin/Staff can log in
+        if (Auth::check() && ! (Auth::user()->isAdmin() || Auth::user()->isStaff())) {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        }
 
         if (Auth::attempt($credentials, $remember)) {
             $user = Auth::user();

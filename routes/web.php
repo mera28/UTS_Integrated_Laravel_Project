@@ -33,12 +33,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 });
 
-// Internal Admin & Staff Portal Routes
+// Internal Admin & Staff Portal Routes (Always accessible, independent of customer session)
 Route::prefix('portal')->name('portal.')->group(function () {
-    Route::middleware('guest')->group(function () {
-        Route::get('/login', [PortalAuthController::class, 'showLoginForm'])->name('login');
-        Route::post('/login', [PortalAuthController::class, 'login']);
-    });
+    Route::get('/login', [PortalAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [PortalAuthController::class, 'login']);
     Route::post('/logout', [PortalAuthController::class, 'logout'])->name('logout')->middleware('auth');
 });
 
