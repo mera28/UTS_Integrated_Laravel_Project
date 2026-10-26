@@ -4,53 +4,62 @@
 
 @section('content')
 <!-- ==========================================================================
-     HERO SHOWCASE: LUXURY BALI BEACH & COCONUT PALMS PHOTOGRAPHY
+     HERO SHOWCASE: BALI BEACH & COCONUT PALMS WITH ASYMMETRICAL TRANSPARENCY
+     Left: Soft White Gradient Fade for Crisp Readability
+     Right: Crystal Clear Tropical Bali Beach, Palms, & White-Tan Knitwear Model
      ========================================================================== -->
 <section class="bali-hero-section">
-    <div class="bali-hero-overlay"></div>
     <div class="container position-relative z-1">
         <div class="row align-items-center g-5">
+            <!-- Left Narrative Column (Faded Soft White for Optimal Readability) -->
             <div class="col-lg-7">
                 <span class="bali-hero-tag">
-                    <i class="bi bi-sun me-1"></i> Island &bull; Modest Resort Wear &bull; Collection 2026
+                    <i class="bi bi-sun"></i> Island Resort &bull; Beach Knitwear &bull; Collection 2026
                 </span>
                 <h1 class="bali-hero-title">
                     Zahiyyah's Fit &mdash; Island &amp; Modest Resort Wear
                 </h1>
                 <p class="bali-hero-desc">
-                    <em>Effortless Elegance Inspired by Bali's Coastal Serenity.</em> Temukan perpaduan sempurna antara material linen adem alami, sutra mengalir anggun, dan potongan modest yang nyaman untuk suasana santai di pesisir maupun momen istimewa Anda.
+                    <em>Effortless Elegance Inspired by Bali's Coastal Serenity.</em> Perpaduan istimewa busana rajut pantai (*beach knitwear*) warna putih kecoklatan (cream-tan), linen alami yang sejuk, dan siluet modest berkelas untuk kenyamanan maksimal di pesisir maupun momen berharga Anda.
                 </p>
                 <div class="d-flex flex-wrap gap-3">
                     <a href="#katalog" class="btn btn-brand-primary">
-                        <i class="bi bi-compass me-1"></i> Jelajahi Koleksi Busana
+                        <i class="bi bi-compass"></i> Jelajahi Koleksi Busana
                     </a>
                     @auth
                         @if(auth()->user()->isAdmin() || auth()->user()->isStaff())
                             <a href="{{ route('dashboard') }}" class="btn btn-outline-brand">
-                                <i class="bi bi-speedometer2 me-1"></i> Panel Backoffice
+                                <i class="bi bi-speedometer2"></i> Panel Backoffice
                             </a>
                         @endif
                     @else
                         <a href="{{ route('login') }}" class="btn btn-outline-brand">
-                            <i class="bi bi-person me-1"></i> Masuk Member / Google
+                            <i class="bi bi-person"></i> Masuk Member / Google
                         </a>
                     @endauth
                 </div>
             </div>
+
+            <!-- Right Visual Column (Model Wearing White-Tan Beach Knitwear / Resort Outfit) -->
             <div class="col-lg-5 text-center">
-                <div class="hero-featured-frame d-inline-block">
-                    <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=700&auto=format&fit=crop" 
-                         alt="Zahiyyah Bali Boutique Outfit" 
-                         class="img-fluid" 
-                         style="max-height: 440px; width: 100%; object-fit: cover;">
-                    <div class="hero-floating-card text-start">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="brand-badge-icon" style="width: 34px; height: 34px; font-size: 1rem;">
-                                <i class="bi bi-patch-check"></i>
+                <div class="hero-arch-frame d-inline-block">
+                    <!-- High-Resolution Editorial Photo: Model in White-Tan Resort Knitwear -->
+                    <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=85" 
+                         alt="Model Baju Pantai Rajut Putih Kecoklatan - Zahiyyah's Fit Bali" 
+                         class="img-fluid w-100 object-fit-cover" 
+                         style="height: 480px;">
+                    
+                    <!-- Inset Floating Card with Close-Up Texture of White-Tan Knitwear -->
+                    <div class="hero-knit-badge text-start">
+                        <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&w=600&q=85" 
+                             alt="Detail Tekstur Baju Rajut Putih Coklat" 
+                             class="knit-thumb-mini">
+                        <div>
+                            <div class="fw-bold" style="color: var(--bali-espresso); font-family: var(--font-serif); font-size: 1rem; line-height: 1.2;">
+                                Beach Knitwear &amp; Linen
                             </div>
-                            <div>
-                                <div class="fw-bold small" style="color: var(--bali-espresso); font-family: var(--font-serif); font-size: 0.95rem;">100% Breathable Fabric</div>
-                                <div class="text-muted" style="font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase;">Linen, Silk &amp; Pure Voal</div>
+                            <div class="text-muted" style="font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase;">
+                                Hand-Crafted &bull; Pure Cream &amp; Tan
                             </div>
                         </div>
                     </div>
@@ -61,7 +70,7 @@
 </section>
 
 <!-- ==========================================================================
-     EDITORIAL STORY SECTION (COASTAL BALI ATMOSPHERE)
+     EDITORIAL STORY SECTION (COASTAL BALI PALM TREES & SERENITY)
      ========================================================================== -->
 <section class="editorial-story-section">
     <div class="container">
@@ -70,9 +79,9 @@
                 <div class="editorial-img-wrap">
                     <!-- Real Coastal Palm Trees & Tropical Resort Photography -->
                     <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80" 
-                         alt="Bali Coastal Palm Trees Resort" 
+                         alt="Pohon Kelapa Pantai Tropis Bali Resort" 
                          class="w-100 object-fit-cover" 
-                         style="height: 380px;">
+                         style="height: 390px;">
                 </div>
             </div>
             <div class="col-lg-7 order-lg-2 order-1">
@@ -84,21 +93,21 @@
                     "Setiap helai pakaian dirancang khusus agar tetap sejuk di bawah terpaan angin pesisir, memberikan kebebasan bergerak dengan siluet sopan dan sentuhan kemewahan yang tenang."
                 </div>
                 <p class="small text-muted mb-4" style="line-height: 1.8;">
-                    Terinspirasi oleh ketenangan pantai Seminyak dan suasana resort tropis Bali, butik <strong>Zahiyyah's Fit</strong> memadukan bahan berserat alami berkualitas tinggi dengan potongan longgar yang jatuh indah di tubuh. Mulai dari Gamis Silk Abaya, Tunik Berbahan Linen, Kulot Santai, hingga Pashmina Voal Shimmer yang wudhu-friendly.
+                    Terinspirasi oleh ketenangan pantai Seminyak dan suasana resort tropis Bali, butik <strong>Zahiyyah's Fit</strong> memadukan bahan serat alami berkualitas tinggi dengan potongan longgar yang jatuh indah di tubuh. Mulai dari Beach Knitwear rajut pantai warna putih-tan, Gamis Silk Abaya, Tunik Berbahan Linen, Kulot Santai, hingga Pashmina Voal Shimmer yang wudhu-friendly.
                 </p>
                 <div class="d-flex flex-wrap gap-4 pt-2">
                     <div>
-                        <div class="fw-bold text-dark fs-5" style="font-family: var(--font-serif); color: var(--bali-espresso);">100%</div>
-                        <div class="small text-muted" style="font-size: 0.75rem;">Serat Kain Pilihan</div>
+                        <div class="fw-bold fs-5" style="font-family: var(--font-serif); color: var(--bali-espresso);">100%</div>
+                        <div class="small text-muted" style="font-size: 0.75rem;">Serat Alami Adem</div>
                     </div>
                     <div class="vr" style="background-color: var(--bali-border);"></div>
                     <div>
-                        <div class="fw-bold text-dark fs-5" style="font-family: var(--font-serif); color: var(--bali-espresso);">Hand-Finished</div>
+                        <div class="fw-bold fs-5" style="font-family: var(--font-serif); color: var(--bali-espresso);">Hand-Finished</div>
                         <div class="small text-muted" style="font-size: 0.75rem;">Jahitan Standar Butik</div>
                     </div>
                     <div class="vr" style="background-color: var(--bali-border);"></div>
                     <div>
-                        <div class="fw-bold text-dark fs-5" style="font-family: var(--font-serif); color: var(--bali-espresso);">Modest Cut</div>
+                        <div class="fw-bold fs-5" style="font-family: var(--font-serif); color: var(--bali-espresso);">Modest Cut</div>
                         <div class="small text-muted" style="font-size: 0.75rem;">Anggun &amp; Tidak Terawang</div>
                     </div>
                 </div>
@@ -108,7 +117,7 @@
 </section>
 
 <!-- ==========================================================================
-     CATALOG SECTION & FILTER (CLEAN WHITE & SOFT BEIGE)
+     CATALOG SECTION & FILTER (PURE CLEAN WHITE & WARM TAN ACCENTS)
      ========================================================================== -->
 <section class="py-5" id="katalog" style="background-color: #FFFFFF;">
     <div class="container">
@@ -119,20 +128,20 @@
                 <h3 class="mb-1" style="font-family: var(--font-serif); font-size: 2.1rem; color: var(--bali-espresso);">
                     Koleksi Busana &amp; Outfit Terpilih
                 </h3>
-                <p class="text-muted small mb-0">Menampilkan busana modest pilihan dengan kenyamanan maksimal</p>
+                <p class="text-muted small mb-0">Menampilkan busana modest &amp; beach resort wear pilihan dengan kenyamanan maksimal</p>
             </div>
             <div class="text-muted small" style="color: var(--bali-muted);">
                 Total <strong style="color: var(--bali-espresso);">{{ $products->total() }}</strong> Outfit Ditemukan
             </div>
         </div>
 
-        <!-- Filter Chips & Search Bar Form -->
+        <!-- Filter Chips & Search Bar Form (Zero Overlap Flex Search) -->
         <form action="{{ route('shop.index') }}" method="GET" class="row g-3 align-items-center mb-4">
             <input type="hidden" name="category" value="{{ request('category') }}">
             <div class="col-md-5">
-                <div class="position-relative">
-                    <i class="bi bi-search search-icon-inside"></i>
-                    <input type="text" name="q" class="form-control search-input w-100" placeholder="Cari nama outfit, bahan, atau warna..." value="{{ request('q') }}">
+                <div class="search-box-wrapper">
+                    <span class="search-icon-box"><i class="bi bi-search"></i></span>
+                    <input type="text" name="q" class="search-input-field flex-grow-1" placeholder="Cari nama outfit, bahan rajut, atau warna..." value="{{ request('q') }}">
                 </div>
             </div>
             <div class="col-md-3 col-6">
@@ -152,7 +161,7 @@
             <div class="col-md-2 text-end">
                 @if(request()->hasAny(['q', 'category', 'sort', 'in_stock']))
                     <a href="{{ route('shop.index') }}" class="btn btn-sm btn-sand w-100">
-                        <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Filter
+                        <i class="bi bi-arrow-counterclockwise"></i> Reset Filter
                     </a>
                 @endif
             </div>
@@ -183,7 +192,7 @@
                             @if($product->stock <= 0)
                                 <span class="badge-stock-bali empty">Habis</span>
                             @elseif($product->isLowStock())
-                                <span class="badge-stock-bali low"><i class="bi bi-clock me-1"></i> Sisa {{ $product->stock }} pcs</span>
+                                <span class="badge-stock-bali low"><i class="bi bi-clock"></i> Sisa {{ $product->stock }} pcs</span>
                             @else
                                 <span class="badge-stock-bali">Ready {{ $product->stock }} pcs</span>
                             @endif
@@ -232,7 +241,7 @@
                             </div>
 
                             <a href="{{ route('shop.products.show', $product) }}" class="btn btn-sand w-100 py-2 d-flex align-items-center justify-content-center">
-                                <i class="bi bi-eye me-1"></i> Lihat Koleksi
+                                <i class="bi bi-eye"></i> Lihat Koleksi
                             </a>
                         </div>
                     </div>

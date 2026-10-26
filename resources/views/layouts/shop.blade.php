@@ -15,9 +15,9 @@
     @stack('styles')
 </head>
 <body>
-    <!-- Top Announcement Bar (Bali Coastal Serenity) -->
+    <!-- Top Announcement Bar (Warm Light Brown Contrast) -->
     <div class="top-promo-bar">
-        <span><i class="bi bi-water me-1"></i> Zahiyyah's Fit &bull; Modest & Island Resort Wear &bull; Gratis Ongkir Seluruh Indonesia</span>
+        <span><i class="bi bi-water"></i> ZAHIYYAH'S FIT BALI &bull; KOLEKSI RESORT &amp; KNITWEAR EKSKLUSIF</span>
     </div>
 
     <!-- Marketplace Header Navbar (Clean White Glassmorphism) -->
@@ -34,10 +34,12 @@
                 </div>
             </a>
 
-            <!-- Search Bar (Minimalist Sand Capsule) -->
-            <form action="{{ route('shop.index') }}" method="GET" class="search-box-group d-none d-md-block flex-grow-1 mx-lg-4">
-                <i class="bi bi-search search-icon-inside"></i>
-                <input type="text" name="q" class="form-control search-input" placeholder="Cari linen abaya, breezy blouse, tunik, hijab voal..." value="{{ request('q') }}">
+            <!-- Search Bar (Flex Wrapper - Zero Icon/Text Overlap Guarantee) -->
+            <form action="{{ route('shop.index') }}" method="GET" class="d-none d-md-block flex-grow-1 mx-lg-4" style="max-width: 480px;">
+                <div class="search-box-wrapper">
+                    <span class="search-icon-box"><i class="bi bi-search"></i></span>
+                    <input type="text" name="q" class="search-input-field flex-grow-1" placeholder="Cari linen abaya, beach knitwear, tunik, hijab..." value="{{ request('q') }}">
+                </div>
             </form>
 
             <!-- Action Buttons / User Menu -->
@@ -69,20 +71,20 @@
                             @if(auth()->user()->isAdmin() || auth()->user()->isStaff())
                                 <li>
                                     <a class="dropdown-item rounded-2 small fw-semibold py-2 mt-1" style="color: var(--bali-tan);" href="{{ route('dashboard') }}">
-                                        <i class="bi bi-speedometer2 me-1"></i> Ke Panel Backoffice
+                                        <i class="bi bi-speedometer2"></i> Ke Panel Backoffice
                                     </a>
                                 </li>
                             @endif
                             <li>
                                 <a class="dropdown-item rounded-2 small py-2 text-dark" href="{{ route('shop.orders') }}">
-                                    <i class="bi bi-receipt me-1"></i> Pesanan Saya
+                                    <i class="bi bi-receipt"></i> Pesanan Saya
                                 </a>
                             </li>
                             <li class="border-top mt-1 pt-1" style="border-color: var(--bali-border-light) !important;">
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
                                     <button type="submit" class="dropdown-item text-danger rounded-2 small fw-semibold py-2">
-                                        <i class="bi bi-box-arrow-right me-1"></i> Keluar (Logout)
+                                        <i class="bi bi-box-arrow-right"></i> Keluar (Logout)
                                     </button>
                                 </form>
                             </li>
@@ -91,7 +93,7 @@
                 @else
                     <div class="d-flex align-items-center gap-2">
                         <a href="{{ route('login') }}" class="btn btn-outline-brand small py-1 px-3">
-                            <i class="bi bi-person me-1"></i> Masuk
+                            <i class="bi bi-person"></i> Masuk
                         </a>
                         <a href="{{ route('register') }}" class="btn btn-brand-primary small py-1 px-3 d-none d-sm-inline-block">
                             Daftar
@@ -101,11 +103,13 @@
             </div>
         </div>
 
-        <!-- Mobile Search Bar -->
+        <!-- Mobile Search Bar (Flex Wrapper) -->
         <div class="container d-md-none mt-2">
-            <form action="{{ route('shop.index') }}" method="GET" class="search-box-group w-100">
-                <i class="bi bi-search search-icon-inside"></i>
-                <input type="text" name="q" class="form-control search-input" placeholder="Cari linen abaya, tunik, hijab..." value="{{ request('q') }}">
+            <form action="{{ route('shop.index') }}" method="GET" class="w-100">
+                <div class="search-box-wrapper">
+                    <span class="search-icon-box"><i class="bi bi-search"></i></span>
+                    <input type="text" name="q" class="search-input-field flex-grow-1" placeholder="Cari linen abaya, beach knitwear, tunik..." value="{{ request('q') }}">
+                </div>
             </form>
         </div>
     </nav>
@@ -114,7 +118,7 @@
     <div class="shop-subnav-strip">
         <div class="container d-flex align-items-center gap-2 overflow-auto text-nowrap">
             <a href="{{ route('shop.index') }}" class="subnav-link {{ !request('category') ? 'active' : '' }}">
-                <i class="bi bi-grid me-1"></i> Semua Koleksi
+                <i class="bi bi-grid"></i> Semua Koleksi
             </a>
             <a href="{{ route('shop.index', ['category' => 'gamis-maxy-dress']) }}" class="subnav-link {{ request('category') == 'gamis-maxy-dress' ? 'active' : '' }}">
                 Gamis &amp; Maxy
@@ -132,7 +136,7 @@
                 Hijab &amp; Pashmina
             </a>
             <a href="{{ route('shop.index', ['category' => 'outerwear-cardigan']) }}" class="subnav-link {{ request('category') == 'outerwear-cardigan' ? 'active' : '' }}">
-                Outerwear
+                Outerwear &amp; Knitwear
             </a>
         </div>
     </div>
@@ -141,7 +145,7 @@
     <div class="container mt-4">
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show border-0 rounded-4 d-flex align-items-center surface-ivory p-3" role="alert">
-                <i class="bi bi-check-circle-fill me-2 fs-5" style="color: var(--bali-tan);"></i>
+                <i class="bi bi-check-circle-fill fs-5" style="color: var(--bali-tan);"></i>
                 <div style="color: var(--bali-espresso);">{{ session('success') }}</div>
                 <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
             </div>
@@ -149,7 +153,7 @@
 
         @if(session('error'))
             <div class="alert alert-danger alert-dismissible fade show border-0 rounded-4 d-flex align-items-center p-3" style="background-color: #FAF0F0; border: 1px solid #E8C1C1 !important;" role="alert">
-                <i class="bi bi-exclamation-triangle-fill me-2 fs-5 text-danger"></i>
+                <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
                 <div class="text-danger">{{ session('error') }}</div>
                 <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
             </div>
@@ -173,16 +177,17 @@
                         <h5 class="fw-bold mb-0 text-white" style="letter-spacing: 0.12em; font-family: var(--font-serif);">Zahiyyah's Fit</h5>
                     </div>
                     <p class="small mb-3" style="color: #AFA29A; line-height: 1.8;">
-                        Butik busana modest &amp; island resort wear terinspirasi ketenangan pesisir Bali. Menghadirkan siluet anggun berbahan linen alami, sutra adem, dan jahitan presisi standar butik premium.
+                        Butik busana modest &amp; island resort wear terinspirasi ketenangan pesisir Bali. Menghadirkan siluet anggun berbahan linen alami, beach knitwear rajut halus putih kecoklatan, dan jahitan standar butik premium.
                     </p>
                     <div class="small" style="color: #EDE4D8;">
-                        <i class="bi bi-geo-alt me-1" style="color: var(--bali-tan);"></i> Seminyak &bull; Canggu &bull; Banda Aceh &bull; Indonesia
+                        <i class="bi bi-geo-alt" style="color: var(--bali-tan);"></i> Seminyak &bull; Canggu &bull; Banda Aceh &bull; Indonesia
                     </div>
                 </div>
 
                 <div class="col-lg-2 col-md-6">
                     <h6 class="text-white mb-3" style="font-family: var(--font-serif); font-size: 1.05rem;">Koleksi Pilihan</h6>
                     <ul class="list-unstyled small mb-0 d-flex flex-column gap-2">
+                        <li><a href="{{ route('shop.index', ['category' => 'outerwear-cardigan']) }}">Beach Knitwear Rajut</a></li>
                         <li><a href="{{ route('shop.index', ['category' => 'gamis-maxy-dress']) }}">Gamis Silk Abaya</a></li>
                         <li><a href="{{ route('shop.index', ['category' => 'blouse-tunik']) }}">Linen Coastal Blouse</a></li>
                         <li><a href="{{ route('shop.index', ['category' => 'celana-kulot']) }}">Highwaist Linen Kulot</a></li>
@@ -193,10 +198,10 @@
                 <div class="col-lg-3 col-md-6">
                     <h6 class="text-white mb-3" style="font-family: var(--font-serif); font-size: 1.05rem;">Standar Kualitas Butik</h6>
                     <ul class="list-unstyled small mb-0 d-flex flex-column gap-2" style="color: #AFA29A;">
-                        <li><i class="bi bi-check2 me-1" style="color: var(--bali-tan);"></i> 100% Breathable Natural Fabric</li>
-                        <li><i class="bi bi-check2 me-1" style="color: var(--bali-tan);"></i> Jahitan Halus &amp; Rapi Modest Cut</li>
-                        <li><i class="bi bi-check2 me-1" style="color: var(--bali-tan);"></i> Pengiriman Cepat ke Seluruh Nusantara</li>
-                        <li><i class="bi bi-check2 me-1" style="color: var(--bali-tan);"></i> Layanan Konsultasi Busana 24/7</li>
+                        <li><i class="bi bi-check2" style="color: var(--bali-tan);"></i> 100% Breathable Natural Fabric</li>
+                        <li><i class="bi bi-check2" style="color: var(--bali-tan);"></i> Rajut Halus &amp; Modest Coastal Cut</li>
+                        <li><i class="bi bi-check2" style="color: var(--bali-tan);"></i> Pengiriman Cepat ke Seluruh Nusantara</li>
+                        <li><i class="bi bi-check2" style="color: var(--bali-tan);"></i> Layanan Konsultasi Busana 24/7</li>
                     </ul>
                 </div>
 
@@ -220,7 +225,7 @@
                 <div class="d-flex align-items-center gap-3">
                     <span>Project UTS Web Programming 2</span>
                     <a href="{{ route('portal.login') }}" style="color: #AFA29A;" class="text-decoration-none">
-                        <i class="bi bi-shield-lock me-1"></i> Portal Staff
+                        <i class="bi bi-shield-lock"></i> Portal Staff
                     </a>
                 </div>
             </div>
