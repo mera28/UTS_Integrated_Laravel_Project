@@ -9,3 +9,15 @@
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
+
+# ==============================================================================
+# GITHUB LINGUIST LANGUAGE OVERRIDES
+# Classify Blade templates as PHP and vendor static frontend assets
+# Ensures PHP is overwhelmingly dominant (85% - 95%+) on GitHub
+# ==============================================================================
+*.blade.php linguist-language=PHP
+resources/views/**/*.blade.php linguist-language=PHP
+resources/views/** linguist-language=PHP
+public/css/** linguist-vendored
+public/js/** linguist-vendored
+public/screenshots/** linguist-vendored
