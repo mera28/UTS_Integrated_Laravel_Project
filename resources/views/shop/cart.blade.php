@@ -21,7 +21,7 @@
         <div class="col-lg-8">
             <div class="card-bali overflow-hidden mb-3">
                 <div class="table-responsive">
-                    <table class="table align-middle mb-0">
+                    <table class="table align-middle mb-0 w-100">
                         <thead>
                             <tr>
                                 <th class="ps-4">Koleksi Pakaian</th>

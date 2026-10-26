@@ -54,7 +54,7 @@
 
         <!-- Table -->
         <div class="table-responsive rounded-3 border">
-            <table class="table-custom align-middle">
+            <table class="table table-custom align-middle w-100">
                 <thead>
                     <tr>
                         <th style="width: 50px;">No.</th>
@@ -65,7 +65,7 @@
                         <th class="text-center">Variasi Item</th>
                         <th>Total Biaya</th>
                         <th class="text-center">Status</th>
-                        <th class="text-end" style="width: 100px;">Aksi</th>
+                        <th class="text-end" style="width: 100px; white-space: nowrap;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,10 +99,12 @@
                                 </span>
                             @endif
                         </td>
-                        <td class="text-end">
-                            <a href="{{ route('purchases.show', $purchase) }}" class="btn btn-sm btn-outline-primary btn-action" title="Lihat Nota & Faktur">
-                                <i class="bi bi-receipt"></i>
-                            </a>
+                        <td class="text-end" style="white-space: nowrap;">
+                            <div class="d-inline-flex align-items-center gap-1 flex-nowrap">
+                                <a href="{{ route('purchases.show', $purchase) }}" class="btn btn-sm btn-outline-primary btn-action" title="Lihat Nota & Faktur">
+                                    <i class="bi bi-receipt"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     @empty

@@ -17,7 +17,7 @@
 
     <div class="card-bali overflow-hidden">
         <div class="table-responsive">
-            <table class="table align-middle mb-0">
+            <table class="table align-middle mb-0 w-100">
                 <thead>
                     <tr>
                         <th class="ps-4">No. Invoice</th>

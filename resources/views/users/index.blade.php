@@ -39,7 +39,7 @@
         </form>
 
         <div class="table-responsive rounded-3 border">
-            <table class="table-custom align-middle">
+            <table class="table table-custom align-middle w-100">
                 <thead>
                     <tr>
                         <th style="width: 50px;">No.</th>
@@ -48,7 +48,7 @@
                         <th class="text-center">Role / Hak Akses</th>
                         <th>Telepon / WA</th>
                         <th>Terdaftar Sejak</th>
-                        <th class="text-end" style="width: 120px;">Aksi</th>
+                        <th class="text-end" style="width: 120px; white-space: nowrap;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,24 +73,26 @@
                         </td>
                         <td>{{ $u->phone ?: '-' }}</td>
                         <td class="text-muted small">{{ $u->created_at->format('d M Y') }}</td>
-                        <td class="text-end">
-                            <a href="{{ route('users.edit', $u) }}" class="btn btn-sm btn-outline-primary btn-action me-1" title="Edit">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                            @if($u->id !== auth()->id())
-                                <button type="button" class="btn btn-sm btn-outline-danger btn-action" title="Hapus" 
-                                        onclick="confirmDelete('del-user-{{ $u->id }}', '{{ $u->name }}')">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                                <form id="del-user-{{ $u->id }}" action="{{ route('users.destroy', $u) }}" method="POST" class="d-none">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
-                            @else
-                                <button class="btn btn-sm btn-light btn-action disabled text-muted" title="Tidak dapat menghapus diri sendiri">
-                                    <i class="bi bi-lock"></i>
-                                </button>
-                            @endif
+                        <td class="text-end" style="white-space: nowrap;">
+                            <div class="d-inline-flex align-items-center gap-1 flex-nowrap">
+                                <a href="{{ route('users.edit', $u) }}" class="btn btn-sm btn-outline-primary btn-action" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                @if($u->id !== auth()->id())
+                                    <button type="button" class="btn btn-sm btn-outline-danger btn-action" title="Hapus" 
+                                            onclick="confirmDelete('del-user-{{ $u->id }}', '{{ $u->name }}')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <form id="del-user-{{ $u->id }}" action="{{ route('users.destroy', $u) }}" method="POST" class="d-none">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @else
+                                    <button class="btn btn-sm btn-light btn-action disabled text-muted" title="Tidak dapat menghapus diri sendiri">
+                                        <i class="bi bi-lock"></i>
+                                    </button>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                     @empty

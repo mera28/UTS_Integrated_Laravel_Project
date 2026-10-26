@@ -78,7 +78,7 @@
 
                 <!-- Items Table -->
                 <div class="table-responsive rounded-3 border mb-4" style="border-color: var(--bali-border) !important;">
-                    <table class="table align-middle mb-0 small">
+                    <table class="table align-middle mb-0 small w-100">
                         <thead>
                             <tr>
                                 <th class="ps-3" style="width: 50px;">No.</th>

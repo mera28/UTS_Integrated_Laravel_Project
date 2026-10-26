@@ -57,7 +57,7 @@
 
         <!-- Product Table -->
         <div class="table-responsive rounded-3 border">
-            <table class="table-custom align-middle">
+            <table class="table table-custom align-middle w-100">
                 <thead>
                     <tr>
                         <th style="width: 50px;">No.</th>
@@ -67,7 +67,7 @@
                         <th>Harga Modal</th>
                         <th>Harga Jual</th>
                         <th class="text-center">Sisa Stok</th>
-                        <th class="text-end" style="width: 140px;">Aksi</th>
+                        <th class="text-end" style="width: 140px; white-space: nowrap;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -94,23 +94,25 @@
                             {!! \App\Support\FormatHelper::stockBadge($product->stock, $product->minimum_stock) !!}
                             <div class="small text-muted mt-1" style="font-size: 0.72rem;">Min: {{ $product->minimum_stock }} pcs</div>
                         </td>
-                        <td class="text-end">
-                            <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-info btn-action me-1" title="Detail">
-                                <i class="bi bi-eye"></i>
-                            </a>
-                            @if(auth()->user()->isAdmin())
-                                <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-outline-primary btn-action me-1" title="Edit">
-                                    <i class="bi bi-pencil"></i>
+                        <td class="text-end" style="white-space: nowrap;">
+                            <div class="d-inline-flex align-items-center gap-1 flex-nowrap">
+                                <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-info btn-action" title="Detail">
+                                    <i class="bi bi-eye"></i>
                                 </a>
-                                <button type="button" class="btn btn-sm btn-outline-danger btn-action" title="Hapus (Soft Delete)"
-                                        onclick="confirmDelete('del-prod-{{ $product->id }}', '{{ $product->name }}')">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                                <form id="del-prod-{{ $product->id }}" action="{{ route('products.destroy', $product) }}" method="POST" class="d-none">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
-                            @endif
+                                @if(auth()->user()->isAdmin())
+                                    <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-outline-primary btn-action" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-outline-danger btn-action" title="Hapus (Soft Delete)"
+                                            onclick="confirmDelete('del-prod-{{ $product->id }}', '{{ $product->name }}')">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <form id="del-prod-{{ $product->id }}" action="{{ route('products.destroy', $product) }}" method="POST" class="d-none">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                     @empty

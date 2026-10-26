@@ -41,7 +41,7 @@
                     @enderror
 
                     <div class="table-responsive rounded-3 border">
-                        <table class="table-custom align-middle mb-0" id="saleItemsTable">
+                        <table class="table table-custom align-middle mb-0 w-100" id="saleItemsTable">
                             <thead>
                                 <tr>
                                     <th style="width: 40px;" class="text-center">No</th>

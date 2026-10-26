@@ -92,7 +92,7 @@
                 </a>
             </div>
             <div class="table-responsive">
-                <table class="table align-middle">
+                <table class="table align-middle w-100">
                     <thead>
                         <tr>
                             <th>No. Nota</th>
@@ -149,7 +149,7 @@
                 </a>
             </div>
             <div class="table-responsive">
-                <table class="table align-middle">
+                <table class="table align-middle w-100">
                     <thead>
                         <tr>
                             <th>No. PO</th>
@@ -223,7 +223,7 @@
                                     <span class="text-muted font-monospace" style="font-size: 0.72rem;">{{ $prod->sku }} &bull; Min: {{ $prod->minimum_stock }} pcs</span>
                                 </div>
                                 <div class="text-end">
-                                    <span class="badge {{ $prod->stock <= 0 ? 'bg-danger' : 'bg-warning text-dark' }} rounded-pill px-2 py-1 small">
+                                    <span class="badge {{ $prod->stock <= 0 ? 'badge-stock-empty' : 'badge-stock-low' }} rounded-pill px-2 py-1 small">
                                         {{ $prod->stock }} pcs
                                     </span>
                                     <div class="mt-1">

@@ -65,14 +65,14 @@ class FormatHelper
     public static function stockBadge(int $stock, int $minimumStock = 5): string
     {
         if ($stock <= 0) {
-            return '<span class="badge badge-stock-empty px-2 py-1"><i class="bi bi-x-circle me-1"></i> Habis (0)</span>';
+            return '<span class="badge badge-stock-empty fw-bold px-2 py-1"><i class="bi bi-x-circle me-1"></i> Habis (0)</span>';
         }
 
         if ($stock <= $minimumStock) {
-            return '<span class="badge badge-stock-low px-2 py-1"><i class="bi bi-exclamation-triangle me-1"></i> Menipis (' . $stock . ' pcs)</span>';
+            return '<span class="badge badge-stock-low fw-bold px-2 py-1"><i class="bi bi-exclamation-triangle me-1"></i> Menipis (' . $stock . ' pcs)</span>';
         }
 
-        return '<span class="badge badge-stock-normal px-2 py-1"><i class="bi bi-check-circle me-1"></i> Tersedia (' . $stock . ' pcs)</span>';
+        return '<span class="badge badge-stock-normal fw-bold px-2 py-1"><i class="bi bi-check-circle me-1"></i> Tersedia (' . $stock . ' pcs)</span>';
     }
 
     /**

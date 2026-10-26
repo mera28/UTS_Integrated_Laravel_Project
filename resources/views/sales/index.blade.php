@@ -66,7 +66,7 @@
 
         <!-- Table -->
         <div class="table-responsive rounded-3 border">
-            <table class="table-custom align-middle">
+            <table class="table table-custom align-middle w-100">
                 <thead>
                     <tr>
                         <th style="width: 50px;">No.</th>
@@ -77,7 +77,7 @@
                         <th>Total Pembayaran</th>
                         <th>Metode Bayar</th>
                         <th class="text-center">Status Bayar</th>
-                        <th class="text-end" style="width: 100px;">Aksi</th>
+                        <th class="text-end" style="width: 100px; white-space: nowrap;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -115,10 +115,12 @@
                                 <span class="badge bg-warning bg-opacity-10 text-warning border border-warning px-2 py-1">Belum Bayar</span>
                             @endif
                         </td>
-                        <td class="text-end">
-                            <a href="{{ route('sales.show', $sale) }}" class="btn btn-sm btn-outline-primary btn-action" title="Lihat Invoice">
-                                <i class="bi bi-receipt"></i>
-                            </a>
+                        <td class="text-end" style="white-space: nowrap;">
+                            <div class="d-inline-flex align-items-center gap-1 flex-nowrap">
+                                <a href="{{ route('sales.show', $sale) }}" class="btn btn-sm btn-outline-primary btn-action" title="Lihat Invoice">
+                                    <i class="bi bi-receipt"></i>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     @empty

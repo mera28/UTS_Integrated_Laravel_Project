@@ -33,7 +33,7 @@
         </form>
 
         <div class="table-responsive rounded-3 border">
-            <table class="table-custom align-middle">
+            <table class="table table-custom align-middle w-100">
                 <thead>
                     <tr>
                         <th style="width: 60px;">No.</th>
@@ -41,7 +41,7 @@
                         <th>Slug URL</th>
                         <th>Deskripsi</th>
                         <th class="text-center">Jumlah Produk</th>
-                        <th class="text-end" style="width: 120px;">Aksi</th>
+                        <th class="text-end" style="width: 120px; white-space: nowrap;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,18 +54,20 @@
                         <td class="text-center">
                             <span class="badge bg-light text-dark border px-2 py-1">{{ $category->products_count }} item</span>
                         </td>
-                        <td class="text-end">
-                            <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-outline-primary btn-action me-1" title="Edit">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                            <button type="button" class="btn btn-sm btn-outline-danger btn-action" title="Hapus" 
-                                    onclick="confirmDelete('del-cat-{{ $category->id }}', '{{ $category->name }}')">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                            <form id="del-cat-{{ $category->id }}" action="{{ route('categories.destroy', $category) }}" method="POST" class="d-none">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+                        <td class="text-end" style="white-space: nowrap;">
+                            <div class="d-inline-flex align-items-center gap-1 flex-nowrap">
+                                <a href="{{ route('categories.edit', $category) }}" class="btn btn-sm btn-outline-primary btn-action" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-outline-danger btn-action" title="Hapus" 
+                                        onclick="confirmDelete('del-cat-{{ $category->id }}', '{{ $category->name }}')">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                                <form id="del-cat-{{ $category->id }}" action="{{ route('categories.destroy', $category) }}" method="POST" class="d-none">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     @empty

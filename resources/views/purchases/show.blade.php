@@ -88,7 +88,7 @@
 
             <!-- Items Table -->
             <div class="table-responsive rounded-3 border mb-4">
-                <table class="table-custom align-middle mb-0">
+                <table class="table table-custom align-middle mb-0 w-100">
                     <thead>
                         <tr>
                             <th style="width: 50px;">No.</th>

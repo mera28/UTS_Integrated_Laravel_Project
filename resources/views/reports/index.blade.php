@@ -170,7 +170,7 @@
     @if($reportType === 'purchases')
         <!-- PURCHASES TABLE -->
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle mb-0 w-100">
                 <thead class="table-light small text-uppercase">
                     <tr>
                         <th>No. Pembelian</th>
@@ -179,7 +179,7 @@
                         <th>Operator</th>
                         <th>Status</th>
                         <th class="text-end">Total Biaya</th>
-                        <th class="text-end">Aksi</th>
+                        <th class="text-end" style="white-space: nowrap;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -208,10 +208,12 @@
                             <td class="text-end fw-bold text-dark">
                                 {{ \App\Support\FormatHelper::rupiah($purchase->total) }}
                             </td>
-                            <td class="text-end">
-                                <a href="{{ route('purchases.show', $purchase) }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
-                                    Detail
-                                </a>
+                            <td class="text-end" style="white-space: nowrap;">
+                                <div class="d-inline-flex align-items-center gap-1 flex-nowrap">
+                                    <a href="{{ route('purchases.show', $purchase) }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                                        Detail
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     @empty
@@ -225,7 +227,7 @@
     @elseif($reportType === 'stock')
         <!-- STOCK VALUATION TABLE -->
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle mb-0 w-100">
                 <thead class="table-light small text-uppercase">
                     <tr>
                         <th>SKU</th>
@@ -272,7 +274,7 @@
     @else
         <!-- SALES TABLE -->
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle mb-0 w-100">
                 <thead class="table-light small text-uppercase">
                     <tr>
                         <th>No. Nota</th>
@@ -282,7 +284,7 @@
                         <th>Status</th>
                         <th>Pembayaran</th>
                         <th class="text-end">Total Tagihan</th>
-                        <th class="text-end">Aksi</th>
+                        <th class="text-end" style="white-space: nowrap;">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -322,10 +324,12 @@
                             <td class="text-end fw-bold text-dark">
                                 {{ \App\Support\FormatHelper::rupiah($sale->total) }}
                             </td>
-                            <td class="text-end">
-                                <a href="{{ route('sales.show', $sale) }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
-                                    Invoice
-                                </a>
+                            <td class="text-end" style="white-space: nowrap;">
+                                <div class="d-inline-flex align-items-center gap-1 flex-nowrap">
+                                    <a href="{{ route('sales.show', $sale) }}" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+                                        Invoice
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     @empty

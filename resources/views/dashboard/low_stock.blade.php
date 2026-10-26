@@ -90,7 +90,7 @@
         </div>
     @else
         <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
+            <table class="table table-hover align-middle mb-0 w-100">
                 <thead class="table-light text-uppercase small">
                     <tr>
                         <th>#</th>
@@ -145,11 +145,11 @@
                             </td>
                             <td class="text-center">
                                 @if($isOut)
-                                    <span class="badge bg-danger rounded-pill px-3 py-1">
+                                    <span class="badge badge-stock-empty rounded-pill px-3 py-1">
                                         <i class="bi bi-x-octagon-fill me-1"></i> Habis
                                     </span>
                                 @else
-                                    <span class="badge bg-warning text-dark rounded-pill px-3 py-1">
+                                    <span class="badge badge-stock-low rounded-pill px-3 py-1">
                                         <i class="bi bi-exclamation-triangle-fill me-1"></i> Menipis
                                     </span>
                                 @endif
