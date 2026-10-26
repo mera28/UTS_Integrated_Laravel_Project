@@ -126,33 +126,6 @@
                 </div>
             @endif
 
-            <!-- Quick 1-Click Login Box for Admin & Staff -->
-            <div class="demo-portal-box p-3 mb-4 rounded-4" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.12);">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="small fw-bold text-white"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Akses Cepat Sekali Klik:</span>
-                    <span class="badge bg-success bg-opacity-25 text-success border border-success" style="font-size: 0.7rem;">Auto-Fill &amp; Direct Login</span>
-                </div>
-                <div class="d-flex flex-column gap-2 mb-2">
-                    <button type="button" class="btn btn-outline-danger w-100 rounded-3 text-start p-2 p-md-3" onclick="quickLogin('admin@zahiyyah.com', 'password')">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span class="fw-bold text-white"><i class="bi bi-shield-lock-fill text-danger me-1"></i> Masuk Cepat sebagai Admin Owner</span>
-                            <span class="badge bg-danger">1-Klik &rarr;</span>
-                        </div>
-                        <div class="text-secondary small" style="font-size: 0.75rem;">admin@zahiyyah.com &bull; Pass: <code>password</code></div>
-                    </button>
-                    <button type="button" class="btn btn-outline-info w-100 rounded-3 text-start p-2 p-md-3" onclick="quickLogin('staff@zahiyyah.com', 'password')">
-                        <div class="d-flex align-items-center justify-content-between mb-1">
-                            <span class="fw-bold text-white"><i class="bi bi-person-badge-fill text-info me-1"></i> Masuk Cepat sebagai Staff</span>
-                            <span class="badge bg-info text-dark">1-Klik &rarr;</span>
-                        </div>
-                        <div class="text-secondary small" style="font-size: 0.75rem;">staff@zahiyyah.com &bull; Pass: <code>password</code></div>
-                    </button>
-                </div>
-                <div class="text-center text-muted" style="font-size: 0.72rem;">
-                    Atau ketik kredensial manual pada form berikut:
-                </div>
-            </div>
-
             <!-- Login Form -->
             <form id="portalLoginForm" action="{{ route('portal.login') }}" method="POST">
                 @csrf
@@ -160,7 +133,7 @@
                     <label for="email" class="form-label small fw-semibold text-secondary">Email Petugas</label>
                     <div class="input-group">
                         <span class="input-group-text input-group-text-dark border-end-0"><i class="bi bi-envelope"></i></span>
-                        <input type="email" class="form-control form-control-dark @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="admin@zahiyyah.com" required autofocus>
+                        <input type="email" class="form-control form-control-dark @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="petugas@zahiyyah.com" required autofocus>
                     </div>
                     @error('email')
                         <div class="text-danger small mt-1">{{ $message }}</div>
@@ -215,17 +188,6 @@
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function quickLogin(email, password) {
-            document.getElementById('email').value = email;
-            document.getElementById('password').value = password;
-            document.getElementById('portalLoginForm').submit();
-        }
-
-        function fillCredentials(email, password) {
-            document.getElementById('email').value = email;
-            document.getElementById('password').value = password;
-        }
-
         function togglePassword() {
             const passInput = document.getElementById('password');
             const icon = document.getElementById('toggleIcon');

@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $admin = User::create([
             'name' => 'Zahiyyah Owner',
             'email' => 'admin@zahiyyah.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('AdminZahiyyah#2026'),
             'role' => 'admin',
             'phone' => '08111222333',
             'address' => 'Jl. Daud Beureueh No. 10, Banda Aceh',
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         $staff = User::create([
             'name' => 'Nadia Staff',
             'email' => 'staff@zahiyyah.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('StaffGudang#2026'),
             'role' => 'staff',
             'phone' => '08222333444',
             'address' => 'Jl. Panglima Polem No. 15, Banda Aceh',
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
         $customer = User::create([
             'name' => 'Alya Customer',
             'email' => 'customer@zahiyyah.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('Customer#2026'),
             'role' => 'customer',
             'phone' => '081234567890',
             'address' => 'Jl. Teuku Umar No. 28, Banda Aceh',

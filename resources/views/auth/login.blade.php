@@ -187,17 +187,6 @@
                 <span>atau masuk dengan email</span>
             </div>
 
-            <!-- Quick Demo Customer Fill -->
-            <div class="p-3 rounded-3 mb-3 surface-sand d-flex align-items-center justify-content-between">
-                <div>
-                    <span class="small fw-bold d-block" style="color: var(--bali-espresso);">Demo Akun Pelanggan:</span>
-                    <span class="small font-monospace" style="font-size: 0.75rem; color: var(--bali-muted);">customer@zahiyyah.com</span>
-                </div>
-                <button type="button" class="btn btn-sand btn-sm px-3" style="font-size: 0.75rem;" onclick="fillCredentials('customer@zahiyyah.com', 'password')">
-                    <i class="bi bi-lightning me-1"></i> Quick Fill
-                </button>
-            </div>
-
             <!-- Login Form -->
             <form action="{{ route('login') }}" method="POST">
                 @csrf
@@ -263,11 +252,6 @@
     <!-- Bootstrap 5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function fillCredentials(email, password) {
-            document.getElementById('email').value = email;
-            document.getElementById('password').value = password;
-        }
-
         function togglePassword() {
             const passInput = document.getElementById('password');
             const icon = document.getElementById('toggleIcon');

@@ -125,21 +125,18 @@ Akses aplikasi melalui browser: **`http://127.0.0.1:8000`**
 
 ## 6. Demo Account
 
-Aplikasi memisahkan portal login antara tim internal butik dengan pelanggan publik untuk menjamin keamanan dan kenyamanan navigasi:
+Aplikasi memisahkan portal login antara tim internal backoffice butik dengan pelanggan publik untuk menjamin keamanan, kenyamanan navigasi, dan integritas data produksi:
 
 | Peran (Role) | Email | Password | Halaman Login | Hak Akses Utama |
 | :--- | :--- | :--- | :--- | :--- |
-| **Admin (Owner Butik)** | `admin@zahiyyah.com` | `password` | [`/portal/login`](http://127.0.0.1:8000/portal/login) | Akses Penuh: Dashboard Analitik, Master Data CRUD, Pembatalan Transaksi, Restorasi Stok Fisik, Manajemen User, Laporan Finansial. |
-| **Staff (Kasir / Gudang)** | `staff@zahiyyah.com` | `password` | [`/portal/login`](http://127.0.0.1:8000/portal/login) | Operasional: Input Pembelian Stok Masuk (Stock-In), Kasir POS Multi-Item, Monitor Stok Rendah, Cetak Nota, Laporan Transaksi. |
-| **Customer (Pelanggan)** | `customer@zahiyyah.com` | `password` | [`/login`](http://127.0.0.1:8000/login) | Belanja E-Commerce (`/shop`), Keranjang Belanja, Checkout Pengiriman, Simulasi Payment Gateway, Riwayat Pesanan & Invoice Digital. |
+| **Admin (Owner Butik)** | `admin@zahiyyah.com` | `AdminZahiyyah#2026` | [`/portal/login`](http://127.0.0.1:8000/portal/login) | Akses Penuh: Dashboard Analitik, Master Data CRUD, Pembatalan Transaksi, Restorasi Stok Fisik, Manajemen User, Laporan Finansial. |
+| **Staff (Kasir / Gudang)** | `staff@zahiyyah.com` | `StaffGudang#2026` | [`/portal/login`](http://127.0.0.1:8000/portal/login) | Operasional: Input Pembelian Stok Masuk (Stock-In), Kasir POS Multi-Item, Monitor Stok Rendah, Cetak Nota, Laporan Transaksi. |
+| **Customer (Pelanggan)** | `customer@zahiyyah.com` | `Customer#2026` | [`/login`](http://127.0.0.1:8000/login) | Belanja E-Commerce (`/shop`), Keranjang Belanja, Checkout Pengiriman, Simulasi Payment Gateway, Riwayat Pesanan & Invoice Digital. |
 
-### Fitur Instant Demo Login (1-Klik Tanpa Mengetik):
-- Pada halaman [`/portal/login`](http://127.0.0.1:8000/portal/login) tersedia tombol cepat:
-  * **"Masuk sebagai Admin"** (Otomatis login sebagai Owner)
-  * **"Masuk sebagai Staff"** (Otomatis login sebagai Kasir)
-- Pada halaman [`/login`](http://127.0.0.1:8000/login) tersedia:
-  * Tombol **"Continue with Google"** (Masuk instan via simulasi akun Google: `Alya Zahiyyah` atau `Siti Rahma` atau masukkan akun Google kustom).
-  * Tombol **"Quick Demo: Masuk Akun Customer"**.
+> **Catatan Keamanan & Hak Akses Produksi**:
+> - Seluruh bocoran password dan tombol auto-login / quick-fill telah **dihapus total dari antarmuka login** demi memenuhi standar keamanan sistem produksi.
+> - Password setiap role dibedakan secara unik agar staf kasir/gudang tidak dapat menyalahgunakan hak akses administratif milik Owner.
+> - Pada halaman login pelanggan (`/login`), tersedia opsi cepat yang aman via **"Continue with Google"** (OAuth terintegrasi) di samping login manual menggunakan email dan kata sandi di atas.
 
 ---
 
