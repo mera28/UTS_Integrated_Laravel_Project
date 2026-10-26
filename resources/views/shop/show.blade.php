@@ -87,10 +87,13 @@
                         $sizes = $product->size ? explode(',', $product->size) : ['All Size'];
                     @endphp
                     <div class="mb-3">
-                        <label class="form-label-custom d-block">Pilihan Ukuran Modest:</label>
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="form-label-custom mb-0 fw-bold"><i class="bi bi-rulers me-1" style="color: var(--bali-tan);"></i> Pilihan Ukuran (Size):</label>
+                            <span class="small fw-semibold" id="showPageSizeLabel" style="font-size: 0.78rem; color: var(--bali-tan-dark);">Terpilih: {{ trim($sizes[0]) }}</span>
+                        </div>
                         <div class="d-flex flex-wrap gap-2">
                             @foreach($sizes as $idx => $s)
-                                <input type="radio" class="btn-check" name="size" id="size_{{ $idx }}" value="{{ trim($s) }}" {{ $idx == 0 ? 'checked' : '' }}>
+                                <input type="radio" class="btn-check" name="size" id="size_{{ $idx }}" value="{{ trim($s) }}" {{ $idx == 0 ? 'checked' : '' }} required onchange="document.getElementById('showPageSizeLabel').textContent = 'Terpilih: ' + this.value">
                                 <label class="btn btn-outline-brand btn-sm px-3 py-1" for="size_{{ $idx }}">{{ trim($s) }}</label>
                             @endforeach
                         </div>
@@ -101,10 +104,13 @@
                         $colors = $product->color ? explode(',', $product->color) : ['Standar'];
                     @endphp
                     <div class="mb-4">
-                        <label class="form-label-custom d-block">Pilihan Warna Natural:</label>
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="form-label-custom mb-0 fw-bold"><i class="bi bi-palette me-1" style="color: var(--bali-tan);"></i> Pilihan Warna (Color):</label>
+                            <span class="small fw-semibold" id="showPageColorLabel" style="font-size: 0.78rem; color: var(--bali-tan-dark);">Terpilih: {{ trim($colors[0]) }}</span>
+                        </div>
                         <div class="d-flex flex-wrap gap-2">
                             @foreach($colors as $cIdx => $c)
-                                <input type="radio" class="btn-check" name="color" id="color_{{ $cIdx }}" value="{{ trim($c) }}" {{ $cIdx == 0 ? 'checked' : '' }}>
+                                <input type="radio" class="btn-check" name="color" id="color_{{ $cIdx }}" value="{{ trim($c) }}" {{ $cIdx == 0 ? 'checked' : '' }} required onchange="document.getElementById('showPageColorLabel').textContent = 'Terpilih: ' + this.value">
                                 <label class="btn btn-outline-brand btn-sm px-3 py-1" for="color_{{ $cIdx }}">{{ trim($c) }}</label>
                             @endforeach
                         </div>

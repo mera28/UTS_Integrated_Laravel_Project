@@ -202,4 +202,48 @@ class EcommercePaymentGatewayTest extends TestCase
         $response->assertSee('INV-ECOM-001');
         $response->assertSee('QRIS');
     }
+
+    /**
+     * Test size and color selection separates cart items and persists to sale items.
+     */
+    public function test_size_and_color_selection_creates_distinct_cart_items_and_persists_to_sale_items(): void
+    {
+        // 1. Add size S / Broken White
+        $this->actingAs($this->customer)->post(route('cart.add', $this->product), [
+            'size' => 'S',
+            'color' => 'Broken White',
+            'quantity' => 1,
+        ]);
+
+        // 2. Add size XL / Dusty Rose of same product
+        $this->actingAs($this->customer)->post(route('cart.add', $this->product), [
+            'size' => 'XL',
+            'color' => 'Dusty Rose',
+            'quantity' => 1,
+        ]);
+
+        $cartService = app(\App\Services\CartService::class);
+        $cart = $cartService->getCart();
+        $this->assertCount(2, $cart);
+
+        // 3. Checkout and verify sale_items has both variants recorded
+        $this->actingAs($this->customer)->post(route('checkout.process'), [
+            'customer_name' => 'Aisyah Putri',
+            'customer_phone' => '081299998888',
+            'shipping_address' => 'Jl. Canggu No. 10, Bali',
+            'payment_method' => 'qris',
+        ]);
+
+        $sale = Sale::where('customer_name', 'Aisyah Putri')->latest()->first();
+        $this->assertNotNull($sale);
+        $this->assertCount(2, $sale->items);
+
+        $firstItem = $sale->items->where('selected_size', 'S')->first();
+        $this->assertNotNull($firstItem);
+        $this->assertEquals('Broken White', $firstItem->selected_color);
+
+        $secondItem = $sale->items->where('selected_size', 'XL')->first();
+        $this->assertNotNull($secondItem);
+        $this->assertEquals('Dusty Rose', $secondItem->selected_color);
+    }
 }

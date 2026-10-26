@@ -159,9 +159,13 @@
                                  class="rounded-3 object-fit-cover" 
                                  style="width: 50px; height: 50px; border: 1px solid var(--bali-border);" 
                                  alt="{{ $item['name'] }}">
-                            <div class="flex-grow-1">
+                            <div class="flex-grow-1 min-w-0">
                                 <h6 class="fw-semibold mb-0 text-dark small text-truncate" style="max-width: 170px;">{{ $item['name'] }}</h6>
-                                <span class="text-muted" style="font-size: 0.72rem;">{{ $item['size'] }} | {{ $item['color'] }} &times; {{ $item['quantity'] }}</span>
+                                <div class="d-flex flex-wrap gap-1 mt-1">
+                                    <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border); font-size: 0.68rem;">Ukuran: {{ $item['size'] }}</span>
+                                    <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border); font-size: 0.68rem;">Warna: {{ $item['color'] }}</span>
+                                    <span class="badge bg-white text-muted border" style="font-size: 0.68rem;">&times; {{ $item['quantity'] }} pcs</span>
+                                </div>
                             </div>
                             <span class="fw-bold text-dark small">{{ \App\Support\FormatHelper::rupiah($item['subtotal']) }}</span>
                         </div>

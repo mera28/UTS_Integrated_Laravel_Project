@@ -22,6 +22,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('saleItemsTable')) {
         calculateSaleTotals();
     }
+
+    // Auto initialize Quick Select Variant Modal (Size & Color) for Shop
+    initQuickSelectModal();
 });
 
 /**
@@ -351,5 +354,131 @@ function calculateSaleTotals() {
             changeAmountEl.classList.remove('text-success');
             changeAmountEl.classList.add('text-danger');
         }
+    }
+}
+
+/**
+ * Customer E-Commerce: Quick-Select Variant Modal (Size & Color) before adding to cart
+ */
+function initQuickSelectModal() {
+    const modalEl = document.getElementById('quickSelectModal');
+    if (!modalEl) return;
+
+    document.querySelectorAll('.btn-quick-select').forEach(function (button) {
+        button.addEventListener('click', function () {
+            const form = document.getElementById('quickSelectForm');
+            const img = document.getElementById('modalProductImage');
+            const name = document.getElementById('modalProductName');
+            const category = document.getElementById('modalProductCategory');
+            const price = document.getElementById('modalProductPrice');
+            const stockBadge = document.getElementById('modalProductStockBadge');
+            const stockHelper = document.getElementById('modalStockHelper');
+            const qtyInput = document.getElementById('modalQtyInput');
+            const sizeContainer = document.getElementById('modalSizeContainer');
+            const colorContainer = document.getElementById('modalColorContainer');
+            const selectedSizeLabel = document.getElementById('selectedSizeLabel');
+            const selectedColorLabel = document.getElementById('selectedColorLabel');
+
+            if (form && button.dataset.action) form.action = button.dataset.action;
+            if (img) {
+                img.src = button.dataset.image;
+                img.alt = button.dataset.name;
+            }
+            if (name) {
+                name.textContent = button.dataset.name;
+                name.title = button.dataset.name;
+            }
+            if (category) category.textContent = button.dataset.category;
+            if (price) price.textContent = button.dataset.price;
+
+            const stock = parseInt(button.dataset.stock, 10) || 1;
+            if (stockBadge) {
+                stockBadge.innerHTML = '<i class="bi bi-check-circle me-1"></i> Ready ' + stock + ' pcs';
+            }
+            if (stockHelper) {
+                stockHelper.textContent = 'Maks: ' + stock + ' pcs';
+            }
+            if (qtyInput) {
+                qtyInput.value = 1;
+                qtyInput.max = stock;
+            }
+
+            // Populate Sizes
+            if (sizeContainer) {
+                sizeContainer.innerHTML = '';
+                const rawSizes = button.dataset.sizes || 'All Size';
+                const sizeList = rawSizes.split(',').map(function (s) { return s.trim(); }).filter(function (s) { return s.length > 0; });
+                if (sizeList.length === 0) sizeList.push('All Size');
+
+                sizeList.forEach(function (s, idx) {
+                    const radioId = 'modalSizeRadio_' + idx;
+                    const isChecked = idx === 0 ? 'checked' : '';
+
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'd-inline-block';
+                    wrapper.innerHTML = '<input type="radio" class="btn-check" name="size" id="' + radioId + '" value="' + s + '" ' + isChecked + ' required>' +
+                                        '<label class="btn btn-outline-brand btn-sm px-3 py-1" for="' + radioId + '">' + s + '</label>';
+                    sizeContainer.appendChild(wrapper);
+                });
+
+                if (selectedSizeLabel) {
+                    selectedSizeLabel.textContent = 'Terpilih: ' + sizeList[0];
+                }
+
+                sizeContainer.querySelectorAll('input[name="size"]').forEach(function (r) {
+                    r.addEventListener('change', function () {
+                        if (selectedSizeLabel) selectedSizeLabel.textContent = 'Terpilih: ' + this.value;
+                    });
+                });
+            }
+
+            // Populate Colors
+            if (colorContainer) {
+                colorContainer.innerHTML = '';
+                const rawColors = button.dataset.colors || 'Standar';
+                const colorList = rawColors.split(',').map(function (c) { return c.trim(); }).filter(function (c) { return c.length > 0; });
+                if (colorList.length === 0) colorList.push('Standar');
+
+                colorList.forEach(function (c, idx) {
+                    const radioId = 'modalColorRadio_' + idx;
+                    const isChecked = idx === 0 ? 'checked' : '';
+
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'd-inline-block';
+                    wrapper.innerHTML = '<input type="radio" class="btn-check" name="color" id="' + radioId + '" value="' + c + '" ' + isChecked + ' required>' +
+                                        '<label class="btn btn-outline-brand btn-sm px-3 py-1" for="' + radioId + '">' + c + '</label>';
+                    colorContainer.appendChild(wrapper);
+                });
+
+                if (selectedColorLabel) {
+                    selectedColorLabel.textContent = 'Terpilih: ' + colorList[0];
+                }
+
+                colorContainer.querySelectorAll('input[name="color"]').forEach(function (r) {
+                    r.addEventListener('change', function () {
+                        if (selectedColorLabel) selectedColorLabel.textContent = 'Terpilih: ' + this.value;
+                    });
+                });
+            }
+        });
+    });
+
+    const minusBtn = document.getElementById('modalQtyMinus');
+    const plusBtn = document.getElementById('modalQtyPlus');
+    const qtyInput = document.getElementById('modalQtyInput');
+
+    if (minusBtn && qtyInput) {
+        minusBtn.onclick = function () {
+            let val = parseInt(qtyInput.value, 10) || 1;
+            if (val > 1) qtyInput.value = val - 1;
+        };
+    }
+
+    if (plusBtn && qtyInput) {
+        plusBtn.onclick = function () {
+            let val = parseInt(qtyInput.value, 10) || 1;
+            let max = parseInt(qtyInput.max, 10) || 999;
+            if (val < max) qtyInput.value = val + 1;
+        };
     }
 }

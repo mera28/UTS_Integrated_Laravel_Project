@@ -28,11 +28,45 @@
 
                 <div class="p-4 p-md-5 bg-white">
                     <!-- Total Bill Box -->
-                    <div class="p-4 rounded-4 text-center mb-4 surface-ivory">
+                    <div class="p-4 rounded-4 text-center mb-3 surface-ivory">
                         <span class="small d-block mb-1 text-muted" style="font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;">Total Tagihan Busana:</span>
                         <h2 class="display-6 fw-extrabold mb-0" style="color: var(--bali-espresso); font-weight: 800; font-size: 2.2rem;">
                             {{ \App\Support\FormatHelper::rupiah($sale->total) }}
                         </h2>
+                    </div>
+
+                    <!-- Items Summary with Size and Color Badges -->
+                    <div class="rounded-4 p-3 mb-4 surface-ivory border text-start" style="border-color: var(--bali-border-light) !important;">
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="small fw-bold text-uppercase" style="letter-spacing: 0.05em; font-size: 0.75rem; color: var(--bali-taupe);">
+                                <i class="bi bi-bag-check me-1" style="color: var(--bali-tan);"></i> Rincian Pesanan ({{ $sale->items->count() }} item):
+                            </span>
+                            <span class="badge bg-white text-muted border" style="font-size: 0.7rem;">Inv: {{ $sale->sale_number }}</span>
+                        </div>
+                        <div class="d-flex flex-column gap-2">
+                            @foreach($sale->items as $item)
+                            <div class="d-flex align-items-center justify-content-between p-2 rounded-3 bg-white border" style="border-color: var(--bali-border-light) !important;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center text-white flex-shrink-0" style="width: 26px; height: 26px; background-color: var(--bali-tan); font-size: 0.75rem;">
+                                        {{ $loop->iteration }}
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 fw-semibold text-truncate small" style="color: var(--bali-espresso); max-width: 220px;">
+                                            {{ $item->product->name ?? 'Outfit' }}
+                                        </h6>
+                                        <div class="d-flex gap-1 mt-1">
+                                            <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border); font-size: 0.68rem;">Ukuran: {{ $item->selected_size ?: 'All Size' }}</span>
+                                            <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border); font-size: 0.68rem;">Warna: {{ $item->selected_color ?: 'Standar' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-end ps-2">
+                                    <span class="small text-muted d-block" style="font-size: 0.7rem;">{{ $item->quantity }} &times; {{ \App\Support\FormatHelper::rupiah($item->unit_price) }}</span>
+                                    <span class="fw-bold small" style="color: var(--bali-espresso);">{{ \App\Support\FormatHelper::rupiah($item->subtotal) }}</span>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
                     </div>
 
                     <!-- Payment Method Specific Box -->

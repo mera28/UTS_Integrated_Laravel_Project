@@ -11,7 +11,7 @@
     <!-- Bootstrap 5.3 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{{ asset('css/zahiyyah.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/zahiyyah.css') }}?v={{ time() }}">
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -127,18 +127,26 @@
             @endif
 
             <!-- Quick Demo Portal Buttons -->
-            <div class="demo-portal-box">
+            <div class="demo-portal-box p-3 mb-4 rounded-4" style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.12);">
                 <div class="d-flex align-items-center justify-content-between mb-2">
-                    <span class="small fw-bold text-white"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Quick Login Internal:</span>
-                    <span class="badge bg-secondary bg-opacity-25 text-white" style="font-size: 0.7rem;">Demo</span>
+                    <span class="small fw-bold text-white"><i class="bi bi-lightning-charge-fill text-warning"></i> Quick Fill Akses Internal:</span>
+                    <span class="badge bg-secondary bg-opacity-35 text-white" style="font-size: 0.7rem;">1-Klik Isi</span>
                 </div>
-                <div class="d-flex gap-2">
-                    <button type="button" class="btn btn-outline-danger btn-sm flex-fill rounded-pill" onclick="fillCredentials('admin@zahiyyah.com', 'password')">
-                        <i class="bi bi-shield-check me-1"></i> Admin Owner
-                    </button>
-                    <button type="button" class="btn btn-outline-info btn-sm flex-fill rounded-pill" onclick="fillCredentials('staff@zahiyyah.com', 'password')">
-                        <i class="bi bi-person-badge me-1"></i> Staff Kasir
-                    </button>
+                <div class="row g-2">
+                    <div class="col-6">
+                        <button type="button" class="btn btn-outline-danger btn-sm w-100 rounded-3 text-start p-2" onclick="fillCredentials('admin@zahiyyah.com', 'password')">
+                            <div class="fw-bold text-white small"><i class="bi bi-shield-lock-fill text-danger"></i> Admin / Owner</div>
+                            <div class="text-secondary" style="font-size: 0.72rem;">admin@zahiyyah.com</div>
+                            <div class="text-secondary" style="font-size: 0.68rem;">Pass: <code>password</code></div>
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-outline-info btn-sm w-100 rounded-3 text-start p-2" onclick="fillCredentials('staff@zahiyyah.com', 'password')">
+                            <div class="fw-bold text-white small"><i class="bi bi-person-badge-fill text-info"></i> Staff Kasir</div>
+                            <div class="text-secondary" style="font-size: 0.72rem;">staff@zahiyyah.com</div>
+                            <div class="text-secondary" style="font-size: 0.68rem;">Pass: <code>password</code></div>
+                        </button>
+                    </div>
                 </div>
             </div>
 

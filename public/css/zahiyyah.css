@@ -167,10 +167,31 @@ h1, h2, h3, h4, h5, .font-serif, .brand-font {
     color: #FFFFFF !important;
     font-size: 0.78rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 9px 0;
-    text-align: center;
+    padding: 8px 0;
+}
+
+.portal-link-promo {
+    color: #FFFFFF !important;
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    text-decoration: none !important;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.portal-link-promo:hover {
+    background: #FFFFFF !important;
+    color: #A67C52 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* ==========================================================================
@@ -484,6 +505,16 @@ h1, h2, h3, h4, h5, .font-serif, .brand-font {
     background-color: var(--bali-bg-linen) !important;
     color: var(--bali-tan-dark) !important;
     border-color: var(--bali-tan) !important;
+}
+
+/* Radio Checked State for Size & Color Variants */
+.btn-check:checked + .btn-outline-brand,
+.btn-check:checked + .btn-outline-bali {
+    background-color: #A67C52 !important;
+    color: #FFFFFF !important;
+    border-color: #A67C52 !important;
+    box-shadow: 0 3px 10px rgba(166, 124, 82, 0.32) !important;
+    font-weight: 600;
 }
 
 .btn-sand {

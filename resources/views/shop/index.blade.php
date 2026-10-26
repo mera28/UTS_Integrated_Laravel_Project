@@ -240,9 +240,33 @@
                                 </div>
                             </div>
 
-                            <a href="{{ route('shop.products.show', $product) }}" class="btn btn-sand w-100 py-2 d-flex align-items-center justify-content-center">
-                                <i class="bi bi-eye"></i> Lihat Koleksi
-                            </a>
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('shop.products.show', $product) }}" class="btn btn-outline-brand btn-sm flex-fill py-2 d-flex align-items-center justify-content-center">
+                                    <i class="bi bi-eye"></i> Detail
+                                </a>
+                                @if($product->stock > 0)
+                                    <button type="button" 
+                                            class="btn btn-brand-primary btn-sm flex-fill py-2 d-flex align-items-center justify-content-center btn-quick-select"
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#quickSelectModal"
+                                            data-id="{{ $product->id }}"
+                                            data-name="{{ $product->name }}"
+                                            data-sku="{{ $product->sku }}"
+                                            data-category="{{ $product->category->name ?? 'Outfit' }}"
+                                            data-price="{{ \App\Support\FormatHelper::rupiah($product->selling_price) }}"
+                                            data-image="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop' }}"
+                                            data-stock="{{ $product->stock }}"
+                                            data-sizes="{{ $product->size ?: 'All Size' }}"
+                                            data-colors="{{ $product->color ?: 'Standar' }}"
+                                            data-action="{{ route('cart.add', $product) }}">
+                                        <i class="bi bi-bag-plus"></i> + Keranjang
+                                    </button>
+                                @else
+                                    <button type="button" class="btn btn-sand btn-sm flex-fill py-2" disabled>
+                                        Habis
+                                    </button>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -269,4 +293,94 @@
         </div>
     </div>
 </section>
+
+<!-- ==========================================================================
+     QUICK SELECT VARIANT MODAL (SHOPEE & BOUTIQUE STYLE)
+     Allows Customer to choose Size, Color, and Quantity before adding to cart
+     ========================================================================== -->
+<div class="modal fade" id="quickSelectModal" tabindex="-1" aria-labelledby="quickSelectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 520px;">
+        <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden" style="background-color: #FFFFFF; border: 1px solid var(--bali-border) !important;">
+            <!-- Modal Header -->
+            <div class="modal-header border-0 pb-0 pt-4 px-4 position-relative">
+                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-tan-dark); border: 1px solid var(--bali-border); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;">
+                    <i class="bi bi-flower1"></i> Pilih Varian Busana Butik
+                </span>
+                <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Form -->
+            <form id="quickSelectForm" action="" method="POST">
+                @csrf
+                <div class="modal-body px-4 pt-3 pb-2">
+                    <!-- Product Header Snippet -->
+                    <div class="d-flex gap-3 align-items-center mb-4 p-3 rounded-4 surface-ivory border" style="border-color: var(--bali-border-light) !important;">
+                        <img id="modalProductImage" src="" alt="Produk" class="rounded-3 object-fit-cover flex-shrink-0" style="width: 76px; height: 96px; border: 1px solid var(--bali-border);">
+                        <div class="flex-grow-1 min-w-0">
+                            <span id="modalProductCategory" class="badge mb-1" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); font-size: 0.68rem;"></span>
+                            <h6 id="modalProductName" class="fw-bold mb-1 text-truncate" style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--bali-espresso);"></h6>
+                            <div class="d-flex align-items-baseline gap-2 mb-1">
+                                <span id="modalProductPrice" class="fs-5 fw-bold" style="color: var(--bali-tan-dark); font-weight: 800;"></span>
+                            </div>
+                            <div class="small">
+                                <span class="badge" style="background-color: #EBF5EE; color: #1E6B37; border: 1px solid #C4E2CE;" id="modalProductStockBadge"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Size Selector (Interactive Radio Pills) -->
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label-custom mb-0 fw-bold" style="color: var(--bali-espresso); font-size: 0.85rem;">
+                                <i class="bi bi-rulers me-1" style="color: var(--bali-tan);"></i> 1. Pilihan Ukuran (Size):
+                            </label>
+                            <span class="small text-muted fw-semibold" id="selectedSizeLabel" style="font-size: 0.78rem; color: var(--bali-tan-dark) !important;"></span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2" id="modalSizeContainer">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Color Selector (Interactive Radio Pills) -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <label class="form-label-custom mb-0 fw-bold" style="color: var(--bali-espresso); font-size: 0.85rem;">
+                                <i class="bi bi-palette me-1" style="color: var(--bali-tan);"></i> 2. Pilihan Warna (Color):
+                            </label>
+                            <span class="small text-muted fw-semibold" id="selectedColorLabel" style="font-size: 0.78rem; color: var(--bali-tan-dark) !important;"></span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2" id="modalColorContainer">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+
+                    <!-- Quantity Input (- 1 +) -->
+                    <div class="mb-4">
+                        <label class="form-label-custom d-block fw-bold mb-2" style="color: var(--bali-espresso); font-size: 0.85rem;">
+                            <i class="bi bi-basket2 me-1" style="color: var(--bali-tan);"></i> 3. Kuantitas Pesanan:
+                        </label>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="input-group" style="max-width: 150px;">
+                                <button class="btn btn-sand" type="button" id="modalQtyMinus">-</button>
+                                <input type="number" name="quantity" id="modalQtyInput" class="form-control text-center fw-bold" value="1" min="1" max="1">
+                                <button class="btn btn-sand" type="button" id="modalQtyPlus">+</button>
+                            </div>
+                            <span class="text-muted small" id="modalStockHelper"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer / Actions -->
+                <div class="modal-footer border-top p-4 d-flex gap-2" style="border-color: var(--bali-border-light) !important; background-color: #FAF7F2;">
+                    <button type="submit" name="buy_now" value="0" class="btn btn-sand flex-fill py-2 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-bag-plus"></i> Masukkan ke Keranjang
+                    </button>
+                    <button type="submit" name="buy_now" value="1" class="btn btn-brand-primary flex-fill py-2 d-flex align-items-center justify-content-center">
+                        <i class="bi bi-lightning-charge"></i> Beli Sekarang
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection

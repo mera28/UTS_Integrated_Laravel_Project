@@ -11,13 +11,18 @@
     <!-- Bootstrap 5.3 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{{ asset('css/zahiyyah.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/zahiyyah.css') }}?v={{ time() }}">
     @stack('styles')
 </head>
 <body>
-    <!-- Top Announcement Bar (Warm Light Brown Contrast) -->
+    <!-- Top Announcement Bar (Warm Light Brown Contrast with Portal Link) -->
     <div class="top-promo-bar">
-        <span><i class="bi bi-water"></i> ZAHIYYAH'S FIT BALI &bull; KOLEKSI RESORT &amp; KNITWEAR EKSKLUSIF</span>
+        <div class="container d-flex align-items-center justify-content-between flex-wrap gap-2">
+            <span class="mx-auto mx-md-0"><i class="bi bi-water"></i> ZAHIYYAH'S FIT BALI &bull; KOLEKSI RESORT &amp; KNITWEAR EKSKLUSIF</span>
+            <a href="{{ route('portal.login') }}" class="portal-link-promo ms-auto">
+                <i class="bi bi-shield-lock"></i> Portal Internal (Admin &amp; Staff)
+            </a>
+        </div>
     </div>
 
     <!-- Marketplace Header Navbar (Clean White Glassmorphism) -->
@@ -232,8 +237,9 @@
         </div>
     </footer>
 
-    <!-- Bootstrap 5 JS -->
+    <!-- Bootstrap 5 JS & Zahiyyah Utilities -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('js/zahiyyah.js') }}?v={{ time() }}"></script>
     @stack('scripts')
 </body>
 </html>

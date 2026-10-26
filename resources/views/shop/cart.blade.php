@@ -42,9 +42,9 @@
                                              alt="{{ $item['name'] }}">
                                         <div>
                                             <h6 class="mb-1 fw-semibold" style="font-family: var(--font-serif); font-size: 1.05rem; color: var(--bali-espresso);">{{ $item['name'] }}</h6>
-                                            <div class="small text-muted">
-                                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border); font-size: 0.7rem;">{{ $item['size'] }}</span>
-                                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border); font-size: 0.7rem;">{{ $item['color'] }}</span>
+                                            <div class="small text-muted mt-1 d-flex flex-wrap gap-1">
+                                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border); font-size: 0.72rem;"><i class="bi bi-rulers"></i> Ukuran: {{ $item['size'] }}</span>
+                                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border); font-size: 0.72rem;"><i class="bi bi-palette"></i> Warna: {{ $item['color'] }}</span>
                                             </div>
                                         </div>
                                     </div>

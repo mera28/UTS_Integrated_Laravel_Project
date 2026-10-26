@@ -11,7 +11,7 @@
     <!-- Bootstrap 5.3 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="{{ asset('css/zahiyyah.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/zahiyyah.css') }}?v={{ time() }}">
     <style>
         body {
             font-family: var(--font-sans);
@@ -246,8 +246,8 @@
                 <!-- Separation Link to Portal Staff -->
                 <div class="p-3 rounded-3 text-center mb-3 surface-ivory border" style="border-color: var(--bali-border) !important;">
                     <span class="small text-muted d-block mb-1">Petugas Toko atau Administrator?</span>
-                    <a href="{{ route('portal.login') }}" class="small fw-semibold text-dark text-decoration-none">
-                        Masuk lewat Portal Internal Staff &rarr;
+                    <a href="{{ route('portal.login') }}" class="small fw-bold text-dark text-decoration-none">
+                        <i class="bi bi-shield-lock me-1" style="color: var(--bali-tan);"></i> Portal Internal (Admin &amp; Staff) &rarr;
                     </a>
                 </div>
 
