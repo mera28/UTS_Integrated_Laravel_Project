@@ -14,7 +14,7 @@
     <style>
         body {
             font-family: 'Roboto', 'Plus Jakarta Sans', sans-serif;
-            background-color: #F0F4F9;
+            background-color: #FAF7F2;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -28,8 +28,8 @@
             padding: 40px;
             max-width: 460px;
             width: 100%;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
-            border: 1px solid #E3E3E3;
+            box-shadow: 0 8px 32px rgba(44, 34, 30, 0.06);
+            border: 1px solid #E6DCD1;
         }
         .account-item {
             padding: 12px 14px;

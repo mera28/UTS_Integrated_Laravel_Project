@@ -1,11 +1,12 @@
 @extends('layouts.shop')
 
-@section('title', 'Checkout Pembayaran')
+@section('title', 'Checkout Pembayaran - Zahiyyah\'s Fit Bali Boutique')
 
 @section('content')
 <div class="container py-4 py-md-5">
     <div class="mb-4">
-        <h4 class="fw-bold text-dark mb-1">Checkout & Pengiriman Pesanan</h4>
+        <span class="text-uppercase small fw-semibold" style="letter-spacing: 0.15em; color: var(--bali-tan); font-size: 0.72rem;">Final Step</span>
+        <h3 class="fw-bold mb-1" style="font-family: var(--font-serif); font-size: 2.1rem; color: var(--bali-espresso);">Checkout &amp; Pengiriman Pesanan</h3>
         <span class="text-muted small">Lengkapi alamat pengiriman dan pilih metode pembayaran resmi</span>
     </div>
 
@@ -15,8 +16,10 @@
             <!-- Shipping & Payment Method Column -->
             <div class="col-lg-7">
                 <!-- Shipping Details Card -->
-                <div class="card border-0 shadow-sm rounded-4 bg-white p-4 mb-4">
-                    <h5 class="fw-bold text-dark mb-3"><i class="bi bi-geo-alt me-2 text-danger"></i> 1. Alamat Pengiriman</h5>
+                <div class="card-bali p-4 mb-4">
+                    <h5 class="fw-bold mb-3" style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--bali-espresso);">
+                        <i class="bi bi-geo-alt me-2" style="color: var(--bali-tan);"></i> 1. Alamat Pengiriman Butik
+                    </h5>
                     
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
@@ -45,91 +48,94 @@
                 </div>
 
                 <!-- Payment Method Card -->
-                <div class="card border-0 shadow-sm rounded-4 bg-white p-4">
-                    <h5 class="fw-bold text-dark mb-3"><i class="bi bi-credit-card me-2 text-danger"></i> 2. Pilih Metode Pembayaran (Payment Gateway)</h5>
+                <div class="card-bali p-4">
+                    <h5 class="fw-bold mb-3" style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--bali-espresso);">
+                        <i class="bi bi-credit-card me-2" style="color: var(--bali-tan);"></i> 2. Pilih Metode Pembayaran (Payment Gateway)
+                    </h5>
                     <p class="small text-muted mb-3">Pilih saluran pembayaran resmi yang didukung Zahiyyah's Fit:</p>
 
                     <div class="d-flex flex-column gap-2">
                         <!-- QRIS -->
-                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3">
+                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3 surface-ivory" style="border-color: var(--bali-border) !important;">
                             <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_qris" value="qris" checked>
                             <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_qris">
                                 <div>
-                                    <div class="fw-bold text-dark"><i class="bi bi-qr-code text-warning me-2 fs-5"></i> QRIS Interaktif</div>
+                                    <div class="fw-semibold text-dark"><i class="bi bi-qr-code me-2 fs-5" style="color: var(--bali-tan);"></i> QRIS Interaktif</div>
                                     <span class="small text-muted">BCA Mobile, Livin, GoPay, ShopeePay, OVO, DANA</span>
                                 </div>
-                                <span class="badge bg-warning text-dark">INSTANT QR</span>
+                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-tan-dark); border: 1px solid var(--bali-border);">INSTAN</span>
                             </label>
                         </div>
 
-                        <!-- Virtual Account BCA -->
-                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3">
-                            <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_va_bca" value="va_bca" {{ old('payment_method') == 'va_bca' ? 'checked' : '' }}>
-                            <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_va_bca">
+                        <!-- BCA Virtual Account -->
+                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3 surface-ivory" style="border-color: var(--bali-border) !important;">
+                            <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_bca" value="va_bca" {{ old('payment_method') == 'va_bca' ? 'checked' : '' }}>
+                            <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_bca">
                                 <div>
-                                    <div class="fw-bold text-dark"><i class="bi bi-bank text-primary me-2 fs-5"></i> BCA Virtual Account</div>
-                                    <span class="small text-muted">Transfer otomatis melalui ATM / m-BCA / KlikBCA</span>
+                                    <div class="fw-semibold text-dark"><i class="bi bi-bank me-2 fs-5" style="color: var(--bali-tan);"></i> BCA Virtual Account</div>
+                                    <span class="small text-muted">Verifikasi instan otomatis 24 jam</span>
                                 </div>
-                                <span class="badge bg-primary">VIRTUAL ACCOUNT</span>
+                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border);">VIRTUAL ACCOUNT</span>
                             </label>
                         </div>
 
-                        <!-- Virtual Account Mandiri -->
-                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3">
-                            <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_va_mandiri" value="va_mandiri" {{ old('payment_method') == 'va_mandiri' ? 'checked' : '' }}>
-                            <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_va_mandiri">
+                        <!-- Mandiri Virtual Account -->
+                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3 surface-ivory" style="border-color: var(--bali-border) !important;">
+                            <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_mandiri" value="va_mandiri" {{ old('payment_method') == 'va_mandiri' ? 'checked' : '' }}>
+                            <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_mandiri">
                                 <div>
-                                    <div class="fw-bold text-dark"><i class="bi bi-bank text-info me-2 fs-5"></i> Mandiri Virtual Account</div>
-                                    <span class="small text-muted">Pembayaran instan via Livin by Mandiri</span>
+                                    <div class="fw-semibold text-dark"><i class="bi bi-bank me-2 fs-5" style="color: var(--bali-tan);"></i> Mandiri Virtual Account</div>
+                                    <span class="small text-muted">Transfer via Livin' by Mandiri &amp; ATM</span>
                                 </div>
-                                <span class="badge bg-info text-dark">VIRTUAL ACCOUNT</span>
+                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border);">VIRTUAL ACCOUNT</span>
                             </label>
                         </div>
 
-                        <!-- Virtual Account BRI & BSI -->
-                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3">
-                            <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_va_bri" value="va_bri" {{ old('payment_method') == 'va_bri' ? 'checked' : '' }}>
-                            <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_va_bri">
+                        <!-- BRI Virtual Account -->
+                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3 surface-ivory" style="border-color: var(--bali-border) !important;">
+                            <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_bri" value="va_bri" {{ old('payment_method') == 'va_bri' ? 'checked' : '' }}>
+                            <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_bri">
                                 <div>
-                                    <div class="fw-bold text-dark"><i class="bi bi-bank text-primary me-2 fs-5"></i> BRI Virtual Account (BRIVA)</div>
-                                    <span class="small text-muted">Transfer via BRImo / ATM BRI</span>
+                                    <div class="fw-semibold text-dark"><i class="bi bi-bank me-2 fs-5" style="color: var(--bali-tan);"></i> BRI Virtual Account (BRIVA)</div>
+                                    <span class="small text-muted">Transfer via BRImo &amp; ATM BRI</span>
                                 </div>
-                                <span class="badge bg-primary">BRIVA</span>
+                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border);">VIRTUAL ACCOUNT</span>
                             </label>
                         </div>
 
-                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3">
-                            <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_va_bsi" value="va_bsi" {{ old('payment_method') == 'va_bsi' ? 'checked' : '' }}>
-                            <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_va_bsi">
+                        <!-- BSI Virtual Account -->
+                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3 surface-ivory" style="border-color: var(--bali-border) !important;">
+                            <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_bsi" value="va_bsi" {{ old('payment_method') == 'va_bsi' ? 'checked' : '' }}>
+                            <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_bsi">
                                 <div>
-                                    <div class="fw-bold text-dark"><i class="bi bi-bank text-success me-2 fs-5"></i> BSI Virtual Account</div>
-                                    <span class="small text-muted">Bank Syariah Indonesia (BSI Mobile)</span>
+                                    <div class="fw-semibold text-dark"><i class="bi bi-bank me-2 fs-5" style="color: var(--bali-tan);"></i> BSI Virtual Account (Syariah)</div>
+                                    <span class="small text-muted">Transfer via BSI Mobile &amp; ATM</span>
                                 </div>
-                                <span class="badge bg-success">BSI VA</span>
+                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border);">SYARIAH</span>
                             </label>
                         </div>
 
                         <!-- ShopeePay -->
-                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3">
+                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3 surface-ivory" style="border-color: var(--bali-border) !important;">
                             <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_shopeepay" value="ewallet_shopeepay" {{ old('payment_method') == 'ewallet_shopeepay' ? 'checked' : '' }}>
                             <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_shopeepay">
                                 <div>
-                                    <div class="fw-bold text-dark"><i class="bi bi-wallet2 text-danger me-2 fs-5"></i> ShopeePay</div>
-                                    <span class="small text-muted">Verifikasi instan via aplikasi ShopeePay</span>
+                                    <div class="fw-semibold text-dark"><i class="bi bi-wallet2 me-2 fs-5" style="color: var(--bali-tan);"></i> ShopeePay</div>
+                                    <span class="small text-muted">Pembayaran instan via dompet ShopeePay</span>
                                 </div>
-                                <span class="badge bg-danger">E-WALLET</span>
+                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border);">E-WALLET</span>
                             </label>
                         </div>
 
                         <!-- GoPay -->
-                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3">
+                        <div class="p-3 border rounded-3 d-flex align-items-center gap-3 surface-ivory" style="border-color: var(--bali-border) !important;">
                             <input class="form-check-input mt-0" type="radio" name="payment_method" id="pay_gopay" value="ewallet_gopay" {{ old('payment_method') == 'ewallet_gopay' ? 'checked' : '' }}>
                             <label class="form-check-label w-100 d-flex justify-content-between align-items-center cursor-pointer" for="pay_gopay">
                                 <div>
-                                    <div class="fw-bold text-dark"><i class="bi bi-wallet2 text-success me-2 fs-5"></i> GoPay</div>
+                                    <div class="fw-semibold text-dark"><i class="bi bi-wallet2 me-2 fs-5" style="color: var(--bali-tan);"></i> GoPay</div>
                                     <span class="small text-muted">Pembayaran cepat terintegrasi Gojek / GoPay</span>
                                 </div>
-                                <span class="badge bg-success">E-WALLET</span>
+                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-taupe); border: 1px solid var(--bali-border);">E-WALLET</span>
                             </label>
                         </div>
                     </div>
@@ -141,15 +147,17 @@
 
             <!-- Order Review Sidebar -->
             <div class="col-lg-5">
-                <div class="card border-0 shadow-sm rounded-4 bg-white p-4 sticky-top" style="top: 100px;">
-                    <h5 class="fw-bold text-dark mb-3">Rincian Belanja ({{ $totals['total_items'] }} item)</h5>
+                <div class="card-bali p-4 sticky-top surface-ivory" style="top: 100px;">
+                    <h5 class="fw-bold mb-3" style="font-family: var(--font-serif); font-size: 1.3rem; color: var(--bali-espresso);">
+                        Rincian Pesanan ({{ $totals['total_items'] }} item)
+                    </h5>
 
                     <div class="d-flex flex-column gap-3 mb-4 max-h-80 overflow-auto" style="max-height: 280px;">
                         @foreach($cart as $item)
                         <div class="d-flex align-items-center gap-3">
                             <img src="{{ $item['image_url'] ?? 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=200&auto=format&fit=crop' }}" 
-                                 class="rounded-3 border object-fit-cover" 
-                                 style="width: 50px; height: 50px;" 
+                                 class="rounded-3 object-fit-cover" 
+                                 style="width: 50px; height: 50px; border: 1px solid var(--bali-border);" 
                                  alt="{{ $item['name'] }}">
                             <div class="flex-grow-1">
                                 <h6 class="fw-semibold mb-0 text-dark small text-truncate" style="max-width: 170px;">{{ $item['name'] }}</h6>
@@ -160,29 +168,29 @@
                         @endforeach
                     </div>
 
-                    <div class="border-top pt-3">
+                    <div class="border-top pt-3" style="border-color: var(--bali-border) !important;">
                         <div class="d-flex justify-content-between mb-2 small text-muted">
-                            <span>Subtotal Belanja:</span>
+                            <span>Subtotal Busana:</span>
                             <span>{{ \App\Support\FormatHelper::rupiah($totals['grand_total']) }}</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2 small text-muted">
                             <span>Biaya Pengiriman:</span>
-                            <span class="text-success fw-bold">GRATIS</span>
+                            <span class="fw-bold" style="color: var(--bali-tan-dark);">GRATIS (Promo Butik)</span>
                         </div>
                         <div class="d-flex justify-content-between mb-3 small text-muted">
                             <span>Biaya Layanan Gateway:</span>
-                            <span class="text-success fw-bold">Rp 0 (Promo)</span>
+                            <span class="fw-bold" style="color: var(--bali-tan-dark);">Rp 0</span>
                         </div>
-                        <hr>
+                        <hr style="border-color: var(--bali-border);">
                         <div class="d-flex justify-content-between align-items-baseline mb-4">
-                            <span class="fw-bold text-dark">Total Pembayaran:</span>
-                            <span class="fw-extrabold text-danger fs-4" style="font-weight: 800;">
+                            <span class="fw-bold" style="color: var(--bali-espresso);">Total Pembayaran:</span>
+                            <span class="display-6 fw-extrabold" style="color: var(--bali-espresso); font-weight: 800; font-size: 1.8rem;">
                                 {{ \App\Support\FormatHelper::rupiah($totals['grand_total']) }}
                             </span>
                         </div>
 
-                        <button type="submit" class="btn btn-brand-primary w-100 py-3 rounded-pill fw-bold fs-6">
-                            <i class="bi bi-shield-check me-1"></i> Buat Pesanan & Bayar Sekarang
+                        <button type="submit" class="btn btn-brand-primary w-100 py-3 fs-6">
+                            <i class="bi bi-shield-check me-1"></i> Buat Pesanan &amp; Lanjut Bayar
                         </button>
                     </div>
                 </div>

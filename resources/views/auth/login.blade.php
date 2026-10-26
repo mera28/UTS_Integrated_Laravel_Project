@@ -3,160 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masuk Member - Zahiyyah's Fit</title>
-    <!-- Google Fonts: Plus Jakarta Sans -->
+    <title>Masuk Member - Zahiyyah's Fit Bali Boutique</title>
+    <!-- Google Fonts: Cormorant Garamond, Playfair Display, & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Bootstrap 5.3 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="{{ asset('css/zahiyyah.css') }}">
     <style>
-        :root {
-            --brand-primary: #B76E79;
-            --brand-primary-hover: #9F5862;
-            --brand-dark: #2A2426;
-            --brand-light: #FDF9FA;
-            --brand-border: #E8DCDD;
-        }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: linear-gradient(135deg, #FFF9FA 0%, #F8EEF0 50%, #F0E6E8 100%);
+            font-family: var(--font-sans);
+            background: linear-gradient(135deg, #FAF7F2 0%, #F3ECE3 50%, #EDE4D8 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px 16px;
-            color: var(--brand-dark);
+            padding: 32px 16px;
+            color: var(--bali-espresso);
         }
         .auth-card {
             background: #FFFFFF;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(183, 110, 121, 0.08);
-            border: 1px solid rgba(232, 220, 221, 0.6);
+            border-radius: 24px;
+            box-shadow: 0 16px 45px rgba(44, 34, 30, 0.07);
+            border: 1px solid var(--bali-border);
             overflow: hidden;
-            max-width: 450px;
+            max-width: 460px;
             width: 100%;
         }
         .auth-header {
-            padding: 28px 32px 18px;
+            padding: 32px 32px 20px;
             text-align: center;
-            border-bottom: 1px solid #F6EDED;
+            border-bottom: 1px solid var(--bali-border-light);
+            background-color: var(--bali-bg-ivory);
         }
         .auth-brand-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #FDF2F4;
-            color: var(--brand-primary);
-            font-weight: 700;
-            padding: 5px 14px;
+            background: #FFFFFF;
+            color: var(--bali-tan);
+            font-weight: 600;
+            padding: 6px 16px;
             border-radius: 999px;
-            font-size: 0.82rem;
-            margin-bottom: 10px;
-            border: 1px solid rgba(183, 110, 121, 0.2);
+            font-size: 0.78rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            border: 1px solid var(--bali-border);
         }
         .auth-body {
-            padding: 24px 32px 32px;
+            padding: 28px 32px 36px;
+            background: #FFFFFF;
         }
         .btn-google {
             background-color: #FFFFFF;
-            color: #1F1F1F;
-            border: 1.5px solid #E2E8F0;
+            color: var(--bali-espresso);
+            border: 1px solid var(--bali-border);
             font-weight: 600;
-            border-radius: 12px;
-            padding: 11px 16px;
+            border-radius: 999px;
+            padding: 11px 18px;
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            transition: all 0.2s ease;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-            font-size: 0.92rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 6px rgba(44, 34, 30, 0.04);
+            font-size: 0.9rem;
         }
         .btn-google:hover {
-            background-color: #F8FAFD;
-            border-color: #CBD5E1;
-            color: #0F172A;
+            background-color: var(--bali-bg-linen);
+            border-color: var(--bali-tan);
+            color: var(--bali-tan-dark);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         .divider-line {
             display: flex;
             align-items: center;
             text-align: center;
-            margin: 20px 0;
-            color: #94A3B8;
-            font-size: 0.75rem;
+            margin: 22px 0;
+            color: var(--bali-sand-tag);
+            font-size: 0.72rem;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.1em;
         }
         .divider-line::before,
         .divider-line::after {
             content: '';
             flex: 1;
-            border-bottom: 1px solid #E2E8F0;
+            border-bottom: 1px solid var(--bali-border);
         }
-        .divider-line::before { margin-right: 12px; }
-        .divider-line::after { margin-left: 12px; }
-        .form-control {
-            border-radius: 10px;
-            padding: 10px 14px;
-            border: 1.5px solid #E2E8F0;
-            font-size: 0.92rem;
-            transition: all 0.2s;
-        }
-        .form-control:focus {
-            border-color: var(--brand-primary);
-            box-shadow: 0 0 0 3px rgba(183, 110, 121, 0.15);
-        }
-        .btn-brand {
-            background-color: var(--brand-primary);
-            color: #FFFFFF;
-            font-weight: 600;
-            border-radius: 10px;
-            padding: 11px 20px;
-            border: none;
-            width: 100%;
-            transition: all 0.2s ease;
-        }
-        .btn-brand:hover {
-            background-color: var(--brand-primary-hover);
-            color: #FFFFFF;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 15px rgba(183, 110, 121, 0.2);
-        }
-        .demo-box {
-            background: #FDF9FA;
-            border: 1px dashed #E2B9BE;
-            border-radius: 10px;
-            padding: 10px 14px;
-            margin-bottom: 18px;
-        }
+        .divider-line::before { margin-right: 14px; }
+        .divider-line::after { margin-left: 14px; }
         .auth-nav-tabs {
             display: flex;
-            background: #F1F5F9;
-            border-radius: 12px;
+            background: var(--bali-bg-linen);
+            border-radius: 999px;
             padding: 4px;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
+            border: 1px solid var(--bali-border-light);
         }
         .auth-nav-tab {
             flex: 1;
             text-align: center;
             padding: 8px 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #64748B;
+            font-size: 0.84rem;
+            font-weight: 500;
+            color: var(--bali-muted);
             text-decoration: none;
-            border-radius: 9px;
+            border-radius: 999px;
             transition: all 0.2s;
         }
         .auth-nav-tab.active {
             background: #FFFFFF;
-            color: #0F172A;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            color: var(--bali-espresso);
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(44, 34, 30, 0.06);
         }
     </style>
 </head>
@@ -164,17 +128,17 @@
     <div class="auth-card">
         <div class="auth-header">
             <span class="auth-brand-badge">
-                <i class="bi bi-gem"></i> Zahiyyah's Fit
+                <i class="bi bi-flower1"></i> Zahiyyah's Fit &bull; Bali Boutique
             </span>
-            <h1 class="h5 fw-bold mb-1 text-dark">Masuk Member Pelanggan</h1>
-            <p class="text-muted small mb-0">Lanjutkan untuk berbelanja dan checkout outfit pilihan Anda</p>
+            <h1 class="h4 fw-bold mb-1" style="font-family: var(--font-serif); color: var(--bali-espresso);">Masuk Member Pelanggan</h1>
+            <p class="text-muted small mb-0">Lanjutkan untuk memesan busana modest dan lacak pengiriman Anda</p>
         </div>
 
         <div class="auth-body">
             <!-- Nav Tabs Switcher -->
             <div class="auth-nav-tabs">
                 <a href="{{ route('login') }}" class="auth-nav-tab active">
-                    <i class="bi bi-box-arrow-in-right me-1"></i> Masuk Akun
+                    <i class="bi bi-person-check me-1"></i> Masuk Akun
                 </a>
                 <a href="{{ route('register') }}" class="auth-nav-tab">
                     <i class="bi bi-person-plus me-1"></i> Buat Akun Baru
@@ -183,25 +147,25 @@
 
             <!-- Flash Notifications -->
             @if(session('success'))
-                <div class="alert alert-success alert-dismissible fade show border-0 rounded-3 mb-3 small d-flex align-items-center" role="alert">
-                    <i class="bi bi-check-circle-fill me-2 fs-5"></i>
-                    <div>{{ session('success') }}</div>
+                <div class="alert alert-success alert-dismissible fade show border-0 rounded-3 mb-3 small d-flex align-items-center surface-ivory" role="alert">
+                    <i class="bi bi-check-circle-fill me-2 fs-5" style="color: var(--bali-tan);"></i>
+                    <div style="color: var(--bali-espresso);">{{ session('success') }}</div>
                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
             @if(session('info'))
-                <div class="alert alert-info alert-dismissible fade show border-0 rounded-3 mb-3 small d-flex align-items-center" role="alert">
-                    <i class="bi bi-info-circle-fill me-2 fs-5"></i>
-                    <div>{{ session('info') }}</div>
+                <div class="alert alert-info alert-dismissible fade show border-0 rounded-3 mb-3 small d-flex align-items-center surface-sand" role="alert">
+                    <i class="bi bi-info-circle-fill me-2 fs-5" style="color: var(--bali-tan-dark);"></i>
+                    <div style="color: var(--bali-espresso);">{{ session('info') }}</div>
                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
                 </div>
             @endif
 
             @if(session('error'))
-                <div class="alert alert-danger alert-dismissible fade show border-0 rounded-3 mb-3 small d-flex align-items-center" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
-                    <div>{{ session('error') }}</div>
+                <div class="alert alert-danger alert-dismissible fade show border-0 rounded-3 mb-3 small d-flex align-items-center p-3" style="background-color: #FAF0F0; border: 1px solid #E8C1C1 !important;" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2 fs-5 text-danger"></i>
+                    <div class="text-danger">{{ session('error') }}</div>
                     <button type="button" class="btn-close ms-auto" data-bs-dismiss="alert"></button>
                 </div>
             @endif
@@ -224,13 +188,13 @@
             </div>
 
             <!-- Quick Demo Customer Fill -->
-            <div class="demo-box d-flex align-items-center justify-content-between">
+            <div class="p-3 rounded-3 mb-3 surface-sand d-flex align-items-center justify-content-between">
                 <div>
-                    <span class="small fw-bold text-dark d-block">Demo Pelanggan:</span>
-                    <span class="small text-muted font-monospace" style="font-size: 0.75rem;">customer@zahiyyah.com</span>
+                    <span class="small fw-bold d-block" style="color: var(--bali-espresso);">Demo Akun Pelanggan:</span>
+                    <span class="small font-monospace" style="font-size: 0.75rem; color: var(--bali-muted);">customer@zahiyyah.com</span>
                 </div>
-                <button type="button" class="btn btn-outline-danger btn-sm rounded-pill px-3" style="font-size: 0.75rem;" onclick="fillCredentials('customer@zahiyyah.com', 'password')">
-                    <i class="bi bi-lightning-charge-fill me-1"></i> Quick Fill
+                <button type="button" class="btn btn-sand btn-sm px-3" style="font-size: 0.75rem;" onclick="fillCredentials('customer@zahiyyah.com', 'password')">
+                    <i class="bi bi-lightning me-1"></i> Quick Fill
                 </button>
             </div>
 
@@ -238,10 +202,10 @@
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="mb-3">
-                    <label for="email" class="form-label small fw-semibold text-secondary">Alamat Email</label>
+                    <label for="email" class="form-label-custom">Alamat Email</label>
                     <div class="input-group">
-                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-envelope"></i></span>
-                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="nama@email.com" required autofocus>
+                        <span class="input-group-text border-end-0 text-muted surface-ivory"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control form-control-custom @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="nama@email.com" required autofocus>
                     </div>
                     @error('email')
                         <div class="text-danger small mt-1">{{ $message }}</div>
@@ -249,13 +213,11 @@
                 </div>
 
                 <div class="mb-3">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <label for="password" class="form-label small fw-semibold text-secondary mb-0">Kata Sandi</label>
-                    </div>
+                    <label for="password" class="form-label-custom">Kata Sandi</label>
                     <div class="input-group">
-                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-key"></i></span>
-                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="••••••••" required>
-                        <button class="btn btn-light border border-start-0 text-muted" type="button" onclick="togglePassword()">
+                        <span class="input-group-text border-end-0 text-muted surface-ivory"><i class="bi bi-key"></i></span>
+                        <input type="password" class="form-control form-control-custom @error('password') is-invalid @enderror" id="password" name="password" placeholder="••••••••" required>
+                        <button class="btn btn-sand border-start-0 text-muted" type="button" onclick="togglePassword()">
                             <i class="bi bi-eye" id="toggleIcon"></i>
                         </button>
                     </div>
@@ -267,31 +229,31 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label class="form-check-label small text-secondary" for="remember">
+                        <label class="form-check-label small" style="color: var(--bali-taupe);" for="remember">
                             Ingat saya
                         </label>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-brand mb-3">
+                <button type="submit" class="btn btn-brand-primary w-100 py-3 mb-3">
                     <i class="bi bi-box-arrow-in-right me-1"></i> Masuk Sekarang
                 </button>
 
                 <div class="text-center small text-muted mb-3">
-                    Belum punya akun? <a href="{{ route('register') }}" class="text-decoration-none fw-bold" style="color: var(--brand-primary);">Daftar Member Cepat</a>
+                    Belum punya akun? <a href="{{ route('register') }}" class="text-decoration-none fw-bold" style="color: var(--bali-tan);">Daftar Member Cepat</a>
                 </div>
 
                 <!-- Separation Link to Portal Staff -->
-                <div class="p-3 bg-light rounded-3 text-center mb-3 border">
+                <div class="p-3 rounded-3 text-center mb-3 surface-ivory border" style="border-color: var(--bali-border) !important;">
                     <span class="small text-muted d-block mb-1">Petugas Toko atau Administrator?</span>
-                    <a href="{{ route('portal.login') }}" class="small fw-bold text-dark text-decoration-none">
+                    <a href="{{ route('portal.login') }}" class="small fw-semibold text-dark text-decoration-none">
                         Masuk lewat Portal Internal Staff &rarr;
                     </a>
                 </div>
 
                 <div class="text-center">
-                    <a href="{{ route('shop.index') }}" class="text-muted small text-decoration-none">
-                        <i class="bi bi-arrow-left me-1"></i> Kembali ke Katalog Toko
+                    <a href="{{ route('shop.index') }}" class="small text-decoration-none" style="color: var(--bali-muted);">
+                        <i class="bi bi-arrow-left me-1"></i> Kembali ke Katalog Butik
                     </a>
                 </div>
             </form>

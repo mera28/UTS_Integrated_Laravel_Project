@@ -61,8 +61,8 @@ Sistem mengimplementasikan **Role-Based Access Control (RBAC)** secara *server-s
 - *Catatan Otorisasi*: Staff **tidak diizinkan** mengedit master data, menghapus produk, atau membatalkan nota transaksi (`403 Forbidden`).
 
 ### C. Role: `customer` (Pelanggan E-Commerce)
-- **Katalog E-Commerce ala Shopee Mall / Tokopedia Fashion (`/shop`)**:
-  - Akses terbuka untuk publik & tamu (*guest*) tanpa perlu login untuk menjelajahi katalog busana muslimah & modest wear.
+- **Katalog Butik Modest & Island Resort Wear ala Luxury Bali Boutique (`/shop`)**:
+  - Akses terbuka untuk publik & tamu (*guest*) tanpa perlu login untuk menjelajahi katalog busana muslimah & modest wear berestetika resort pantai Bali.
   - Banner promosi outfit interaktif, filter kategori pill instan, search bar, dan status ketersediaan stok.
   - Kartu produk dengan badge diskon, sisa stok menipis, dan label Ready / Habis.
 - **Autentikasi Cepat & "Continue with Google"**:

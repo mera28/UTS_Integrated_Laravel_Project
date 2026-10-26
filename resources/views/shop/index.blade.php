@@ -1,51 +1,56 @@
 @extends('layouts.shop')
 
-@section('title', 'Koleksi Busana Modest & Fashion Muslimah')
+@section('title', 'Koleksi Busana Modest & Island Resort Wear')
 
 @section('content')
-<!-- Hero Showcase Banner -->
-<section class="py-4 py-md-5" style="background: linear-gradient(135deg, #FFF3F4 0%, #F8E8EA 50%, #F5F0EE 100%);">
-    <div class="container">
-        <div class="row align-items-center g-4">
+<!-- ==========================================================================
+     HERO SHOWCASE: LUXURY BALI BEACH & COCONUT PALMS PHOTOGRAPHY
+     ========================================================================== -->
+<section class="bali-hero-section">
+    <div class="bali-hero-overlay"></div>
+    <div class="container position-relative z-1">
+        <div class="row align-items-center g-5">
             <div class="col-lg-7">
-                <span class="badge bg-white text-danger px-3 py-2 rounded-pill shadow-sm fw-bold mb-3 border">
-                    <i class="bi bi-stars text-warning me-1"></i> New Season Modest Collection 2026
+                <span class="bali-hero-tag">
+                    <i class="bi bi-sun me-1"></i> Island &bull; Modest Resort Wear &bull; Collection 2026
                 </span>
-                <h1 class="display-5 fw-extrabold text-dark mb-3" style="letter-spacing: -1px; font-weight: 800;">
-                    Tampil Percaya Diri dengan Busana Modest Anggun & Elegan
+                <h1 class="bali-hero-title">
+                    Zahiyyah's Fit &mdash; Island &amp; Modest Resort Wear
                 </h1>
-                <p class="lead text-muted mb-4 small fs-6" style="line-height: 1.8;">
-                    Temukan ragam koleksi Gamis Maxy, Blouse Peplum, Tunik Cantik, Celana Kulot, Rok Plisket, dan Hijab Voal Shimmer berkelas dari <strong>Zahiyyah's Fit</strong>. Nyaman dipakai sepanjang hari dengan material pilihan grade A.
+                <p class="bali-hero-desc">
+                    <em>Effortless Elegance Inspired by Bali's Coastal Serenity.</em> Temukan perpaduan sempurna antara material linen adem alami, sutra mengalir anggun, dan potongan modest yang nyaman untuk suasana santai di pesisir maupun momen istimewa Anda.
                 </p>
                 <div class="d-flex flex-wrap gap-3">
-                    <a href="#katalog" class="btn btn-brand-primary px-4 py-2 fw-bold">
-                        <i class="bi bi-bag-heart me-1"></i> Belanja Koleksi Sekarang
+                    <a href="#katalog" class="btn btn-brand-primary">
+                        <i class="bi bi-compass me-1"></i> Jelajahi Koleksi Busana
                     </a>
                     @auth
                         @if(auth()->user()->isAdmin() || auth()->user()->isStaff())
-                            <a href="{{ route('dashboard') }}" class="btn btn-outline-brand px-4 py-2">
+                            <a href="{{ route('dashboard') }}" class="btn btn-outline-brand">
                                 <i class="bi bi-speedometer2 me-1"></i> Panel Backoffice
                             </a>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-outline-brand px-4 py-2">
-                            <i class="bi bi-shield-lock me-1"></i> Masuk Staff / Admin
+                        <a href="{{ route('login') }}" class="btn btn-outline-brand">
+                            <i class="bi bi-person me-1"></i> Masuk Member / Google
                         </a>
                     @endauth
                 </div>
             </div>
             <div class="col-lg-5 text-center">
-                <div class="position-relative d-inline-block">
-                    <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=600&auto=format&fit=crop" 
-                         alt="Zahiyyah Fashion Model" 
-                         class="img-fluid rounded-4 shadow-lg border border-4 border-white" 
-                         style="max-height: 380px; width: 100%; object-fit: cover;">
-                    <div class="position-absolute bottom-0 start-0 translate-middle-y bg-white p-3 rounded-4 shadow-sm border m-3 text-start">
-                        <div class="d-flex align-items-center gap-2">
-                            <i class="bi bi-check-circle-fill text-success fs-4"></i>
+                <div class="hero-featured-frame d-inline-block">
+                    <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=700&auto=format&fit=crop" 
+                         alt="Zahiyyah Bali Boutique Outfit" 
+                         class="img-fluid" 
+                         style="max-height: 440px; width: 100%; object-fit: cover;">
+                    <div class="hero-floating-card text-start">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="brand-badge-icon" style="width: 34px; height: 34px; font-size: 1rem;">
+                                <i class="bi bi-patch-check"></i>
+                            </div>
                             <div>
-                                <div class="fw-bold small text-dark">Original Quality</div>
-                                <div class="text-muted" style="font-size: 0.75rem;">100% Bahan Terverifikasi</div>
+                                <div class="fw-bold small" style="color: var(--bali-espresso); font-family: var(--font-serif); font-size: 0.95rem;">100% Breathable Fabric</div>
+                                <div class="text-muted" style="font-size: 0.72rem; letter-spacing: 0.05em; text-transform: uppercase;">Linen, Silk &amp; Pure Voal</div>
                             </div>
                         </div>
                     </div>
@@ -55,150 +60,201 @@
     </div>
 </section>
 
-<!-- Filter & Search Section -->
-<section class="py-4 bg-white border-bottom" id="katalog">
+<!-- ==========================================================================
+     EDITORIAL STORY SECTION (COASTAL BALI ATMOSPHERE)
+     ========================================================================== -->
+<section class="editorial-story-section">
     <div class="container">
-        <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
-            <div>
-                <h5 class="fw-bold text-dark mb-0">Katalog Produk Outfit</h5>
-                <small class="text-muted">Menampilkan busana fashion muslimah terkini</small>
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5 order-lg-1 order-2">
+                <div class="editorial-img-wrap">
+                    <!-- Real Coastal Palm Trees & Tropical Resort Photography -->
+                    <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80" 
+                         alt="Bali Coastal Palm Trees Resort" 
+                         class="w-100 object-fit-cover" 
+                         style="height: 380px;">
+                </div>
             </div>
-            <div class="text-muted small">
-                Total <strong>{{ $products->total() }}</strong> Produk Ditemukan
+            <div class="col-lg-7 order-lg-2 order-1">
+                <span class="editorial-tag">The Boutique Philosophy</span>
+                <h2 class="editorial-title">
+                    Harmoni Kesejukan Alami &amp; Keanggunan Busana Modest
+                </h2>
+                <div class="editorial-quote">
+                    "Setiap helai pakaian dirancang khusus agar tetap sejuk di bawah terpaan angin pesisir, memberikan kebebasan bergerak dengan siluet sopan dan sentuhan kemewahan yang tenang."
+                </div>
+                <p class="small text-muted mb-4" style="line-height: 1.8;">
+                    Terinspirasi oleh ketenangan pantai Seminyak dan suasana resort tropis Bali, butik <strong>Zahiyyah's Fit</strong> memadukan bahan berserat alami berkualitas tinggi dengan potongan longgar yang jatuh indah di tubuh. Mulai dari Gamis Silk Abaya, Tunik Berbahan Linen, Kulot Santai, hingga Pashmina Voal Shimmer yang wudhu-friendly.
+                </p>
+                <div class="d-flex flex-wrap gap-4 pt-2">
+                    <div>
+                        <div class="fw-bold text-dark fs-5" style="font-family: var(--font-serif); color: var(--bali-espresso);">100%</div>
+                        <div class="small text-muted" style="font-size: 0.75rem;">Serat Kain Pilihan</div>
+                    </div>
+                    <div class="vr" style="background-color: var(--bali-border);"></div>
+                    <div>
+                        <div class="fw-bold text-dark fs-5" style="font-family: var(--font-serif); color: var(--bali-espresso);">Hand-Finished</div>
+                        <div class="small text-muted" style="font-size: 0.75rem;">Jahitan Standar Butik</div>
+                    </div>
+                    <div class="vr" style="background-color: var(--bali-border);"></div>
+                    <div>
+                        <div class="fw-bold text-dark fs-5" style="font-family: var(--font-serif); color: var(--bali-espresso);">Modest Cut</div>
+                        <div class="small text-muted" style="font-size: 0.75rem;">Anggun &amp; Tidak Terawang</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     CATALOG SECTION & FILTER (CLEAN WHITE & SOFT BEIGE)
+     ========================================================================== -->
+<section class="py-5" id="katalog" style="background-color: #FFFFFF;">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="d-flex align-items-end justify-content-between mb-4 flex-wrap gap-3 pb-3 border-bottom" style="border-color: var(--bali-border-light) !important;">
+            <div>
+                <span class="text-uppercase small fw-semibold" style="letter-spacing: 0.15em; color: var(--bali-tan); font-size: 0.75rem;">Curated Wardrobe</span>
+                <h3 class="mb-1" style="font-family: var(--font-serif); font-size: 2.1rem; color: var(--bali-espresso);">
+                    Koleksi Busana &amp; Outfit Terpilih
+                </h3>
+                <p class="text-muted small mb-0">Menampilkan busana modest pilihan dengan kenyamanan maksimal</p>
+            </div>
+            <div class="text-muted small" style="color: var(--bali-muted);">
+                Total <strong style="color: var(--bali-espresso);">{{ $products->total() }}</strong> Outfit Ditemukan
             </div>
         </div>
 
-        <!-- Filter Chips & Form -->
-        <form action="{{ route('shop.index') }}" method="GET" class="row g-2 align-items-center mb-3">
+        <!-- Filter Chips & Search Bar Form -->
+        <form action="{{ route('shop.index') }}" method="GET" class="row g-3 align-items-center mb-4">
             <input type="hidden" name="category" value="{{ request('category') }}">
-            <div class="col-md-4">
-                <input type="text" name="q" class="form-control search-input" placeholder="Cari nama pakaian atau warna..." value="{{ request('q') }}">
+            <div class="col-md-5">
+                <div class="position-relative">
+                    <i class="bi bi-search search-icon-inside"></i>
+                    <input type="text" name="q" class="form-control search-input w-100" placeholder="Cari nama outfit, bahan, atau warna..." value="{{ request('q') }}">
+                </div>
             </div>
             <div class="col-md-3 col-6">
                 <select name="sort" class="form-select form-select-custom small" onchange="this.form.submit()">
-                    <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Urutkan: Terbaru</option>
+                    <option value="latest" {{ request('sort') == 'latest' ? 'selected' : '' }}>Urutan: Koleksi Terbaru</option>
                     <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Harga: Terendah ke Tertinggi</option>
                     <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Harga: Tertinggi ke Terendah</option>
-                    <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nama: A ke Z</option>
+                    <option value="name_asc" {{ request('sort') == 'name_asc' ? 'selected' : '' }}>Nama: Alfabet A &ndash; Z</option>
                 </select>
             </div>
-            <div class="col-md-3 col-6">
+            <div class="col-md-2 col-6">
                 <div class="form-check form-switch pt-2">
                     <input class="form-check-input" type="checkbox" name="in_stock" value="1" id="inStockCheck" {{ request('in_stock') == '1' ? 'checked' : '' }} onchange="this.form.submit()">
-                    <label class="form-check-label small text-secondary" for="inStockCheck">Hanya Stok Tersedia</label>
+                    <label class="form-check-label small" style="color: var(--bali-taupe);" for="inStockCheck">Hanya Ready</label>
                 </div>
             </div>
             <div class="col-md-2 text-end">
                 @if(request()->hasAny(['q', 'category', 'sort', 'in_stock']))
-                    <a href="{{ route('shop.index') }}" class="btn btn-sm btn-light border w-100"><i class="bi bi-x-circle"></i> Reset</a>
+                    <a href="{{ route('shop.index') }}" class="btn btn-sm btn-sand w-100">
+                        <i class="bi bi-arrow-counterclockwise me-1"></i> Reset Filter
+                    </a>
                 @endif
             </div>
         </form>
 
-        <!-- Category Buttons -->
-        <div class="d-flex gap-2 overflow-auto pb-2 text-nowrap">
-            <a href="{{ route('shop.index', request()->except('category')) }}" class="btn btn-sm {{ !request('category') ? 'btn-dark' : 'btn-light border' }} rounded-pill px-3">
-                Semua
+        <!-- Category Minimalist Pill Buttons -->
+        <div class="d-flex gap-2 overflow-auto pb-3 mb-4 text-nowrap" style="scrollbar-width: thin;">
+            <a href="{{ route('shop.index', request()->except('category')) }}" class="category-pill {{ !request('category') ? 'active' : '' }}">
+                Semua Koleksi
             </a>
             @foreach($categories as $category)
                 <a href="{{ route('shop.index', array_merge(request()->query(), ['category' => $category->slug])) }}" 
-                   class="btn btn-sm {{ request('category') == $category->slug ? 'btn-dark' : 'btn-light border' }} rounded-pill px-3">
+                   class="category-pill {{ request('category') == $category->slug ? 'active' : '' }}">
                     {{ $category->name }} ({{ $category->products_count }})
                 </a>
             @endforeach
         </div>
-    </div>
-</section>
 
-<!-- Product Grid Section -->
-<section class="py-5">
-    <div class="container">
+        <!-- Product Grid (Magazine 3:4 Aspect Ratio) -->
         <div class="row g-4">
             @forelse($products as $product)
             <div class="col-xl-3 col-lg-4 col-sm-6">
-                <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden position-relative product-card bg-white" style="transition: transform 0.2s, box-shadow 0.2s;">
-                    <!-- Stock Badge -->
-                    <div class="position-absolute top-0 start-0 m-3 z-1">
-                        @if($product->stock <= 0)
-                            <span class="badge bg-danger rounded-pill px-3 py-1">Habis</span>
-                        @elseif($product->isLowStock())
-                            <span class="badge bg-warning text-dark rounded-pill px-3 py-1"><i class="bi bi-clock-history me-1"></i> Sisa {{ $product->stock }} pcs</span>
-                        @else
-                            <span class="badge bg-success bg-opacity-90 rounded-pill px-3 py-1">Ready {{ $product->stock }} pcs</span>
-                        @endif
-                    </div>
+                <div class="product-card-bali">
+                    <!-- Image with 3:4 aspect ratio -->
+                    <div class="product-card-img-wrap">
+                        <!-- Stock Status Badge -->
+                        <div class="position-absolute top-0 start-0 m-3 z-1">
+                            @if($product->stock <= 0)
+                                <span class="badge-stock-bali empty">Habis</span>
+                            @elseif($product->isLowStock())
+                                <span class="badge-stock-bali low"><i class="bi bi-clock me-1"></i> Sisa {{ $product->stock }} pcs</span>
+                            @else
+                                <span class="badge-stock-bali">Ready {{ $product->stock }} pcs</span>
+                            @endif
+                        </div>
 
-                    <!-- Category Badge -->
-                    <div class="position-absolute top-0 end-0 m-3 z-1">
-                        <span class="badge bg-white text-dark shadow-sm rounded-pill px-2 py-1 border small">
-                            {{ $product->category->name ?? 'Outfit' }}
-                        </span>
+                        <!-- Product Photo linking to detail -->
+                        <a href="{{ route('shop.products.show', $product) }}" class="d-block w-100 h-100">
+                            <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop' }}" 
+                                 alt="{{ $product->name }}"
+                                 onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop'">
+                        </a>
                     </div>
-
-                    <!-- Product Image linking to detail -->
-                    <a href="{{ route('shop.products.show', $product) }}" class="overflow-hidden bg-light text-center d-block position-relative" style="height: 270px;">
-                        <img src="{{ $product->image_url ?? 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop' }}" 
-                             class="w-100 h-100 object-fit-cover" 
-                             alt="{{ $product->name }}"
-                             onerror="this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=800&auto=format&fit=crop'">
-                    </a>
 
                     <!-- Card Body -->
-                    <div class="card-body p-3 d-flex flex-column justify-content-between">
+                    <div class="p-3 d-flex flex-column justify-content-between flex-grow-1">
                         <div>
-                            <div class="small text-muted mb-1">{{ $product->sku }}</div>
-                            <h6 class="fw-bold text-dark text-truncate mb-2" title="{{ $product->name }}">
-                                <a href="{{ route('shop.products.show', $product) }}" class="text-decoration-none text-dark">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="product-tag-overline">{{ $product->category->name ?? 'Outfit' }}</span>
+                                <span class="text-muted" style="font-size: 0.68rem;">{{ $product->sku }}</span>
+                            </div>
+                            
+                            <h6 class="product-title-serif" title="{{ $product->name }}">
+                                <a href="{{ route('shop.products.show', $product) }}">
                                     {{ $product->name }}
                                 </a>
                             </h6>
-                            <p class="text-muted small mb-2 text-truncate-2" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; font-size: 0.8rem;">
-                                {{ $product->description }}
-                            </p>
+
                             <div class="d-flex flex-wrap gap-1 mb-2">
                                 @if($product->size)
-                                    <span class="badge bg-light text-secondary border small">{{ $product->size }}</span>
+                                    <span class="badge" style="background-color: var(--bali-bg-ivory); color: var(--bali-taupe); border: 1px solid var(--bali-border); font-size: 0.68rem;">{{ $product->size }}</span>
                                 @endif
                                 @if($product->color)
-                                    <span class="badge bg-light text-secondary border small">{{ $product->color }}</span>
+                                    <span class="badge" style="background-color: var(--bali-bg-ivory); color: var(--bali-taupe); border: 1px solid var(--bali-border); font-size: 0.68rem;">{{ $product->color }}</span>
                                 @endif
                             </div>
                         </div>
 
-                        <div>
+                        <div class="pt-2 border-top" style="border-color: var(--bali-border-light) !important;">
                             <div class="d-flex align-items-baseline justify-content-between mb-3">
                                 <div>
-                                    <span class="small text-muted d-block" style="font-size: 0.72rem;">Harga Terbaik</span>
-                                    <span class="fw-extrabold text-danger fs-5" style="font-weight: 800;">
+                                    <span class="small d-block text-muted" style="font-size: 0.68rem; letter-spacing: 0.05em; text-transform: uppercase;">Harga Butik</span>
+                                    <span class="product-price-bali">
                                         {{ \App\Support\FormatHelper::rupiah($product->selling_price) }}
                                     </span>
                                 </div>
                             </div>
 
-                            <div class="d-grid gap-2">
-                                <a href="{{ route('shop.products.show', $product) }}" class="btn btn-outline-danger btn-sm rounded-pill fw-semibold py-2">
-                                    <i class="bi bi-eye me-1"></i> Lihat Detail & Beli
-                                </a>
-                            </div>
+                            <a href="{{ route('shop.products.show', $product) }}" class="btn btn-sand w-100 py-2 d-flex align-items-center justify-content-center">
+                                <i class="bi bi-eye me-1"></i> Lihat Koleksi
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
             @empty
             <div class="col-12 text-center py-5">
-                <div class="p-5 bg-white rounded-4 shadow-sm border max-w-md mx-auto">
-                    <i class="bi bi-search text-muted display-4 mb-3 d-block"></i>
-                    <h5 class="fw-bold text-dark">Tidak Ada Produk Ditemukan</h5>
-                    <p class="text-muted small mb-3">Coba gunakan kata kunci pencarian lain atau pilih kategori yang tersedia.</p>
-                    <a href="{{ route('shop.index') }}" class="btn btn-brand-primary btn-sm rounded-pill px-4">
-                        Tampilkan Semua Produk
+                <div class="p-5 rounded-4 border max-w-md mx-auto surface-ivory" style="border-color: var(--bali-border) !important;">
+                    <div class="brand-badge-icon mx-auto mb-3" style="width: 54px; height: 54px; font-size: 1.6rem;">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h5 class="fw-bold mb-2" style="font-family: var(--font-serif); color: var(--bali-espresso);">Tidak Ada Koleksi Ditemukan</h5>
+                    <p class="text-muted small mb-4">Coba cari dengan kata kunci lain atau pilih kategori busana yang tersedia.</p>
+                    <a href="{{ route('shop.index') }}" class="btn btn-brand-primary px-4 py-2">
+                        Tampilkan Semua Koleksi
                     </a>
                 </div>
             </div>
             @endforelse
         </div>
 
-        <!-- Pagination -->
+        <!-- Pagination (Clean & Constrained) -->
         <div class="mt-5 d-flex justify-content-center">
             {{ $products->links() }}
         </div>
