@@ -185,11 +185,11 @@ Aplikasi Zahiyyah's Fit dibangun dengan aturan bisnis (*Business Rules*) ketat s
 
 Aplikasi ini menggunakan 8 tabel relasional pada database `db_zahiyyahs_fit`.
 
-### A. Diagram Visual ERD (File Gambar SVG)
-File gambar visual vektor modern beresolusi tinggi tersedia di [`public/screenshots/erd-database.svg`](public/screenshots/erd-database.svg):
+### A. Diagram Visual ERD (File Gambar PNG)
+File diagram ERD visual modern beresolusi tinggi tersedia di [`public/screenshots/erd-database.png`](public/screenshots/erd-database.png):
 
 <p align="center">
-  <img src="public/screenshots/erd-database.svg" alt="Entity Relationship Diagram (ERD) Zahiyyah's Fit" width="100%">
+  <img src="public/screenshots/erd-database.png" alt="Entity Relationship Diagram (ERD) Zahiyyah's Fit" width="100%">
 </p>
 
 ---
@@ -350,31 +350,31 @@ Menampilkan katalog busana muslimah bertema *Coastal Bali Resort*, banner promos
 
 ### 2. Master Produk Outfit & Manajemen Sisa Stok
 Menampilkan tabel katalog pakaian dengan lebar 100% penuh, tombol aksi sejajar 1 baris (Detail, Edit, Hapus), thumbnail foto pakaian, serta badge sisa stok berkontras tinggi (Hijau = Aman, Kuning = Menipis, Merah = Habis).
-![Master Produk Outfit](public/screenshots/master%20product.png)
+![Master Produk Outfit](public/screenshots/master-product.png)
 
 ---
 
 ### 3. Penjualan Kasir POS & Transaksi E-Commerce
 Menampilkan riwayat transaksi penjualan multi-item, identitas pelanggan, metode pembayaran, status bayar (Lunas / Belum Bayar), dan faktur nota digital.
-![Penjualan POS and Order](public/screenshots/penjualan%20(pos%20and%20order).png)
+![Penjualan POS and Order](public/screenshots/penjualan-pos-and-order.png)
 
 ---
 
 ### 4. Pengadaan Stok Masuk (Stock-In) dari Supplier Konveksi
 Menampilkan pencatatan transaksi pembelian bahan dan baju jadi dari supplier konveksi yang otomatis memperbarui jumlah stok fisik di gudang.
-![Pembelian Stock In](public/screenshots/pembelian(stock%20in).png)
+![Pembelian Stock In](public/screenshots/pembelian-stock-in.png)
 
 ---
 
 ### 5. Simulasi Interactive Payment Gateway
 Menampilkan halaman pembayaran terintegrasi dengan kode QRIS visual dinamis, countdown timer batas waktu 24 jam, nomor Virtual Account bank dengan tombol salin 1-klik, serta tombol simulasi bayar instan.
-![Payment Gateway Simulation](public/screenshots/payment%20gateway.png)
+![Payment Gateway Simulation](public/screenshots/payment-gateway.png)
 
 ---
 
 ### 6. Dashboard Analitik Real-Time & Peringatan Stok Rendah
 Menampilkan kartu metrik omset penjualan harian & bulanan, valuasi stok, grafik tren 7 hari, monitoring produk dengan stok menipis (*low-stock alert*), dan daftar aktivitas kasir terbaru.
-![Dashboard Admin](public/screenshots/dashboard%20admin.png)
+![Dashboard Admin](public/screenshots/dashboard-admin.png)
 
 ---
 
