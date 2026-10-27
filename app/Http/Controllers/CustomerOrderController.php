@@ -109,6 +109,9 @@ class CustomerOrderController extends Controller
 
     /**
      * Display order invoice details for customer.
+     *
+     * @param Sale $sale
+     * @return \Illuminate\Contracts\View\View
      */
     public function orderDetail(Sale $sale)
     {
@@ -122,6 +125,10 @@ class CustomerOrderController extends Controller
 
     /**
      * Cancel order by customer and automatically restore product stock.
+     *
+     * @param Request $request
+     * @param Sale $sale
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function cancelOrder(Request $request, Sale $sale)
     {
