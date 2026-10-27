@@ -73,6 +73,24 @@ class AuthAndRoleTest extends TestCase
         ]);
     }
 
+    public function test_customer_login_redirects_to_shop_and_not_dashboard(): void
+    {
+        $customer = User::create([
+            'name' => 'Alya Customer',
+            'email' => 'customer@login.com',
+            'password' => bcrypt('password'),
+            'role' => 'customer',
+        ]);
+
+        $response = $this->post(route('login'), [
+            'email' => 'customer@login.com',
+            'password' => 'password',
+        ]);
+
+        $response->assertRedirect(route('shop.index'));
+        $this->assertAuthenticatedAs($customer);
+    }
+
     public function test_admin_and_staff_can_login_via_portal(): void
     {
         $admin = User::create([

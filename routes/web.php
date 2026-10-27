@@ -30,6 +30,7 @@ Route::middleware('guest')->group(function () {
 
     // Google Sign-In Simulation Routes (Customer OAuth)
     Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('/google/login', [GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
     Route::post('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 });
 

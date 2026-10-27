@@ -15,13 +15,13 @@
     @stack('styles')
 </head>
 <body>
-    <!-- Top Announcement Bar (Warm Light Brown Contrast with Portal Link) -->
+    <!-- Top Announcement Bar (Warm Earthy Sand Contrast) -->
     <div class="top-promo-bar">
         <div class="container d-flex align-items-center justify-content-between flex-wrap gap-2">
-            <span class="mx-auto mx-md-0"><i class="bi bi-water"></i> ZAHIYYAH'S FIT BALI &bull; KOLEKSI RESORT &amp; KNITWEAR EKSKLUSIF</span>
-            <a href="{{ url('/portal/login') }}" class="portal-link-promo ms-auto">
-                <i class="bi bi-shield-lock"></i> Portal Admin / Staff
-            </a>
+            <span class="mx-auto mx-md-0"><i class="bi bi-water"></i> ZAHIYYAH'S FIT BALI &bull; KOLEKSI RESORT &amp; MODEST BOUTIQUE</span>
+            <span class="d-none d-md-inline ms-auto small" style="letter-spacing: 0.05em; opacity: 0.9;">
+                <i class="bi bi-truck me-1"></i> Gratis Ongkir Min. Belanja Rp 300.000 &bull; Pengiriman Seluruh Indonesia
+            </span>
         </div>
     </div>
 
@@ -101,7 +101,7 @@
                             <i class="bi bi-person"></i> Masuk
                         </a>
                         <a href="{{ route('register') }}" class="btn btn-brand-primary small py-1 px-3 d-none d-sm-inline-block">
-                            Daftar
+                            <i class="bi bi-person-plus me-1"></i> Daftar Akun
                         </a>
                     </div>
                 @endauth
@@ -230,7 +230,7 @@
                 <div class="d-flex align-items-center gap-3">
                     <span>Project UTS Web Programming 2</span>
                     <a href="{{ route('portal.login') }}" style="color: #AFA29A;" class="text-decoration-none">
-                        <i class="bi bi-shield-lock"></i> Portal Staff
+                        <i class="bi bi-shield-lock me-1"></i> Akses Portal Internal (Admin &amp; Staff)
                     </a>
                 </div>
             </div>

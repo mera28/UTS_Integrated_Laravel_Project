@@ -62,6 +62,16 @@ class AuthController extends Controller
                 }
             }
 
+            if ($user->role === 'customer') {
+                $intended = session()->get('url.intended');
+                if ($intended && (str_contains($intended, '/dashboard') || str_contains($intended, '/portal'))) {
+                    session()->forget('url.intended');
+                }
+
+                return redirect()->intended(route('shop.index'))
+                    ->with('success', 'Selamat datang kembali di Zahiyyah\'s Fit, ' . $user->name . '!');
+            }
+
             return $this->redirectBasedOnRole($user)
                 ->with('success', 'Selamat datang kembali, ' . $user->name . '! Anda berhasil masuk.');
         }
