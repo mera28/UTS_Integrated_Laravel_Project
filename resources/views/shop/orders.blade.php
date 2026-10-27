@@ -50,24 +50,48 @@
                             </span>
                         </td>
                         <td>
-                            @if($order->payment_status === 'paid')
-                                <span class="badge" style="background-color: #EBF5EE; color: #1E6B37; border: 1px solid #C4E2CE;">Lunas</span>
+                            @if($order->status === 'cancelled')
+                                <span class="badge" style="background-color: #FAF0F0; color: #A33A3A; border: 1px solid #E8C1C1;">
+                                    <i class="bi bi-x-circle me-1"></i> Dibatalkan (Cancelled)
+                                </span>
+                            @elseif($order->payment_status === 'paid')
+                                <span class="badge" style="background-color: #EBF5EE; color: #1E6B37; border: 1px solid #C4E2CE;">
+                                    <i class="bi bi-check-circle me-1"></i> Lunas
+                                </span>
                             @elseif($order->payment_status === 'refunded')
-                                <span class="badge" style="background-color: #FAF0F0; color: #A33A3A; border: 1px solid #E8C1C1;">Refunded</span>
+                                <span class="badge" style="background-color: #FAF0F0; color: #A33A3A; border: 1px solid #E8C1C1;">
+                                    <i class="bi bi-arrow-counterclockwise me-1"></i> Refunded
+                                </span>
                             @else
-                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-tan-dark); border: 1px solid var(--bali-border);">Pending</span>
+                                <span class="badge" style="background-color: var(--bali-bg-linen); color: var(--bali-tan-dark); border: 1px solid var(--bali-border);">
+                                    <i class="bi bi-clock me-1"></i> Menunggu Bayar
+                                </span>
                             @endif
                         </td>
                         <td class="text-end pe-4">
-                            @if($order->payment_status === 'unpaid')
-                                <a href="{{ route('orders.payment', $order) }}" class="btn btn-sm btn-brand-primary px-3 py-1">
-                                    <i class="bi bi-credit-card me-1"></i> Bayar
-                                </a>
-                            @else
-                                <a href="{{ route('orders.show', $order) }}" class="btn btn-sm btn-sand px-3 py-1">
-                                    <i class="bi bi-receipt me-1"></i> Invoice
-                                </a>
-                            @endif
+                            <div class="d-flex align-items-center justify-content-end gap-2">
+                                @if($order->status !== 'cancelled')
+                                    @if($order->payment_status === 'unpaid')
+                                        <a href="{{ route('orders.payment', $order) }}" class="btn btn-sm btn-brand-primary px-3 py-1">
+                                            <i class="bi bi-credit-card me-1"></i> Bayar
+                                        </a>
+                                    @else
+                                        <a href="{{ route('orders.show', $order) }}" class="btn btn-sm btn-sand px-3 py-1">
+                                            <i class="bi bi-receipt me-1"></i> Invoice
+                                        </a>
+                                    @endif
+                                    <form action="{{ route('orders.cancel', $order) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pesanan {{ $order->sale_number }}? Stok produk akan otomatis dikembalikan ke inventori toko.')">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-danger px-2 py-1" title="Batalkan Pesanan">
+                                            <i class="bi bi-x-circle me-1"></i> Batalkan
+                                        </button>
+                                    </form>
+                                @else
+                                    <a href="{{ route('orders.show', $order) }}" class="btn btn-sm btn-sand px-3 py-1">
+                                        <i class="bi bi-receipt me-1"></i> Detail
+                                    </a>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                     @empty

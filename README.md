@@ -4,7 +4,7 @@
 [![PHP 8.2+](https://img.shields.io/badge/PHP-8.2%2B-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
 [![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
 [![Bootstrap 5.3](https://img.shields.io/badge/Bootstrap-5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)](https://getbootstrap.com)
-[![Tests Passing](https://img.shields.io/badge/PHPUnit_Tests-54_Passed_(266_assertions)-success?style=for-the-badge&logo=php&logoColor=white)](#10-test-cases-dan-bukti-hasil-pengujian)
+[![Tests Passing](https://img.shields.io/badge/PHPUnit_Tests-57_Passed_(283_assertions)-success?style=for-the-badge&logo=php&logoColor=white)](#10-test-cases-dan-bukti-hasil-pengujian)
 
 Proyek Aplikasi Web Terintegrasi **Ujian Tengah Semester (UTS) Pemrograman Web 2** yang menggabungkan sistem **Manajemen Inventori & Transaksi Kasir Backoffice** dengan **Toko E-Commerce Online Pelanggan ala Shopee / Butik Mewah** serta **Simulasi Payment Gateway Interaktif (QRIS, Virtual Account, & E-Wallet)** untuk butik busana muslimah & fashion modern **"Zahiyyah's Fit"** (Gamis, Blouse, Celana Kulot, Rok Pleated, Hijab Pashmina, dan Outerwear).
 
@@ -476,8 +476,11 @@ Seluruh alur bisnis, konsistensi pengurangan/penambahan stok, validasi server, s
   ✓ customer can add to cart and checkout                                                                        0.07s  
   ✓ interactive payment gateway simulation confirms paid                                                         0.07s  
   ✓ customer cannot access or pay other customer order                                                           0.19s  
+  ✓ customer can cancel own order and stock is automatically restored                                            0.07s  
+  ✓ customer cannot cancel other customer order                                                                  0.20s  
+  ✓ admin can cancel sale via post route                                                                         0.06s  
 
-  Tests:    54 passed (266 assertions)
+  Tests:    57 passed (283 assertions)
   Duration: 40.51s
 ```
 

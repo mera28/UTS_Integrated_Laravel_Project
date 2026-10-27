@@ -278,4 +278,104 @@ class SaleTransactionTest extends TestCase
         $forbiddenPay = $this->actingAs($this->otherCustomer)->post(route('orders.simulate-pay', $sale));
         $forbiddenPay->assertForbidden();
     }
+
+    /**
+     * Test customer can cancel their own order and product stock is restored automatically.
+     */
+    public function test_customer_can_cancel_own_order_and_stock_is_automatically_restored(): void
+    {
+        // 1. Customer buys 3 pcs of product (stock: 10 -> 7)
+        $this->actingAs($this->customer)->post(route('cart.add', $this->product), [
+            'quantity' => 3,
+        ]);
+
+        $this->actingAs($this->customer)->post(route('checkout.process'), [
+            'customer_name' => 'Siti Khadijah',
+            'customer_phone' => '08123456789',
+            'shipping_address' => 'Jl. Anggrek No. 12, Bandung',
+            'payment_method' => 'qris',
+        ]);
+
+        $this->product->refresh();
+        $this->assertEquals(7, $this->product->stock);
+
+        $sale = Sale::where('user_id', $this->customer->id)->latest()->first();
+        $this->assertNotNull($sale);
+        $this->assertEquals('pending', $sale->status);
+
+        // 2. Customer cancels the order
+        $cancelResponse = $this->actingAs($this->customer)->post(route('orders.cancel', $sale));
+        $cancelResponse->assertRedirect(route('orders.show', $sale));
+        $cancelResponse->assertSessionHas('success');
+
+        // 3. Verify database state
+        $sale->refresh();
+        $this->assertEquals('cancelled', $sale->status);
+        $this->assertEquals('cancelled', $sale->payment_status);
+
+        // 4. Stock MUST be automatically restored to 10
+        $this->product->refresh();
+        $this->assertEquals(10, $this->product->stock);
+    }
+
+    /**
+     * Test customer cannot cancel someone else's order.
+     */
+    public function test_customer_cannot_cancel_other_customer_order(): void
+    {
+        // 1. Customer creates order
+        $this->actingAs($this->customer)->post(route('cart.add', $this->product), [
+            'quantity' => 2,
+        ]);
+
+        $this->actingAs($this->customer)->post(route('checkout.process'), [
+            'customer_name' => 'Siti Khadijah',
+            'customer_phone' => '08123456789',
+            'shipping_address' => 'Jl. Anggrek No. 12, Bandung',
+            'payment_method' => 'qris',
+        ]);
+
+        $sale = Sale::where('user_id', $this->customer->id)->latest()->first();
+
+        // 2. Other customer attempts to cancel -> 403 Forbidden
+        $unauthorizedCancel = $this->actingAs($this->otherCustomer)->post(route('orders.cancel', $sale));
+        $unauthorizedCancel->assertForbidden();
+
+        // 3. Sale and stock remain intact
+        $sale->refresh();
+        $this->assertNotEquals('cancelled', $sale->status);
+        $this->product->refresh();
+        $this->assertEquals(8, $this->product->stock);
+    }
+
+    /**
+     * Test admin can cancel sale via POST /sales/{sale}/cancel.
+     */
+    public function test_admin_can_cancel_sale_via_post_route(): void
+    {
+        $this->actingAs($this->staff)->post(route('sales.store'), [
+            'customer_name' => 'Pembeli Toko',
+            'payment_method' => 'cash',
+            'items' => [
+                [
+                    'product_id' => $this->product->id,
+                    'quantity' => 2,
+                ],
+            ],
+        ]);
+
+        $sale = Sale::latest()->first();
+        $this->product->refresh();
+        $this->assertEquals(8, $this->product->stock);
+
+        // Admin cancels via POST
+        $adminCancelResponse = $this->actingAs($this->admin)->post(route('sales.cancel', $sale));
+        $adminCancelResponse->assertRedirect();
+        $adminCancelResponse->assertSessionHas('success');
+
+        $sale->refresh();
+        $this->assertEquals('cancelled', $sale->status);
+        $this->product->refresh();
+        $this->assertEquals(10, $this->product->stock);
+    }
 }

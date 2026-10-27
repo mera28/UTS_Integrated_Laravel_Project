@@ -11,13 +11,33 @@
                 <a href="{{ route('shop.orders') }}" class="btn btn-sand btn-sm">
                     <i class="bi bi-arrow-left me-1"></i> Kembali ke Pesanan Saya
                 </a>
-                <button type="button" class="btn btn-outline-brand btn-sm" onclick="window.print()">
-                    <i class="bi bi-printer me-1"></i> Cetak Bukti Pesanan
-                </button>
+                <div class="d-flex align-items-center gap-2">
+                    <button type="button" class="btn btn-outline-brand btn-sm" onclick="window.print()">
+                        <i class="bi bi-printer me-1"></i> Cetak Bukti Pesanan
+                    </button>
+                    @if($sale->status !== 'cancelled')
+                        <form action="{{ route('orders.cancel', $sale) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pesanan {{ $sale->sale_number }}? Stok produk akan otomatis dikembalikan ke inventori toko.')">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-x-circle me-1"></i> Batalkan Pesanan
+                            </button>
+                        </form>
+                    @endif
+                </div>
             </div>
 
             <!-- Receipt Card -->
             <div class="card-bali p-4 p-md-5 bg-white">
+                @if($sale->status === 'cancelled')
+                    <div class="alert alert-danger border-0 rounded-4 p-3 mb-4 d-flex align-items-center gap-3" style="background-color: #FAF0F0; border: 1px solid #E8C1C1 !important;" role="alert">
+                        <i class="bi bi-x-circle-fill fs-3 text-danger"></i>
+                        <div>
+                            <div class="fw-bold text-danger">Status: Pesanan Dibatalkan (Cancelled)</div>
+                            <div class="small text-muted">Pesanan ini telah dibatalkan dan seluruh kuantitas pakaian telah otomatis dikembalikan ke inventori toko.</div>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="d-flex justify-content-between align-items-start border-bottom pb-4 mb-4 flex-wrap gap-3" style="border-color: var(--bali-border-light) !important;">
                     <div class="d-flex align-items-center gap-3">
                         <div class="brand-badge-icon" style="width: 44px; height: 44px; font-size: 1.25rem;">
@@ -33,13 +53,17 @@
                         <h5 class="fw-bold mb-1" style="font-family: var(--font-serif); color: var(--bali-espresso);">{{ $sale->sale_number }}</h5>
                         <div class="small text-muted">{{ \App\Support\FormatHelper::indonesianDate($sale->sold_at, true) }}</div>
                         <div class="mt-2">
-                            @if($sale->payment_status === 'paid')
+                            @if($sale->status === 'cancelled')
+                                <span class="badge px-3 py-1" style="background-color: #FAF0F0; color: #A33A3A; border: 1px solid #E8C1C1;">
+                                    <i class="bi bi-x-circle me-1"></i> Dibatalkan (Cancelled)
+                                </span>
+                            @elseif($sale->payment_status === 'paid')
                                 <span class="badge px-3 py-1" style="background-color: #EBF5EE; color: #1E6B37; border: 1px solid #C4E2CE;">
                                     <i class="bi bi-check-circle me-1"></i> Pembayaran Lunas
                                 </span>
                             @elseif($sale->payment_status === 'refunded')
                                 <span class="badge px-3 py-1" style="background-color: #FAF0F0; color: #A33A3A; border: 1px solid #E8C1C1;">
-                                    <i class="bi bi-x-circle me-1"></i> Transaksi Refunded
+                                    <i class="bi bi-arrow-counterclockwise me-1"></i> Transaksi Refunded
                                 </span>
                             @else
                                 <a href="{{ route('orders.payment', $sale) }}" class="badge text-decoration-none px-3 py-1" style="background-color: var(--bali-tan); color: #FFFFFF;">

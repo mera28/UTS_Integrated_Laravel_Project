@@ -67,6 +67,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/{sale}', [CustomerOrderController::class, 'orderDetail'])->name('orders.show')->whereNumber('sale');
     Route::get('/orders/{sale}/payment', [CustomerOrderController::class, 'paymentView'])->name('orders.payment')->whereNumber('sale');
     Route::post('/orders/{sale}/simulate-pay', [CustomerOrderController::class, 'simulatePaymentSuccess'])->name('orders.simulate-pay')->whereNumber('sale');
+    Route::post('/orders/{sale}/cancel', [CustomerOrderController::class, 'cancelOrder'])->name('orders.cancel')->whereNumber('sale');
+    Route::post('/customer/orders/{sale}/cancel', [CustomerOrderController::class, 'cancelOrder'])->name('customer.orders.cancel')->whereNumber('sale');
 });
 
 // Backoffice Protected Routes (Admin & Staff)
@@ -113,5 +115,5 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     // Cancellations & Stock Reversals (Admin Only)
     Route::patch('/purchases/{purchase}/cancel', [PurchaseController::class, 'cancel'])->name('purchases.cancel')->whereNumber('purchase');
-    Route::patch('/sales/{sale}/cancel', [SaleController::class, 'cancel'])->name('sales.cancel')->whereNumber('sale');
+    Route::match(['post', 'patch'], '/sales/{sale}/cancel', [SaleController::class, 'cancel'])->name('sales.cancel')->whereNumber('sale');
 });

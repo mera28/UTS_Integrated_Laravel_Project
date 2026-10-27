@@ -121,6 +121,34 @@ class CustomerOrderController extends Controller
     }
 
     /**
+     * Cancel order by customer and automatically restore product stock.
+     */
+    public function cancelOrder(Request $request, Sale $sale)
+    {
+        $this->authorizeCustomerSale($sale);
+
+        if ($sale->status === 'cancelled') {
+            return back()->with('error', "Pesanan [{$sale->sale_number}] sudah dibatalkan sebelumnya.");
+        }
+
+        try {
+            $result = $this->saleService->cancelSale($sale);
+
+            $referer = $request->header('referer');
+            if ($referer && str_contains($referer, '/shop/orders')) {
+                return redirect()->route('shop.orders')->with('success', $result['message']);
+            }
+
+            return redirect()->route('orders.show', $sale)->with('success', $result['message']);
+        } catch (ValidationException $e) {
+            $errorMsg = $e->validator->errors()->first('error') ?? 'Gagal membatalkan pesanan.';
+            return back()->with('error', $errorMsg);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal membatalkan pesanan: ' . $e->getMessage());
+        }
+    }
+
+    /**
      * Authorize that the current user owns this sale or is admin/staff.
      */
     protected function authorizeCustomerSale(Sale $sale): void

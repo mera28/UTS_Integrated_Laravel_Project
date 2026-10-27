@@ -138,7 +138,7 @@ class SaleService
     }
 
     /**
-     * Cancel a sale transaction and restore inventory stock (Admin Only, Slide 5 & 8).
+     * Cancel a sale transaction and restore inventory stock (Admin & Customer Order Cancellation).
      *
      * @throws ValidationException|\Throwable
      */
@@ -151,20 +151,26 @@ class SaleService
                 ]);
             }
 
-            // Restore physical stock for each item
+            $totalRestored = 0;
+            // Restore physical stock for each item using pessimistic row locking
             foreach ($sale->items as $item) {
                 $product = Product::lockForUpdate()->findOrFail($item->product_id);
                 $product->increment('stock', $item->quantity);
+                $totalRestored += (int) $item->quantity;
             }
+
+            // Update status: paid -> refunded; unpaid -> cancelled
+            $newPaymentStatus = ($sale->payment_status === 'paid') ? 'refunded' : 'cancelled';
 
             $sale->update([
                 'status' => 'cancelled',
-                'payment_status' => 'refunded',
+                'payment_status' => $newPaymentStatus,
             ]);
 
             return [
                 'success' => true,
-                'message' => "Transaksi penjualan [{$sale->sale_number}] berhasil dibatalkan. Stok seluruh produk telah dipulihkan ke gudang dan status diubah menjadi Refunded.",
+                'total_restored' => $totalRestored,
+                'message' => "Pesanan berhasil dibatalkan dan stok produk sebanyak {$totalRestored} pcs telah dikembalikan ke gudang.",
             ];
         });
     }

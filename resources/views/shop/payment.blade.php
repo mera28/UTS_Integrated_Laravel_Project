@@ -10,20 +10,30 @@
             <div class="card-bali overflow-hidden mb-4">
                 <!-- Gateway Header (Warm Linen Surface) -->
                 <div class="p-4 text-center border-bottom surface-sand" style="border-radius: 20px 20px 0 0; border-color: var(--bali-border) !important;">
-                    <span class="badge px-3 py-1 rounded-pill small fw-semibold mb-2" style="background-color: #FFFFFF; color: var(--bali-tan-dark); border: 1px solid var(--bali-border);">
-                        <i class="bi bi-shield-lock me-1"></i> Payment Gateway Interaktif Terverifikasi
-                    </span>
-                    <h4 class="fw-bold mb-1" style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--bali-espresso);">
-                        Menunggu Konfirmasi Pembayaran
-                    </h4>
-                    <div class="text-muted small">Nomor Transaksi: <strong>{{ $sale->sale_number }}</strong></div>
+                    @if($sale->status === 'cancelled')
+                        <span class="badge px-3 py-1 rounded-pill small fw-semibold mb-2" style="background-color: #FAF0F0; color: #A33A3A; border: 1px solid #E8C1C1;">
+                            <i class="bi bi-x-circle me-1"></i> Dibatalkan (Cancelled)
+                        </span>
+                        <h4 class="fw-bold mb-1" style="font-family: var(--font-serif); font-size: 1.8rem; color: #A33A3A;">
+                            Pesanan Telah Dibatalkan
+                        </h4>
+                        <div class="text-muted small">Nomor Transaksi: <strong>{{ $sale->sale_number }}</strong> &bull; Stok produk telah dikembalikan ke inventori</div>
+                    @else
+                        <span class="badge px-3 py-1 rounded-pill small fw-semibold mb-2" style="background-color: #FFFFFF; color: var(--bali-tan-dark); border: 1px solid var(--bali-border);">
+                            <i class="bi bi-shield-lock me-1"></i> Payment Gateway Interaktif Terverifikasi
+                        </span>
+                        <h4 class="fw-bold mb-1" style="font-family: var(--font-serif); font-size: 1.8rem; color: var(--bali-espresso);">
+                            Menunggu Konfirmasi Pembayaran
+                        </h4>
+                        <div class="text-muted small">Nomor Transaksi: <strong>{{ $sale->sale_number }}</strong></div>
 
-                    <!-- Countdown Timer -->
-                    <div class="mt-3 d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-white border" style="border-color: var(--bali-border) !important;">
-                        <i class="bi bi-hourglass-split" style="color: var(--bali-tan);"></i>
-                        <span class="small text-muted">Sisa Waktu Bayar:</span>
-                        <strong class="fw-bold" style="color: var(--bali-espresso);" id="paymentTimer">23:59:59</strong>
-                    </div>
+                        <!-- Countdown Timer -->
+                        <div class="mt-3 d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill bg-white border" style="border-color: var(--bali-border) !important;">
+                            <i class="bi bi-hourglass-split" style="color: var(--bali-tan);"></i>
+                            <span class="small text-muted">Sisa Waktu Bayar:</span>
+                            <strong class="fw-bold" style="color: var(--bali-espresso);" id="paymentTimer">23:59:59</strong>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="p-4 p-md-5 bg-white">
@@ -140,21 +150,42 @@
                         </div>
                     </div>
 
-                    <!-- Interactive Simulation Action Button -->
-                    <div class="card p-4 rounded-4 text-center mb-3 surface-sand" style="border: 1px dashed var(--bali-tan);">
-                        <div class="fw-bold mb-1" style="color: var(--bali-tan-dark); font-family: var(--font-serif); font-size: 1.15rem;">
-                            <i class="bi bi-lightning-charge me-1"></i> Uji Coba Simulasi Payment Gateway
+                    @if($sale->status !== 'cancelled')
+                        <!-- Interactive Simulation Action Button -->
+                        <div class="card p-4 rounded-4 text-center mb-3 surface-sand" style="border: 1px dashed var(--bali-tan);">
+                            <div class="fw-bold mb-1" style="color: var(--bali-tan-dark); font-family: var(--font-serif); font-size: 1.15rem;">
+                                <i class="bi bi-lightning-charge me-1"></i> Uji Coba Simulasi Payment Gateway
+                            </div>
+                            <p class="small text-muted mb-3">
+                                Tekan tombol di bawah untuk menyimulasikan notifikasi webhook pembayaran lunas dari bank / payment gateway:
+                            </p>
+                            <form action="{{ route('orders.simulate-pay', $sale) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-brand-primary py-3 px-4 w-100 fs-6">
+                                    <i class="bi bi-check2-circle me-1"></i> Simulasikan Pembayaran Berhasil (Bayar Sekarang)
+                                </button>
+                            </form>
                         </div>
-                        <p class="small text-muted mb-3">
-                            Tekan tombol di bawah untuk menyimulasikan notifikasi webhook pembayaran lunas dari bank / payment gateway:
-                        </p>
-                        <form action="{{ route('orders.simulate-pay', $sale) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-brand-primary py-3 px-4 w-100 fs-6">
-                                <i class="bi bi-check2-circle me-1"></i> Simulasikan Pembayaran Berhasil (Bayar Sekarang)
-                            </button>
-                        </form>
-                    </div>
+
+                        <!-- Cancel Order Button -->
+                        <div class="text-center mb-3">
+                            <form action="{{ route('orders.cancel', $sale) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin membatalkan pesanan {{ $sale->sale_number }}? Stok produk akan otomatis dikembalikan ke inventori toko.')">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger btn-sm px-4 py-2">
+                                    <i class="bi bi-x-circle me-1"></i> Batalkan Pesanan Ini (Kembalikan Stok)
+                                </button>
+                            </form>
+                        </div>
+                    @else
+                        <div class="alert alert-danger border-0 rounded-4 p-4 text-center mb-4" style="background-color: #FAF0F0; border: 1px solid #E8C1C1 !important;">
+                            <i class="bi bi-x-circle-fill fs-2 text-danger d-block mb-2"></i>
+                            <h5 class="fw-bold text-danger mb-1">Pesanan Telah Dibatalkan (Cancelled)</h5>
+                            <p class="small text-muted mb-3">Pembayaran untuk transaksi ini tidak dapat diproses karena pesanan telah dibatalkan dan stok produk telah dipulihkan.</p>
+                            <a href="{{ route('orders.show', $sale) }}" class="btn btn-sand btn-sm px-3">
+                                <i class="bi bi-receipt me-1"></i> Lihat Invoice Transaksi
+                            </a>
+                        </div>
+                    @endif
 
                     <div class="text-center">
                         <a href="{{ route('shop.orders') }}" class="small text-decoration-none" style="color: var(--bali-muted);">
